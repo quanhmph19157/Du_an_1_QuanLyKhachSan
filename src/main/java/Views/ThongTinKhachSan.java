@@ -81,6 +81,19 @@ public class ThongTinKhachSan extends JPanel{
 			
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				String rg="(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-"
+		                + "\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:"
+		                + "[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)"
+		                + "\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f"
+		                + "\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])";
+		        if(!txt_email.getText().matches(rg)){
+		        	JOptionPane.showMessageDialog(txt_email, "Email không đúng định dạng");
+		            return;
+		        }
+		        if(!txt_sdt.getText().matches("0\\d{9,10}")){
+		        	JOptionPane.showMessageDialog(txt_email, "Số điện thoại không hợp lệ");
+		            return ;
+		        }
 				int chon=JOptionPane.showConfirmDialog(txt_name, "Xác nhận thông tin khách sạn?", "Thông báo", 2);
 				if(chon==0) {
 					ser.themsua(new ModelKhachSan(1, txt_name.getText(), txt_email.getText(), txt_sdt.getText(),txt_diachi.getText()));
