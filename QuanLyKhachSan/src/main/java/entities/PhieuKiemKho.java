@@ -20,24 +20,25 @@ import javax.persistence.Table;
 public class PhieuKiemKho {
 	@Id
 	private int maKiemKho;
-	private Date ngayKiemKho;
+	private String ngayKiemKho;
 	@ManyToOne
 	private NhanVien nhanVien;
 	@ManyToOne
 	private Kho kho;
+	private String ghiChu;
 	@OneToMany (mappedBy = "phieuKiemKho")
 	private List<PhieuKiemKhoChiTiet> listPhieuKiemKhoChiTiet;
-	
-	public PhieuKiemKho(int maKiemKho, Date ngayKiemKho, NhanVien nhanVien, Kho kho,
+	public PhieuKiemKho(int maKiemKho, String ngayKiemKho, NhanVien nhanVien, Kho kho, String ghiChu,
 			List<PhieuKiemKhoChiTiet> listPhieuKiemKhoChiTiet) {
 		this.maKiemKho = maKiemKho;
 		this.ngayKiemKho = ngayKiemKho;
 		this.nhanVien = nhanVien;
 		this.kho = kho;
+		this.ghiChu = ghiChu;
 		this.listPhieuKiemKhoChiTiet = listPhieuKiemKhoChiTiet;
 	}
 	public PhieuKiemKho() {
-		
+	
 	}
 	public int getMaKiemKho() {
 		return maKiemKho;
@@ -45,10 +46,10 @@ public class PhieuKiemKho {
 	public void setMaKiemKho(int maKiemKho) {
 		this.maKiemKho = maKiemKho;
 	}
-	public Date getNgayKiemKho() {
+	public String getNgayKiemKho() {
 		return ngayKiemKho;
 	}
-	public void setNgayKiemKho(Date ngayKiemKho) {
+	public void setNgayKiemKho(String ngayKiemKho) {
 		this.ngayKiemKho = ngayKiemKho;
 	}
 	public NhanVien getNhanVien() {
@@ -63,17 +64,19 @@ public class PhieuKiemKho {
 	public void setKho(Kho kho) {
 		this.kho = kho;
 	}
+	public String getGhiChu() {
+		return ghiChu;
+	}
+	public void setGhiChu(String ghiChu) {
+		this.ghiChu = ghiChu;
+	}
 	public List<PhieuKiemKhoChiTiet> getListPhieuKiemKhoChiTiet() {
 		return listPhieuKiemKhoChiTiet;
 	}
 	public void setListPhieuKiemKhoChiTiet(List<PhieuKiemKhoChiTiet> listPhieuKiemKhoChiTiet) {
 		this.listPhieuKiemKhoChiTiet = listPhieuKiemKhoChiTiet;
 	}
-	@Override
-	public String toString() {
-		return "PhieuKiemKho [maKiemKho=" + maKiemKho + ", ngayKiemKho=" + ngayKiemKho + ", nhanVien=" + nhanVien
-				+ ", kho=" + kho + ", listPhieuKiemKhoChiTiet=" + listPhieuKiemKhoChiTiet + "]";
-	}
+	
 	
 
 	

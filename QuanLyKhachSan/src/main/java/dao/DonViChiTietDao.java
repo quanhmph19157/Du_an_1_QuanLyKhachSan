@@ -6,12 +6,14 @@ import java.util.List;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 
+import entities.DichVuPhong;
 import entities.DonViChiTiet;
+import entities.PhieuNhapKhoChiTiet;
 import entities.SanPhamVaDichVu;
 import utils.DB_Connection;
 
 public class DonViChiTietDao implements IDonViChiTietDao{
-	private static ArrayList<DonViChiTiet> _listDonViChiTiets = new ArrayList<DonViChiTiet>();
+	private static List<DonViChiTiet> _listDonViChiTiets = new ArrayList<DonViChiTiet>();
 	private int maxID;
 	
 	public void them_sua(DonViChiTiet donViChiTiet) {
@@ -42,7 +44,7 @@ public class DonViChiTietDao implements IDonViChiTietDao{
 		}
 	}
 
-	public ArrayList<DonViChiTiet> getListDonViChiTiet() {
+	public List<DonViChiTiet> getListDonViChiTiet() {
 		return _listDonViChiTiets;
 	}
 	public int getMaxID() {

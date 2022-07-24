@@ -15,11 +15,8 @@
         <property name="show_sql">true</property>
         
         <property name="hibernate.enable_lazy_load_no_trans">true</property>
-        
+        <property name="hibernate.bytecode.use_reflection_optimizer">false</property>
     </session-factory>
     
     
 </hibernate-configuration>
-<type-mapping>
-        <sql-type jdbc-type="NVARCHAR" hibernate-type="string" />
- </type-mapping>

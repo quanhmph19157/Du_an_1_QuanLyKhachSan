@@ -32,14 +32,10 @@ public class NhanVienModel {
 	private String userName;
 	private String password;
 	private Date ngaySinh;
-	private List<PhieuNhapKhoModel> listPhieuNhapKhoModel;
-	private List<PhieuKiemKhoModel> listPhieuKiemKhoModel;
-	private List<HoaDonModel> listHoaDonModel;
+	
 	
 	public NhanVienModel(String maNV, String tenNV, String sdt, String gioiTinh, String email, ChucVuModel chucVuModel,
-			String trangThai, String cmnd, String userName, String password, Date ngaySinh,
-			List<PhieuNhapKhoModel> listPhieuNhapKhoModel, List<PhieuKiemKhoModel> listPhieuKiemKhoModel,
-			List<HoaDonModel> listHoaDonModel) {
+			String trangThai, String cmnd, String userName, String password, Date ngaySinh) {
 		this.maNV = maNV;
 		this.tenNV = tenNV;
 		this.sdt = sdt;
@@ -51,9 +47,6 @@ public class NhanVienModel {
 		this.userName = userName;
 		this.password = password;
 		this.ngaySinh = ngaySinh;
-		this.listPhieuNhapKhoModel = listPhieuNhapKhoModel;
-		this.listPhieuKiemKhoModel = listPhieuKiemKhoModel;
-		this.listHoaDonModel = listHoaDonModel;
 	}
 	public NhanVienModel() {
 	
@@ -124,33 +117,8 @@ public class NhanVienModel {
 	public void setNgaySinh(Date ngaySinh) {
 		this.ngaySinh = ngaySinh;
 	}
-	public List<PhieuNhapKhoModel> getListPhieuNhapKhoModel() {
-		return listPhieuNhapKhoModel;
-	}
-	public void setListPhieuNhapKhoModel(List<PhieuNhapKhoModel> listPhieuNhapKhoModel) {
-		this.listPhieuNhapKhoModel = listPhieuNhapKhoModel;
-	}
-	public List<PhieuKiemKhoModel> getListPhieuKiemKhoModel() {
-		return listPhieuKiemKhoModel;
-	}
-	public void setListPhieuKiemKhoModel(List<PhieuKiemKhoModel> listPhieuKiemKhoModel) {
-		this.listPhieuKiemKhoModel = listPhieuKiemKhoModel;
-	}
-	public List<HoaDonModel> getListHoaDonModel() {
-		return listHoaDonModel;
-	}
-	public void setListHoaDonModel(List<HoaDonModel> listHoaDonModel) {
-		this.listHoaDonModel = listHoaDonModel;
-	}
 	
-	@Override
-	public String toString() {
-		return "NhanVienModel [maNV=" + maNV + ", tenNV=" + tenNV + ", sdt=" + sdt + ", gioiTinh=" + gioiTinh
-				+ ", email=" + email + ", chucVuModel=" + chucVuModel + ", trangThai=" + trangThai + ", cmnd=" + cmnd
-				+ ", userName=" + userName + ", password=" + password + ", ngaySinh=" + ngaySinh
-				+ ", listPhieuNhapKhoModel=" + listPhieuNhapKhoModel + ", listPhieuKiemKhoModel="
-				+ listPhieuKiemKhoModel + ", listHoaDonModel=" + listHoaDonModel + "]";
-	}
+
 	
 	
 	

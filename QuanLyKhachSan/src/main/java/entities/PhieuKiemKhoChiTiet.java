@@ -32,7 +32,6 @@ public class PhieuKiemKhoChiTiet implements Serializable{
 		this.ghiChuLiDoChenhLech = ghiChuLiDoChenhLech;
 	}
 	public PhieuKiemKhoChiTiet() {
-		
 	}
 	public PhieuKiemKho getPhieuKiemKho() {
 		return phieuKiemKho;
@@ -70,12 +69,8 @@ public class PhieuKiemKhoChiTiet implements Serializable{
 	public void setGhiChuLiDoChenhLech(String ghiChuLiDoChenhLech) {
 		this.ghiChuLiDoChenhLech = ghiChuLiDoChenhLech;
 	}
-	@Override
-	public String toString() {
-		return "PhieuKiemKhoChiTiet [phieuKiemKho=" + phieuKiemKho + ", sanPhamVaDichVu=" + sanPhamVaDichVu
-				+ ", soLuongTruocKhiKiem=" + soLuongTruocKhiKiem + ", soLuongThucTe=" + soLuongThucTe
-				+ ", soLuongChenhLech=" + soLuongChenhLech + ", ghiChuLiDoChenhLech=" + ghiChuLiDoChenhLech + "]";
-	}
+	
+	
 	
 	
 }

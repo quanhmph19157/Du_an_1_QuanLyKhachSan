@@ -1,15 +1,18 @@
 package dao;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 
 import entities.PhieuKiemKho;
+import entities.PhieuNhapKho;
 import utils.DB_Connection;
 
 public class PhieuKiemKhoDao implements IPhieuKiemKhoDao{
 private static ArrayList<PhieuKiemKho> _listPhieuKiemKhos = new ArrayList<PhieuKiemKho>();
+private int maxID;
 	
 	public void them_sua(PhieuKiemKho phieuKiemKho) {
 		Session session = new DB_Connection().getSession();
@@ -27,9 +30,22 @@ private static ArrayList<PhieuKiemKho> _listPhieuKiemKhos = new ArrayList<PhieuK
 		_listPhieuKiemKhos = (ArrayList<PhieuKiemKho>) query.list();
 		session.getTransaction().commit();
 		session.close();
-		
+		getMaxID(_listPhieuKiemKhos);
 	}
 
+	public void getMaxID(List<PhieuKiemKho> listPKK) {
+		if(listPKK.size()==0) {
+			maxID =1;
+		}else {
+			maxID = listPKK.get(listPKK.size()-1).getMaKiemKho();
+			maxID++;
+		}
+	}
+	
+	public int getMaxID() {
+		return maxID;
+	}
+	
 	public ArrayList<PhieuKiemKho> getListPhieuKiemKho() {
 		return _listPhieuKiemKhos;
 	}

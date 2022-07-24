@@ -19,7 +19,7 @@ public class HoaDonService implements IHoaDonService{
 		HoaDon.setMaHoaDon(HoaDonModel.getMaHoaDon());
 		HoaDon.setTrangThai(HoaDonModel.getTrangThai());
 		HoaDon.setNgayCheckIn(HoaDonModel.getNgayCheckIn());
-		HoaDon.setNhanVien(NhanVienService.updateDataNhanVienDependOnNhanVienModel(HoaDonModel.getNhanVienModel()));
+		HoaDon.setNhanVien(NhanVienService.modelToEntity(HoaDonModel.getNhanVienModel()));
 		HoaDon.setNgayTao(HoaDonModel.getNgayTao());
 		HoaDon.setVat(HoaDonModel.getVat());
 		HoaDon.setGiamGia(HoaDonModel.getGiamGia());
@@ -33,7 +33,7 @@ public class HoaDonService implements IHoaDonService{
 		HoaDonModel.setMaHoaDon(HoaDon.getMaHoaDon());
 		HoaDonModel.setTrangThai(HoaDon.getTrangThai());
 		HoaDonModel.setNgayCheckIn(HoaDon.getNgayCheckIn());
-		HoaDonModel.setNhanVienModel(NhanVienService.updateDataNhanVienModelDependOnNhanVien(HoaDon.getNhanVien()));
+		HoaDonModel.setNhanVienModel(NhanVienService.entityToModel(HoaDon.getNhanVien()));
 		HoaDonModel.setNgayTao(HoaDon.getNgayTao());
 		HoaDonModel.setVat(HoaDon.getVat());
 		HoaDonModel.setGiamGia(HoaDon.getGiamGia());

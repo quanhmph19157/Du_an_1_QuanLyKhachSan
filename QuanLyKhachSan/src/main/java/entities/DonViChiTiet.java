@@ -22,18 +22,24 @@ public class DonViChiTiet {
 	SanPhamVaDichVu sanPhamVaDichVu;
 	private int giaTriQuyDoi;
 	private double giaBan;
+	private String macDinhBanHang;
 	private String trangThai;
 	@OneToMany (mappedBy = "donViChiTiet")
 	private List<DichVuPhong> listDichVuPhong;
+	@OneToMany (mappedBy = "donViChiTiet")
+	private List<PhieuNhapKhoChiTiet> listPhieuNhapKhoChiTiet;
 	public DonViChiTiet(int maDonViChiTiet, DonViTinh donViTinh, SanPhamVaDichVu sanPhamVaDichVu, int giaTriQuyDoi,
-			double giaBan, String trangThai, List<DichVuPhong> listDichVuPhong) {
+			double giaBan, String macDinhBanHang, String trangThai, List<DichVuPhong> listDichVuPhong,
+			List<PhieuNhapKhoChiTiet> listPhieuNhapKhoChiTiet) {
 		this.maDonViChiTiet = maDonViChiTiet;
 		this.donViTinh = donViTinh;
 		this.sanPhamVaDichVu = sanPhamVaDichVu;
 		this.giaTriQuyDoi = giaTriQuyDoi;
 		this.giaBan = giaBan;
+		this.macDinhBanHang = macDinhBanHang;
 		this.trangThai = trangThai;
 		this.listDichVuPhong = listDichVuPhong;
+		this.listPhieuNhapKhoChiTiet = listPhieuNhapKhoChiTiet;
 	}
 	public DonViChiTiet() {
 	}
@@ -67,6 +73,12 @@ public class DonViChiTiet {
 	public void setGiaBan(double giaBan) {
 		this.giaBan = giaBan;
 	}
+	public String getMacDinhBanHang() {
+		return macDinhBanHang;
+	}
+	public void setMacDinhBanHang(String macDinhBanHang) {
+		this.macDinhBanHang = macDinhBanHang;
+	}
 	public String getTrangThai() {
 		return trangThai;
 	}
@@ -79,12 +91,14 @@ public class DonViChiTiet {
 	public void setListDichVuPhong(List<DichVuPhong> listDichVuPhong) {
 		this.listDichVuPhong = listDichVuPhong;
 	}
-	@Override
-	public String toString() {
-		return "DonViChiTiet [maDonViChiTiet=" + maDonViChiTiet + ", donViTinh=" + donViTinh + ", sanPhamVaDichVu="
-				+ sanPhamVaDichVu + ", giaTriQuyDoi=" + giaTriQuyDoi + ", giaBan=" + giaBan + ", trangThai=" + trangThai
-				+ ", listDichVuPhong=" + listDichVuPhong + "]";
+	public List<PhieuNhapKhoChiTiet> getListPhieuNhapKhoChiTiet() {
+		return listPhieuNhapKhoChiTiet;
 	}
+	public void setListPhieuNhapKhoChiTiet(List<PhieuNhapKhoChiTiet> listPhieuNhapKhoChiTiet) {
+		this.listPhieuNhapKhoChiTiet = listPhieuNhapKhoChiTiet;
+	}
+	
+	
 	
 	
 	

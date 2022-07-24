@@ -18,14 +18,14 @@ public class Quyen_cvService implements IQuyen_cvService{
 	public static Quyen_cv updateDataQuyen_cvDependOnQuyen_cvModel(Quyen_cvModel Quyen_cvModel) {
 		Quyen_cv Quyen_cv = new Quyen_cv();
 		Quyen_cv.setQuyen(QuyenService.updateDataQuyenDependOnQuyenModel(Quyen_cvModel.getQuyenModel()));
-		Quyen_cv.setChucVu(ChucVuService.updateDataChucVuDependOnChucVuModel(Quyen_cvModel.getChucVuModel()));
+		Quyen_cv.setChucVu(ChucVuService.modelToEntity(Quyen_cvModel.getChucVuModel()));
 		return Quyen_cv;
 	}
 	
 	public static Quyen_cvModel updateDataQuyen_cvModelDependOnQuyen_cv(Quyen_cv Quyen_cv) {
 		Quyen_cvModel Quyen_cvModel = new Quyen_cvModel();
 		Quyen_cvModel.setQuyenModel(QuyenService.updateDataQuyenModelDependOnQuyen(Quyen_cv.getQuyen()));
-		Quyen_cvModel.setChucVuModel(ChucVuService.updateDataChucVuModelDependOnChucVu(Quyen_cv.getChucVu()));
+		Quyen_cvModel.setChucVuModel(ChucVuService.entityToModel(Quyen_cv.getChucVu()));
 		return Quyen_cvModel;
 	}
 	

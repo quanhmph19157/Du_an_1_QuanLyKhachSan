@@ -319,7 +319,7 @@ public class Kho_view extends JFrame {
 		String tenKho = txt_tenKho.getText().trim();
 		List<PhieuKiemKhoModel> listPhieuKiemKhoModel = new ArrayList<PhieuKiemKhoModel>();
 		List<SanPhamVaDichVuModel> listSanPhamVaDichVuModel = new ArrayList<SanPhamVaDichVuModel>();
-		KhoModel khoModel = new KhoModel( maKho, tenKho, trangThai, listPhieuKiemKhoModel, listSanPhamVaDichVuModel);
+		KhoModel khoModel = new KhoModel( maKho, tenKho, trangThai);
 		return khoModel;
 	}
 }

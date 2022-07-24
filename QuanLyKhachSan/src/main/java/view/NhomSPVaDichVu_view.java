@@ -400,7 +400,7 @@ public class NhomSPVaDichVu_view extends JFrame {
 		String ghiChu = txt_ghiChu.getText().trim();
 		
 		List<SanPhamVaDichVuModel> listSanPhamVaDichVuModel = new ArrayList<SanPhamVaDichVuModel>();
-		NhomSPVaDichVuModel nhomSPVaDichVuModel = new NhomSPVaDichVuModel(maNhom, tenNhom, nhomHangHoa, ghiChu, trangThai, listSanPhamVaDichVuModel);
+		NhomSPVaDichVuModel nhomSPVaDichVuModel = new NhomSPVaDichVuModel(maNhom, tenNhom, nhomHangHoa, ghiChu, trangThai);
 		
 		return nhomSPVaDichVuModel;
 	}

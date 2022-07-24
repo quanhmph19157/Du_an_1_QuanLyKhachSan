@@ -16,49 +16,47 @@ public class DonViChiTietService implements IDonViChiTietService{
 	private DonViChiTietModel _DonViChiTietModel = (DonViChiTietModel) IoCContainer.getBean(DonViChiTietModel.class.toString());
 	private int maxID;
 
-	public static DonViChiTiet updateDataDonViChiTietDependOnDonViChiTietModel(DonViChiTietModel DonViChiTietModel) {
+	public static DonViChiTiet modelToEntity(DonViChiTietModel DonViChiTietModel) {
 		DonViChiTiet DonViChiTiet = new DonViChiTiet();
 		DonViChiTiet.setMaDonViChiTiet(DonViChiTietModel.getMaDonViChiTiet());
-		DonViChiTiet.setDonViTinh(DonViTinhService.updateDataDonViTinhDependOnDonViTinhModel(DonViChiTietModel.getDonViTinhModel()));
-		DonViChiTiet.setSanPhamVaDichVu(SanPhamVaDichVuService.updateDataSanPhamVaDichVuDependOnSanPhamVaDichVuModel(DonViChiTietModel.getSanPhamVaDichVuModel()));
+		DonViChiTiet.setDonViTinh(DonViTinhService.modelToEntity(DonViChiTietModel.getDonViTinhModel()));
+		DonViChiTiet.setSanPhamVaDichVu(SanPhamVaDichVuService.modelToEntity(DonViChiTietModel.getSanPhamVaDichVuModel()));
 		DonViChiTiet.setGiaTriQuyDoi(DonViChiTietModel.getGiaTriQuyDoi());
 		DonViChiTiet.setGiaBan(DonViChiTietModel.getGiaBan());
 		DonViChiTiet.setTrangThai(DonViChiTietModel.getTrangThai());
-		DonViChiTiet.setListDichVuPhong(DichVuPhongService.updateListDichVuPhongDependOnListDichVuPhongModel(DonViChiTietModel.getListDichVuPhongModel()));
 		return DonViChiTiet;
 	}
-	public static DonViChiTietModel updateDataDonViChiTietModelDependOnDonViChiTiet(DonViChiTiet donViChiTiet) {
+	public static DonViChiTietModel entityToModel(DonViChiTiet donViChiTiet) {
 		DonViChiTietModel donViChiTietModel = new DonViChiTietModel();
 		donViChiTietModel.setMaDonViChiTiet(donViChiTiet.getMaDonViChiTiet());
-		donViChiTietModel.setDonViTinhModel(DonViTinhService.updateDataDonViTinhModelDependOnDonViTinh(donViChiTiet.getDonViTinh()));
-		donViChiTietModel.setSanPhamVaDichVuModel(SanPhamVaDichVuService.updateDataSanPhamVaDichVuModelDependOnSanPhamVaDichVu(donViChiTiet.getSanPhamVaDichVu()));
+		donViChiTietModel.setDonViTinhModel(DonViTinhService.entityToModel(donViChiTiet.getDonViTinh()));
+		donViChiTietModel.setSanPhamVaDichVuModel(SanPhamVaDichVuService.entityToModel(donViChiTiet.getSanPhamVaDichVu()));
 		donViChiTietModel.setGiaTriQuyDoi(donViChiTiet.getGiaTriQuyDoi());
 		donViChiTietModel.setGiaBan(donViChiTiet.getGiaBan());
 		donViChiTietModel.setTrangThai(donViChiTiet.getTrangThai());
-		donViChiTietModel.setListDichVuPhongModel(DichVuPhongService.updateListDichVuPhongModelDependOnListDichVuPhong(donViChiTiet.getListDichVuPhong()));
 		return donViChiTietModel;
 	}
 	
-	public static List<DonViChiTiet> updateListDonViChiTietDependOnListDonViChiTietModel(List<DonViChiTietModel> listDonViChiTietModel) {
+	public static List<DonViChiTiet> listModelToListEntities(List<DonViChiTietModel> listDonViChiTietModel) {
 		List<DonViChiTiet> listDonViChiTiet = new ArrayList<DonViChiTiet>();
 		for (DonViChiTietModel donViChiTietModel : listDonViChiTietModel) {
-			DonViChiTiet donViChiTiet = updateDataDonViChiTietDependOnDonViChiTietModel(donViChiTietModel);
+			DonViChiTiet donViChiTiet = modelToEntity(donViChiTietModel);
 			listDonViChiTiet.add(donViChiTiet);
 		}
 		return listDonViChiTiet;
 	}
 	
-	public static List<DonViChiTietModel> updateListDonViChiTietModelDependOnListDonViChiTiet(List<DonViChiTiet> listDonViChiTiet) {
+	public static List<DonViChiTietModel> listEntitiesTolistModel(List<DonViChiTiet> listDonViChiTiet) {
 		List<DonViChiTietModel> listDonViChiTietModel = new ArrayList<DonViChiTietModel>();
 		for (DonViChiTiet donViChiTiet : listDonViChiTiet) {
-			DonViChiTietModel donViChiTietModel = updateDataDonViChiTietModelDependOnDonViChiTiet(donViChiTiet);
+			DonViChiTietModel donViChiTietModel = entityToModel(donViChiTiet);
 			listDonViChiTietModel.add(donViChiTietModel);
 		}
 		return listDonViChiTietModel;
 	}
 
 	public void them_sua(DonViChiTietModel DonViChiTietModel) {
-		_DonViChiTiet = updateDataDonViChiTietDependOnDonViChiTietModel(DonViChiTietModel);
+		_DonViChiTiet = modelToEntity(DonViChiTietModel);
 		_DonViChiTietDao.them_sua(_DonViChiTiet);
 		_listDonViChiTietModels.add(DonViChiTietModel); // check lai
 	}
@@ -67,7 +65,7 @@ public class DonViChiTietService implements IDonViChiTietService{
 	public void updateListDonViChiTietModel() {
 		_DonViChiTietDao.updateListDonViChiTiet();
 		List<DonViChiTiet> listDonViChiTiet = _DonViChiTietDao.getListDonViChiTiet();
-		_listDonViChiTietModels = updateListDonViChiTietModelDependOnListDonViChiTiet(listDonViChiTiet);
+		_listDonViChiTietModels = listEntitiesTolistModel(listDonViChiTiet);
 		maxID = _DonViChiTietDao.getMaxID();
 	}
 

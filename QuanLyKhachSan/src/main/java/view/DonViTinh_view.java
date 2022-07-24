@@ -325,7 +325,7 @@ public class DonViTinh_view extends JFrame {
 		
 		String tenDonVi = txt_tenDonVi.getText().trim();
 		List<DonViChiTietModel> listViChiTietModels = new ArrayList<DonViChiTietModel>();
-		DonViTinhModel donViTinhModel = new DonViTinhModel(maDonVi, tenDonVi, trangThai, listViChiTietModels);
+		DonViTinhModel donViTinhModel = new DonViTinhModel(maDonVi, tenDonVi, trangThai);
 		return donViTinhModel;
 	}
 }

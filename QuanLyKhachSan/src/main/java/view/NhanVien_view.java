@@ -16,6 +16,7 @@ import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.List;
 
 import javax.swing.SwingConstants;
 import javax.swing.JTabbedPane;
@@ -55,8 +56,8 @@ public class NhanVien_view extends JFrame {
 	private IoCContainer _ioCContainer  = new IoCContainer();
 	private NhanVienService _nhanVienService = (NhanVienService) _ioCContainer.getBean(NhanVienService.class+"");
 	private ChucVuService _chucVuService = (ChucVuService) _ioCContainer.getBean(ChucVuService.class+"");
-	private ArrayList<NhanVienModel> _listNhanVienModels = new ArrayList<NhanVienModel>();
-	private ArrayList<ChucVuModel> _listChucVuModels = new ArrayList<ChucVuModel>();
+	private List<NhanVienModel> _listNhanVienModels = new ArrayList<NhanVienModel>();
+	private List<ChucVuModel> _listChucVuModels = new ArrayList<ChucVuModel>();
 	private int _maxID;
 	private int _sttNhanVienEditing;
 	private boolean _thaoTac = true;
@@ -216,7 +217,7 @@ public class NhanVien_view extends JFrame {
 		 btn_them.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					NhanVienModel nhanVienModel = getInforFromFormIntoNhanVienModel();
-					_nhanVienService.them(nhanVienModel);
+					_nhanVienService.them_sua(nhanVienModel);
 					JOptionPane.showMessageDialog(null, "Thêm thành công");
 					clearForm();
 					updateTable();
@@ -232,7 +233,7 @@ public class NhanVien_view extends JFrame {
 		 btn_sua.addActionListener(new ActionListener() {
 		 	public void actionPerformed(ActionEvent e) {
 		 		NhanVienModel nhanVienModel = getInforFromFormIntoNhanVienModel();
-				_nhanVienService.sua(nhanVienModel);
+				_nhanVienService.them_sua(nhanVienModel);
 				JOptionPane.showMessageDialog(null, "Sửa thành công");
 				clearForm();
 				updateTable();
@@ -245,17 +246,6 @@ public class NhanVien_view extends JFrame {
 		panel.add(btn_sua);
 		
 		 btn_xoa = new JButton("Xóa");
-		 btn_xoa.addActionListener(new ActionListener() {
-		 	public void actionPerformed(ActionEvent e) {
-		 		NhanVienModel nhanVienModel = getInforFromFormIntoNhanVienModel();
-		 		nhanVienModel.setTrangThai("Không hoạt động");
-				_nhanVienService.xoa(nhanVienModel);
-				JOptionPane.showMessageDialog(null, "Xóa thành công");
-				clearForm();
-				updateTable();
-				_thaoTac = true;
-		 	}
-		 });
 		btn_xoa.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btn_xoa.setBackground(Color.WHITE);
 		btn_xoa.setBounds(1073, 482, 153, 47);
@@ -400,11 +390,11 @@ public class NhanVien_view extends JFrame {
 		txt_email.setText(_listNhanVienModels.get(_sttNhanVienEditing).getEmail());
 		String chucVu = _listNhanVienModels.get(_sttNhanVienEditing).getChucVuModel().getTenChucVu();
 		cbx_chucVu.setSelectedItem(chucVu);
-		txt_diaChi.setText(_listNhanVienModels.get(_sttNhanVienEditing).getDiaChi());
-		Date date = new Date(Utilities.splitYear(_listNhanVienModels.get(_sttNhanVienEditing).getNgaySinh())-1900, Utilities.splitMonth(_listNhanVienModels.get(_sttNhanVienEditing).getNgaySinh())-1, Utilities.splitDate(_listNhanVienModels.get(_sttNhanVienEditing).getNgaySinh()));
+//		txt_diaChi.setText(_listNhanVienModels.get(_sttNhanVienEditing).getDiaChi());
+		Date date = new Date(Utilities.splitYear(_listNhanVienModels.get(_sttNhanVienEditing).getNgaySinh()+"")-1900, Utilities.splitMonth(_listNhanVienModels.get(_sttNhanVienEditing).getNgaySinh()+"")-1, Utilities.splitDate(_listNhanVienModels.get(_sttNhanVienEditing).getNgaySinh()+""));
 		dateChooser_ngaySinh.setDate(date);
 		txt_cmnd.setText(_listNhanVienModels.get(_sttNhanVienEditing).getCmnd());
-		txt_matKhau.setText(_listNhanVienModels.get(_sttNhanVienEditing).getMatKhau());
+		txt_matKhau.setText(_listNhanVienModels.get(_sttNhanVienEditing).getPassword());
 		txt_matKhau.setEditable(false);
 		btn_them.setEnabled(false);
 		btn_sua.setEnabled(true);
@@ -426,7 +416,7 @@ public class NhanVien_view extends JFrame {
 		model.addColumn("Mật khẩu");
 		_listNhanVienModels = _nhanVienService.getListNhanVienModel();
 		for (NhanVienModel nhanVienModel : _listNhanVienModels) {
-			model.addRow(new Object[] {nhanVienModel.getStt(),nhanVienModel.getTenNV(),nhanVienModel.getSdt(),nhanVienModel.getGioiTinh(),nhanVienModel.getEmail(),nhanVienModel.getChucVuModel().getTenChucVu(), nhanVienModel.getDiaChi(),nhanVienModel.getNgaySinh(),nhanVienModel.getCmnd(),nhanVienModel.getMatKhau()});
+			model.addRow(new Object[] {nhanVienModel.getTenNV(),nhanVienModel.getSdt(),nhanVienModel.getGioiTinh(),nhanVienModel.getEmail(),nhanVienModel.getChucVuModel().getTenChucVu(),nhanVienModel.getNgaySinh(),nhanVienModel.getCmnd(),nhanVienModel.getPassword()});
 		}
 		table.setModel(model);
 	}
@@ -461,13 +451,13 @@ public class NhanVien_view extends JFrame {
 			JOptionPane.showMessageDialog(null, "Bạn chưa nhập ngày sinh");
 			return null;
 		}
+		Date date = new Date(Utilities.splitYear(ngaySinh), Utilities.splitMonth(ngaySinh), Utilities.splitDate(ngaySinh));
 		String cmnd = txt_cmnd.getText().trim();
 		String matKhau = txt_matKhau.getText().trim();
 		if(!matKhau.equals("")) {
 			matKhau = utils.Utilities.hashingPassword(matKhau);
 		}
-		
-		NhanVienModel nhanVienModel = new NhanVienModel(0, maNhanVien, tenNhanVien, soDienThoai, gioiTinh, email, chucVuModel, maChucVu, diaChi, ngaySinh, cmnd, matKhau, "Hoạt động");
-		return nhanVienModel;
+		NhanVienModel nvm = new NhanVienModel(maNhanVien, tenNhanVien, soDienThoai, gioiTinh, email, chucVuModel, "Hoat Dong", cmnd, "TaiKhoan", matKhau, date);
+		return nvm;
 	}
 }

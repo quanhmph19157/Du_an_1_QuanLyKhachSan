@@ -27,15 +27,10 @@ public class NhanVienDao implements INhanVienDao{
 		session.beginTransaction();
 		SQLQuery query = session.createSQLQuery("select * from nhanVien");
 		query.addEntity(NhanVien.class);
-		ArrayList<NhanVien> listNhanVien = (ArrayList<NhanVien>) query.list();
-		for (NhanVien nhanVien : listNhanVien) {
-			if(nhanVien.getTrangThai().equals("Ho?t d?ng")) {
-				_listNhanViens.add(nhanVien);
-			}
-		}
+		_listNhanViens = (ArrayList<NhanVien>) query.list();
 		session.getTransaction().commit();
 		session.close();
-		getMaxID(listNhanVien);
+		getMaxID(_listNhanViens);
 	}
 	
 	public void getMaxID(ArrayList<NhanVien> listNhanVien) {

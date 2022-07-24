@@ -58,13 +58,10 @@ public class SanPhamVaDichVu_view extends JFrame {
 	private DonViTinhService _donViTinhService = (DonViTinhService) _ioCContainer.getBean(DonViTinhService.class+"");
 	private List<DonViTinhModel> _listDonViTinhModels_active = new ArrayList<DonViTinhModel>();
 	private DonViChiTietService _donViChiTietService = (DonViChiTietService) _ioCContainer.getBean(DonViChiTietService.class+"");
-//	private List<DonViChiTietModel> _listDonViChiTietModel = new ArrayList<DonViChiTietModel>();
 	private KhoService _khoService = (KhoService) _ioCContainer.getBean(KhoService.class+"");
 	private List<KhoModel> _listKhoModels_active = new ArrayList<KhoModel>();
 	//
 	private List<DonViChiTietModel> _listDonViChiTietModels = new ArrayList<DonViChiTietModel>();
-	private List<PhieuNhapKhoChiTietModel> _listPhieuNhapKhoChiTietModels = new ArrayList<PhieuNhapKhoChiTietModel>();
-	private List<PhieuKiemKhoChiTietModel> _listPhieuKiemKhoChiTietModels = new ArrayList<PhieuKiemKhoChiTietModel>();
 	private int maxID_sanSPVaDichVu;
 	private int maxID_donViChiTiet;
 	private int maxID_donViChiTiet1;
@@ -121,7 +118,6 @@ public class SanPhamVaDichVu_view extends JFrame {
 		
 		_sanPhamVaDichVuService.updateListSanPhamVaDichVuModel();
 		maxID_sanSPVaDichVu = _sanPhamVaDichVuService.getMaxID();
-		
 		_nhomSPVaDichVuService.updateListNhomSPVaDichVuModel("Hoat Dong");
 		_donViTinhService.updateListDonViTinhModel_active();
 		_khoService.updateListKhoModel("Hoat Dong");
@@ -150,6 +146,13 @@ public class SanPhamVaDichVu_view extends JFrame {
 		panel_3.add(lblNewLabel);
 		
 		switchButton_danhSach = new SwitchButton();
+		switchButton_danhSach.setSelected(true);
+		switchButton_danhSach.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				updateTable_danhSachSanPhamVaDichVu();
+			}
+		});
 		switchButton_danhSach.setBounds(20, 37, 55, 25);
 		panel_3.add(switchButton_danhSach);
 		switchButton_danhSach.setBackground(new Color(0, 153, 204));
@@ -188,6 +191,12 @@ public class SanPhamVaDichVu_view extends JFrame {
 		panel_3.add(scrollPane);
 		
 		table_danhSachSanPhamVaDichVu = new JTable();
+		table_danhSachSanPhamVaDichVu.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				doClickOnTable_danhSachSanPhamVaDichVu();
+			}
+		});
 		scrollPane.setViewportView(table_danhSachSanPhamVaDichVu);
 		
 		JPanel panel_2_2 = new JPanel();
@@ -268,7 +277,17 @@ public class SanPhamVaDichVu_view extends JFrame {
 		panel_2_1_1.setBounds(306, 43, 444, 51);
 		panel_4.add(panel_2_1_1);
 		
-		txt_tenHangHoa = new JTextField();
+		txt_tenHangHoa = new JTextField("Nhập tên hàng hóa");
+		txt_tenHangHoa.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				Utilities.setTextFocusGained(txt_tenHangHoa, "Nhập tên hàng hóa");
+			}
+			@Override
+			public void focusLost(FocusEvent e) {
+				Utilities.setTextFocusLost(txt_tenHangHoa, "Nhập tên hàng hóa");
+			}
+		});
 		txt_tenHangHoa.setColumns(10);
 		txt_tenHangHoa.setBorder(null);
 		txt_tenHangHoa.setBackground(Color.WHITE);
@@ -446,8 +465,10 @@ public class SanPhamVaDichVu_view extends JFrame {
 		panel_2_1_1_1_3_1.add(txt_maDonVi);
 		
 		btn_suaSanPham = new JButton("Sửa");
+		btn_suaSanPham.setEnabled(false);
 		btn_suaSanPham.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				them_suaSanPham();
 			}
 		});
 		btn_suaSanPham.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -458,13 +479,9 @@ public class SanPhamVaDichVu_view extends JFrame {
 		btn_themSanPham = new JButton("Thêm");
 		btn_themSanPham.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				SanPhamVaDichVuModel sanPhamVaDichVuModel = getInforFromFormIntoSanPhamVaDichVuModel();
-				_sanPhamVaDichVuService.them_sua(sanPhamVaDichVuModel);
-				for (DonViChiTietModel donViChiTietModel : _listDonViChiTietModels) {
-					_donViChiTietService.them_sua(donViChiTietModel);
-				}
+				them_suaSanPham();
+				maxID_sanSPVaDichVu++;
 				clearFormSanPham();
-				updateTable_danhSachSanPhamVaDichVu();
 			}
 		});
 		btn_themSanPham.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -529,7 +546,7 @@ public class SanPhamVaDichVu_view extends JFrame {
 		updateCbx_nhomSanPham();
 		updateCbx_kho();
 		updateCbx_doViTinh();
-		txt_maSanPham.setText(maxID_sanSPVaDichVu+"");
+		
 		txt_maDonVi.setText(maxID_donViChiTiet+"");
 		
 		btn_xoaDonVi = new JButton("Xóa");
@@ -542,9 +559,13 @@ public class SanPhamVaDichVu_view extends JFrame {
 		btn_xoaDonVi.setBackground(Color.ORANGE);
 		btn_xoaDonVi.setBounds(1025, 40, 87, 38);
 		panel.add(btn_xoaDonVi);
+		updateTable_danhSachSanPhamVaDichVu();
+		updateTxt_maSanPham();
 	}
 	
-	
+	public void updateTxt_maSanPham() {
+		txt_maSanPham.setText(maxID_sanSPVaDichVu+"");
+	}
 	public void updateCbx_nhomSanPham() {
 		_listNhomSPVaDichVuModels_active = _nhomSPVaDichVuService.getListNhomSPVaDichVuModelActive();
 		String arrayNhomSPVaDichVu[] = new String[_listNhomSPVaDichVuModels_active.size()+1];
@@ -590,12 +611,17 @@ public class SanPhamVaDichVu_view extends JFrame {
 		txt_soLuongTon.setText("0");
 		txt_giaVon.setText("0");
 		txt_moTa.setText("");
+		_listDonViChiTietModels = new ArrayList<DonViChiTietModel>();
+		updateTable_danhSachDonViTinhActive(_listDonViChiTietModels);
+		updateTable_danhSachDonViTinhInactive(_listDonViChiTietModels);
 		btn_suaSanPham.setEnabled(false);
 		btn_themSanPham.setEnabled(true);
+		updateTxt_maSanPham();
 		clearFormDonViTinh();
 	}
 	
 	public void clearFormDonViTinh() {
+		txt_maDonVi.setText(maxID_donViChiTiet+"");
 		cbx_donViTinh.setSelectedIndex(0);
 		txt_giaTriQuyDoi.setText("");
 		txt_giaBan.setText("Nhập giá bán");
@@ -603,12 +629,13 @@ public class SanPhamVaDichVu_view extends JFrame {
 		btn_suaDonVi.setEnabled(false);
 		btn_xoaDonVi.setEnabled(false);
 		btn_themDonVi.setEnabled(true);
+		checkDonViCoBan();
 		
 	}
 	
 	public void doClickOnTable_danhSachSanPhamVaDichVu() {
 		int maSanPham = Integer.parseInt(table_danhSachSanPhamVaDichVu.getModel().getValueAt(table_danhSachSanPhamVaDichVu.getSelectedRow(), 1)+"");
-		int stt_SPSelected = 0;
+//		int stt_SPSelected = 0;
 		for (SanPhamVaDichVuModel sanPhamVaDichVuModel : _listSanPhamVaDichVuModels) {
 			if(sanPhamVaDichVuModel.getMaDichVu() == maSanPham) {
 				txt_maSanPham.setText(sanPhamVaDichVuModel.getMaDichVu()+"");
@@ -624,13 +651,13 @@ public class SanPhamVaDichVu_view extends JFrame {
 				txt_giaVon.setText(sanPhamVaDichVuModel.getGiaVon()+"");
 				txt_moTa.setText(sanPhamVaDichVuModel.getMoTa());
 				
-				_listDonViChiTietModels = sanPhamVaDichVuModel.getListDonViChiTietModel();
+				_listDonViChiTietModels = _sanPhamVaDichVuService.getListDVCTM(sanPhamVaDichVuModel);
 				updateTable_danhSachDonViTinhActive(_listDonViChiTietModels);
 				updateTable_danhSachDonViTinhInactive(_listDonViChiTietModels);
-				_listPhieuKiemKhoChiTietModels = sanPhamVaDichVuModel.getListPhieuKiemKhoChiTietModel();
-				_listPhieuNhapKhoChiTietModels = sanPhamVaDichVuModel.getListPhieuNhapKhoChiTietModel();
 			}
-			stt_SPSelected++;
+			btn_suaSanPham.setEnabled(true);
+			checkDonViCoBan();
+//			stt_SPSelected++;
 		}
 	}
 	
@@ -653,6 +680,13 @@ public class SanPhamVaDichVu_view extends JFrame {
 		
 		btn_suaDonVi.setEnabled(true);
 		btn_themDonVi.setEnabled(false);
+		if(txt_giaTriQuyDoi.getText().equals("1")) { ///////////////////////bug
+			panel_donViTinh.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(192, 192, 192)), "Đơn vị cơ bản", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+			txt_giaTriQuyDoi.setEditable(false);
+		}else {
+			panel_donViTinh.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(192, 192, 192)), "Đơn vị quy đổi", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+			txt_giaTriQuyDoi.setEditable(true);
+		}
 	}
 	
 	public void updateTable_danhSachDonViTinhActive(List<DonViChiTietModel> listDonViChiTietModels){
@@ -701,12 +735,11 @@ public class SanPhamVaDichVu_view extends JFrame {
 		model.addColumn("TRẠNG THÁI");
 		
 		_listSanPhamVaDichVuModels = _sanPhamVaDichVuService.getListSanPhamVaDichVuModel();
-		
 	
 			int stt =1;
 			if(switchButton_danhSach.isSelected()) {
 				for (SanPhamVaDichVuModel sanPhamVaDichVuModel : _listSanPhamVaDichVuModels) {
-					if(sanPhamVaDichVuModel.getTrangThai().equals("Hoạt Động")) {
+					if(sanPhamVaDichVuModel.getTrangThai().equals("Hoat Dong")) {
 						model.addRow(new Object[] {stt, sanPhamVaDichVuModel.getMaDichVu(), sanPhamVaDichVuModel.getTenHangHoa() , sanPhamVaDichVuModel.getNhomSPVaDichVuModel().getTenNhomSP(), sanPhamVaDichVuModel.getSoLuongTon(), sanPhamVaDichVuModel.getGiaVon(), sanPhamVaDichVuModel.getKhoModel().getTenKho() , sanPhamVaDichVuModel.getTrangThai()});
 					}
 				}
@@ -714,7 +747,7 @@ public class SanPhamVaDichVu_view extends JFrame {
 				
 			if(!switchButton_danhSach.isSelected()) {
 				for (SanPhamVaDichVuModel sanPhamVaDichVuModel : _listSanPhamVaDichVuModels) {
-					if(sanPhamVaDichVuModel.getTrangThai().equals("Không Hoạt Động")) {
+					if(sanPhamVaDichVuModel.getTrangThai().equals("Khong Hoat Dong")) {
 						model.addRow(new Object[] {stt, sanPhamVaDichVuModel.getMaDichVu(), sanPhamVaDichVuModel.getTenHangHoa() , sanPhamVaDichVuModel.getNhomSPVaDichVuModel().getTenNhomSP(), sanPhamVaDichVuModel.getSoLuongTon(), sanPhamVaDichVuModel.getGiaVon(), sanPhamVaDichVuModel.getKhoModel().getTenKho() , sanPhamVaDichVuModel.getTrangThai()});
 					}
 				}
@@ -723,18 +756,53 @@ public class SanPhamVaDichVu_view extends JFrame {
 	}
 	
 	public void themDonViTinh() {
-		
-		
 		DonViChiTietModel donViChiTietModel = getInforFromFormIntoDonViChiTietModel();
 		if(donViChiTietModel == null) {
 			return;
 		}
-		_listDonViChiTietModels.add(donViChiTietModel);
-		maxID_donViChiTiet1++;
-		txt_maDonVi.setText(maxID_donViChiTiet1+"");
-		txt_giaTriQuyDoi.setEditable(true);
-		panel_donViTinh.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(192, 192, 192)), "Đơn vị quy đổi", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		clearFormDonViTinh();
+		for (DonViChiTietModel dvctm : _listDonViChiTietModels) {
+			if(dvctm.getDonViTinhModel().getMaDonVi() == donViChiTietModel.getDonViTinhModel().getMaDonVi()) {
+				JOptionPane.showMessageDialog(null, "Đơn vị bạn chọn đã có trong danh sách , Vui lòng ktra lại!");
+				return;
+			}
+		}
+		if(checkDonViChiTietExsisted(donViChiTietModel)) {
+			_listDonViChiTietModels.add(donViChiTietModel);
+			maxID_donViChiTiet1++;
+			txt_maDonVi.setText(maxID_donViChiTiet1+"");
+			panel_donViTinh.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(192, 192, 192)), "Đơn vị quy đổi", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+			clearFormDonViTinh();
+		}
+	}
+	
+	public boolean checkDonViChiTietExsisted(DonViChiTietModel dvctm) {
+		boolean check = true;
+		for (DonViChiTietModel dvctm1 : _listDonViChiTietModels) {
+			if(dvctm1.getMaDonViChiTiet() == dvctm.getMaDonViChiTiet()) {
+				continue;
+			}
+			if(dvctm1.getDonViTinhModel().getMaDonVi() == dvctm.getDonViTinhModel().getMaDonVi()) {
+				JOptionPane.showMessageDialog(null, "Đơn vị bạn chọn đã có trong danh sách , Vui lòng ktra lại!");
+				check = false;
+			}
+		}
+		return check;
+	}
+	
+	public boolean checkDonViCoBan() {
+		boolean check = true;
+		for (DonViChiTietModel donViChiTietModel : _listDonViChiTietModels) {
+			if(donViChiTietModel.getGiaTriQuyDoi() == 1) {
+				panel_donViTinh.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(192, 192, 192)), "Đơn vị quy đổi", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+				txt_giaTriQuyDoi.setEditable(true);
+				check = false;
+			}
+		}
+		if(check) {
+			panel_donViTinh.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(192, 192, 192)), "Đơn vị cơ bản", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+			txt_giaTriQuyDoi.setEditable(false);
+		}
+		return true;
 	}
 	
 	public void suaDonViTinh() {
@@ -742,20 +810,18 @@ public class SanPhamVaDichVu_view extends JFrame {
 		if(donViChiTietModel == null) {
 			return;
 		}
-		for (DonViChiTietModel donViChiTietModel1 : _listDonViChiTietModels) {
-			if(donViChiTietModel1.getMaDonViChiTiet() == donViChiTietModel.getMaDonViChiTiet()) {
-				
+	
+		if(checkDonViChiTietExsisted(donViChiTietModel)) {
+			for(int i =0 ; i<_listDonViChiTietModels.size() ; i++) {
+				if(_listDonViChiTietModels.get(i).getMaDonViChiTiet() == donViChiTietModel.getMaDonViChiTiet()) {
+					_listDonViChiTietModels.get(i).setGiaTriQuyDoi(donViChiTietModel.getGiaTriQuyDoi());
+					_listDonViChiTietModels.get(i).setGiaBan(donViChiTietModel.getGiaBan());
+					_listDonViChiTietModels.get(i).setTrangThai(donViChiTietModel.getTrangThai());
+					break;
+				}
 			}
+			clearFormDonViTinh();
 		}
-		for(int i =0 ; i<_listDonViChiTietModels.size() ; i++) {
-			if(_listDonViChiTietModels.get(i).getMaDonViChiTiet() == donViChiTietModel.getMaDonViChiTiet()) {
-				_listDonViChiTietModels.get(i).setGiaTriQuyDoi(donViChiTietModel.getGiaTriQuyDoi());
-				_listDonViChiTietModels.get(i).setGiaBan(donViChiTietModel.getGiaBan());
-				_listDonViChiTietModels.get(i).setTrangThai(donViChiTietModel.getTrangThai());
-				break;
-			}
-		}
-		clearFormDonViTinh();
 	}
 	public void xoaDonViTinh() 
 	{
@@ -782,7 +848,6 @@ public class SanPhamVaDichVu_view extends JFrame {
 	}
 	
 	public DonViChiTietModel getInforFromFormIntoDonViChiTietModel() {
-		List<DichVuPhongModel> listDichVuPhongModels = new ArrayList<DichVuPhongModel>();
 		SanPhamVaDichVuModel sanPhamVaDichVuModel = getInforFromFormIntoSanPhamVaDichVuModel();
 		if(sanPhamVaDichVuModel == null) {
 			return null;
@@ -822,8 +887,8 @@ public class SanPhamVaDichVu_view extends JFrame {
 		}
 		
 		String trangThai =checkSwitchButton(switchButton_nhapDonViTinh);
-		DonViChiTietModel donViChiTietModel = new DonViChiTietModel(maDonViChiTiet, donViTinhModel,sanPhamVaDichVuModel , giaTriQuyDoi, giaBan, trangThai, listDichVuPhongModels);
-		return donViChiTietModel;
+		DonViChiTietModel dvctm = new DonViChiTietModel(maDonViChiTiet, donViTinhModel, sanPhamVaDichVuModel, giaTriQuyDoi, giaBan, trangThai);
+		return dvctm;
 	}
 	
 	public SanPhamVaDichVuModel getInforFromFormIntoSanPhamVaDichVuModel() {
@@ -857,11 +922,18 @@ public class SanPhamVaDichVu_view extends JFrame {
 		double giaVon = Double.parseDouble(txt_giaVon.getText());
 		String moTa = txt_moTa.getText().trim();
 		
-//		List<DonViChiTietModel> list1 = new ArrayList<DonViChiTietModel>();
-//		List<PhieuKiemKhoChiTietModel> list2 = new ArrayList<PhieuKiemKhoChiTietModel>();
-//		List<PhieuNhapKhoChiTietModel> list3 = new ArrayList<PhieuNhapKhoChiTietModel>();
-		SanPhamVaDichVuModel sanPhamVaDichVuModel = new SanPhamVaDichVuModel(maDichVu, tenHangHoa, nhomSPVaDichVuModel, soLuongTon, giaVon, khoModel, moTa, trangThai, _listDonViChiTietModels, _listPhieuKiemKhoChiTietModels, _listPhieuNhapKhoChiTietModels);
-//		SanPhamVaDichVuModel sanPhamVaDichVuModel = new SanPhamVaDichVuModel(maDichVu, tenHangHoa, nhomSPVaDichVuModel, soLuongTon, giaVon, khoModel, moTa, trangThai, list1, list2, list3);
-		return sanPhamVaDichVuModel;
+		SanPhamVaDichVuModel spvdvm= new SanPhamVaDichVuModel(maDichVu, tenHangHoa, nhomSPVaDichVuModel, soLuongTon, giaVon, khoModel, moTa, trangThai);
+		return spvdvm;
 	}
+
+	public void them_suaSanPham() {
+		SanPhamVaDichVuModel sanPhamVaDichVuModel = getInforFromFormIntoSanPhamVaDichVuModel();
+		_sanPhamVaDichVuService.them_sua(sanPhamVaDichVuModel);
+		for (DonViChiTietModel donViChiTietModel : _listDonViChiTietModels) {
+			_donViChiTietService.them_sua(donViChiTietModel);
+		}
+		updateTable_danhSachSanPhamVaDichVu();
+	}
+	// chưa thể xử lí check có phải đơn vị cơ bản không . tạm thời check chống đối doclickontable donvitinh
+	// xử lí không cho edit giá trị quy đổi nếu là đơn vị cơ bản , không cho xoa
 }

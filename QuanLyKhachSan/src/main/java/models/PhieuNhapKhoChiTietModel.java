@@ -16,14 +16,14 @@ import entities.SanPhamVaDichVu;
 
 public class PhieuNhapKhoChiTietModel {
 	private PhieuNhapKhoModel phieuNhapKhoModel;
-	private SanPhamVaDichVuModel sanPhamVaDichVuModel;
+	private DonViChiTietModel donViChiTietModel;
 	private int soLuong;
 	private double giaNhap;
 	private String ghiChu;
-	public PhieuNhapKhoChiTietModel(PhieuNhapKhoModel phieuNhapKhoModel, SanPhamVaDichVuModel sanPhamVaDichVuModel,
+	public PhieuNhapKhoChiTietModel(PhieuNhapKhoModel phieuNhapKhoModel, DonViChiTietModel donViChiTietModel,
 			int soLuong, double giaNhap, String ghiChu) {
 		this.phieuNhapKhoModel = phieuNhapKhoModel;
-		this.sanPhamVaDichVuModel = sanPhamVaDichVuModel;
+		this.donViChiTietModel = donViChiTietModel;
 		this.soLuong = soLuong;
 		this.giaNhap = giaNhap;
 		this.ghiChu = ghiChu;
@@ -36,11 +36,11 @@ public class PhieuNhapKhoChiTietModel {
 	public void setPhieuNhapKhoModel(PhieuNhapKhoModel phieuNhapKhoModel) {
 		this.phieuNhapKhoModel = phieuNhapKhoModel;
 	}
-	public SanPhamVaDichVuModel getSanPhamVaDichVuModel() {
-		return sanPhamVaDichVuModel;
+	public DonViChiTietModel getDonViChiTietModel() {
+		return donViChiTietModel;
 	}
-	public void setSanPhamVaDichVuModel(SanPhamVaDichVuModel sanPhamVaDichVuModel) {
-		this.sanPhamVaDichVuModel = sanPhamVaDichVuModel;
+	public void setDonViChiTietModel(DonViChiTietModel donViChiTietModel) {
+		this.donViChiTietModel = donViChiTietModel;
 	}
 	public int getSoLuong() {
 		return soLuong;
@@ -60,11 +60,7 @@ public class PhieuNhapKhoChiTietModel {
 	public void setGhiChu(String ghiChu) {
 		this.ghiChu = ghiChu;
 	}
-	@Override
-	public String toString() {
-		return "PhieuNhapKhoChiTietModel [phieuNhapKhoModel=" + phieuNhapKhoModel + ", sanPhamVaDichVuModel="
-				+ sanPhamVaDichVuModel + ", soLuong=" + soLuong + ", giaNhap=" + giaNhap + ", ghiChu=" + ghiChu + "]";
-	}
+
 
 	
 	

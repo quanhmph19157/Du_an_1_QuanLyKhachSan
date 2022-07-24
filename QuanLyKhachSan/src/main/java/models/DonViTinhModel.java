@@ -18,14 +18,11 @@ public class DonViTinhModel {
 	private int maDonVi;
 	private String tenDonVi;
 	private String trangThai;
-	private List<DonViChiTietModel> listDonViChiTietModel;
 
-	public DonViTinhModel(int maDonVi, String tenDonVi, String trangThai,
-			List<DonViChiTietModel> listDonViChiTietModel) {
+	public DonViTinhModel(int maDonVi, String tenDonVi, String trangThai) {
 		this.maDonVi = maDonVi;
 		this.tenDonVi = tenDonVi;
 		this.trangThai = trangThai;
-		this.listDonViChiTietModel = listDonViChiTietModel;
 	}
 
 	public DonViTinhModel() {
@@ -55,18 +52,6 @@ public class DonViTinhModel {
 		this.trangThai = trangThai;
 	}
 
-	public List<DonViChiTietModel> getListDonViChiTietModel() {
-		return listDonViChiTietModel;
-	}
 
-	public void setListDonViChiTietModel(List<DonViChiTietModel> listDonViChiTietModel) {
-		this.listDonViChiTietModel = listDonViChiTietModel;
-	}
-
-	@Override
-	public String toString() {
-		return "DonViTinhModel [maDonVi=" + maDonVi + ", tenDonVi=" + tenDonVi + ", trangThai=" + trangThai
-				+ ", listDonViChiTietModel=" + listDonViChiTietModel + "]";
-	}
 
 }

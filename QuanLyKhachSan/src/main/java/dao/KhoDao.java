@@ -12,6 +12,9 @@ import org.hibernate.service.ServiceRegistryBuilder;
 
 import entities.Kho;
 import entities.NhanVien;
+import entities.PhieuKiemKho;
+import entities.PhieuNhapKho;
+import entities.SanPhamVaDichVu;
 import utils.DB_Connection;
 
 public class KhoDao implements IKhoDao{
@@ -49,7 +52,6 @@ public class KhoDao implements IKhoDao{
 		_listKhos = (ArrayList<Kho>) query.list();
 		session.getTransaction().commit();
 		session.close();
-		
 	}
 	public void updateListKho(String trangThai) {
 		Session session = new DB_Connection().getSession();
@@ -66,6 +68,7 @@ public class KhoDao implements IKhoDao{
 		
 	}
 
+	
 	public List<Kho> getListKho() {
 		return _listKhos;
 	}

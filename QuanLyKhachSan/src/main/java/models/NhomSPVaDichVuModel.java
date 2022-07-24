@@ -18,16 +18,13 @@ public class NhomSPVaDichVuModel {
 	private String nhomHangHoa;
 	private String ghiChu;
 	private String trangThai;
-	private List<SanPhamVaDichVuModel> listSanPhamVaDichVuModel;
 	
-	public NhomSPVaDichVuModel(int maNhomSP, String tenNhomSP, String nhomHangHoa, String ghiChu, String trangThai,
-			List<SanPhamVaDichVuModel> listSanPhamVaDichVuModel) {
+	public NhomSPVaDichVuModel(int maNhomSP, String tenNhomSP, String nhomHangHoa, String ghiChu, String trangThai) {
 		this.maNhomSP = maNhomSP;
 		this.tenNhomSP = tenNhomSP;
 		this.nhomHangHoa = nhomHangHoa;
 		this.ghiChu = ghiChu;
 		this.trangThai = trangThai;
-		this.listSanPhamVaDichVuModel = listSanPhamVaDichVuModel;
 	}
 	public NhomSPVaDichVuModel() {
 	}
@@ -61,18 +58,8 @@ public class NhomSPVaDichVuModel {
 	public void setTrangThai(String trangThai) {
 		this.trangThai = trangThai;
 	}
-	public List<SanPhamVaDichVuModel> getListSanPhamVaDichVuModel() {
-		return listSanPhamVaDichVuModel;
-	}
-	public void setListSanPhamVaDichVuModel(List<SanPhamVaDichVuModel> listSanPhamVaDichVuModel) {
-		this.listSanPhamVaDichVuModel = listSanPhamVaDichVuModel;
-	}
-	@Override
-	public String toString() {
-		return "NhomSPVaDichVuModel [maNhomSP=" + maNhomSP + ", tenNhomSP=" + tenNhomSP + ", nhomHangHoa=" + nhomHangHoa
-				+ ", ghiChu=" + ghiChu + ", trangThai=" + trangThai + ", listSanPhamVaDichVuModel="
-				+ listSanPhamVaDichVuModel + "]";
-	}
+	
+	
 	
 	
 	

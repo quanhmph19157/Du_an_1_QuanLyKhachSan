@@ -9,11 +9,16 @@ import entities.NhomSPVaDichVu;
 import entities.SanPhamVaDichVu;
 import entities.SanPhamVaDichVu;
 import utils.IoCContainer;
+import models.DonViChiTietModel;
+import models.KhoModel;
+import models.NhomSPVaDichVuModel;
+import models.PhieuKiemKhoChiTietModel;
 import models.SanPhamVaDichVuModel;
 import models.SanPhamVaDichVuModel;
 
 public class SanPhamVaDichVuService implements ISanPhamVaDichVuService {
 	private IoCContainer ioCContainer = new IoCContainer();
+	private List<SanPhamVaDichVu> _listSanPhamVaDichVus = new ArrayList<SanPhamVaDichVu>();
 	private List<SanPhamVaDichVuModel> _listSanPhamVaDichVuModels = new ArrayList<SanPhamVaDichVuModel>();
 	private List<SanPhamVaDichVuModel> _listSanPhamVaDichVuModels_active = new ArrayList<SanPhamVaDichVuModel>();
 	private List<SanPhamVaDichVuModel> _listSanPhamVaDichVuModels_inactive = new ArrayList<SanPhamVaDichVuModel>();
@@ -22,97 +27,83 @@ public class SanPhamVaDichVuService implements ISanPhamVaDichVuService {
 	private SanPhamVaDichVu _SanPhamVaDichVu;
 	private int maxID;
 
-	public static SanPhamVaDichVu updateDataSanPhamVaDichVuDependOnSanPhamVaDichVuModel(
-			SanPhamVaDichVuModel SanPhamVaDichVuModel) {
-		SanPhamVaDichVu SanPhamVaDichVu = new SanPhamVaDichVu();
-		SanPhamVaDichVu.setMaDichVu(SanPhamVaDichVuModel.getMaDichVu());
-		SanPhamVaDichVu.setTenHangHoa(SanPhamVaDichVuModel.getTenHangHoa());
-		SanPhamVaDichVu.setNhomSPVaDichVu(NhomSPVaDichVuService
-				.updateDataNhomSPVaDichVuDependOnNhomSPVaDichVuModel(SanPhamVaDichVuModel.getNhomSPVaDichVuModel()));
-		SanPhamVaDichVu.setSoLuongTon(SanPhamVaDichVuModel.getSoLuongTon());
-		SanPhamVaDichVu.setGiaVon(SanPhamVaDichVuModel.getGiaVon());
-		SanPhamVaDichVu.setKho(KhoService.updateDataKhoDependOnKhoModel(SanPhamVaDichVuModel.getKhoModel()));
-		SanPhamVaDichVu.setMoTa(SanPhamVaDichVuModel.getMoTa());
-		SanPhamVaDichVu.setTrangThai(SanPhamVaDichVuModel.getTrangThai());
-		SanPhamVaDichVu.setListDonViChiTiet(DonViChiTietService
-				.updateListDonViChiTietDependOnListDonViChiTietModel(SanPhamVaDichVuModel.getListDonViChiTietModel()));
-		SanPhamVaDichVu.setListPhieuKiemKhoChiTiet(
-				PhieuKiemKhoChiTietService.updateListPhieuKiemKhoChiTietDependOnListPhieuKiemKhoChiTietModel(
-						SanPhamVaDichVuModel.getListPhieuKiemKhoChiTietModel()));
-		SanPhamVaDichVu.setListPhieuNhapKhoChiTiet(
-				PhieuNhapKhoChiTietService.updateListPhieuNhapKhoChiTietDependOnListPhieuNhapKhoChiTietModel(
-						SanPhamVaDichVuModel.getListPhieuNhapKhoChiTietModel()));
-		return SanPhamVaDichVu;
+	public static SanPhamVaDichVu modelToEntity(SanPhamVaDichVuModel spvdvm) {
+		SanPhamVaDichVu spvdv = new SanPhamVaDichVu();
+		spvdv.setMaDichVu(spvdvm.getMaDichVu());
+		spvdv.setTenHangHoa(spvdvm.getTenHangHoa());
+		spvdv.setNhomSPVaDichVu(NhomSPVaDichVuService.modelToEntity(spvdvm.getNhomSPVaDichVuModel()));
+		spvdv.setSoLuongTon(spvdvm.getSoLuongTon());
+		spvdv.setGiaVon(spvdvm.getGiaVon());
+		spvdv.setKho(KhoService.modelToEntity(spvdvm.getKhoModel()));
+		spvdv.setMoTa(spvdvm.getMoTa());
+		spvdv.setTrangThai(spvdvm.getTrangThai());
+		return spvdv;
 	}
 
-	public static SanPhamVaDichVuModel updateDataSanPhamVaDichVuModelDependOnSanPhamVaDichVu(
-			SanPhamVaDichVu sanPhamVaDichVu) {
-		SanPhamVaDichVuModel sanPhamVaDichVuModel = new SanPhamVaDichVuModel();
-		sanPhamVaDichVuModel.setMaDichVu(sanPhamVaDichVu.getMaDichVu());
-		sanPhamVaDichVuModel.setTenHangHoa(sanPhamVaDichVu.getTenHangHoa());
-		sanPhamVaDichVuModel.setNhomSPVaDichVuModel(NhomSPVaDichVuService
-				.updateDataNhomSPVaDichVuModelDependOnNhomSPVaDichVu(sanPhamVaDichVu.getNhomSPVaDichVu()));
-		sanPhamVaDichVuModel.setSoLuongTon(sanPhamVaDichVu.getSoLuongTon());
-		sanPhamVaDichVuModel.setGiaVon(sanPhamVaDichVu.getGiaVon());
-		sanPhamVaDichVuModel.setKhoModel(KhoService.updateDataKhoModelDependOnKho(sanPhamVaDichVu.getKho()));
-		sanPhamVaDichVuModel.setMoTa(sanPhamVaDichVu.getMoTa());
-		sanPhamVaDichVuModel.setTrangThai(sanPhamVaDichVu.getTrangThai());
-		sanPhamVaDichVuModel.setListDonViChiTietModel(DonViChiTietService
-				.updateListDonViChiTietModelDependOnListDonViChiTiet(sanPhamVaDichVu.getListDonViChiTiet()));
-		sanPhamVaDichVuModel.setListPhieuKiemKhoChiTietModel(
-				PhieuKiemKhoChiTietService.updateListPhieuKiemKhoChiTietModelDependOnListPhieuKiemKhoChiTiet(
-						sanPhamVaDichVu.getListPhieuKiemKhoChiTiet()));
-		sanPhamVaDichVuModel.setListPhieuNhapKhoChiTietModel(
-				PhieuNhapKhoChiTietService.updateListPhieuNhapKhoChiTietModelDependOnListPhieuNhapKhoChiTiet(
-						sanPhamVaDichVu.getListPhieuNhapKhoChiTiet()));
-		return sanPhamVaDichVuModel;
+	public static SanPhamVaDichVuModel entityToModel(SanPhamVaDichVu spvdv) {
+		SanPhamVaDichVuModel spvdvm = new SanPhamVaDichVuModel();
+		spvdvm.setMaDichVu(spvdv.getMaDichVu());
+		spvdvm.setTenHangHoa(spvdv.getTenHangHoa());
+		spvdvm.setNhomSPVaDichVuModel(NhomSPVaDichVuService.entityToModel(spvdv.getNhomSPVaDichVu()));
+		spvdvm.setSoLuongTon(spvdv.getSoLuongTon());
+		spvdvm.setGiaVon(spvdv.getGiaVon());
+		spvdvm.setKhoModel(KhoService.entityToModel(spvdv.getKho()));
+		spvdvm.setMoTa(spvdv.getMoTa());
+		spvdvm.setTrangThai(spvdv.getTrangThai());
+		return spvdvm;
 	}
 
-	public static List<SanPhamVaDichVuModel> updateListSanPhamVaDichVuModelDependOnListSanPhamVaDichVu(
-			List<SanPhamVaDichVu> listSanPhamVaDichVu) {
+	public static List<SanPhamVaDichVuModel> listEntitiesToListModel(List<SanPhamVaDichVu> listSPVDV) {
 		List<SanPhamVaDichVuModel> listSanPhamVaDichVuModel = new ArrayList<SanPhamVaDichVuModel>();
-		for (SanPhamVaDichVu sanPhamVaDichVu : listSanPhamVaDichVu) {
-			SanPhamVaDichVuModel sanPhamVaDichVuModel = updateDataSanPhamVaDichVuModelDependOnSanPhamVaDichVu(
-					sanPhamVaDichVu);
+		for (SanPhamVaDichVu sanPhamVaDichVu : listSPVDV) {
+			SanPhamVaDichVuModel sanPhamVaDichVuModel = entityToModel(sanPhamVaDichVu);
 			listSanPhamVaDichVuModel.add(sanPhamVaDichVuModel);
 		}
 		return listSanPhamVaDichVuModel;
 	}
 
-	public static List<SanPhamVaDichVu> updateListSanPhamVaDichVuDependOnListSanPhamVaDichVuModel(
-			List<SanPhamVaDichVuModel> listSanPhamVaDichVuModel) {
-		List<SanPhamVaDichVu> listSanPhamVaDichVu = new ArrayList<SanPhamVaDichVu>();
-		for (SanPhamVaDichVuModel sanPhamVaDichVuModel : listSanPhamVaDichVuModel) {
-			SanPhamVaDichVu sanPhamVaDichVu = updateDataSanPhamVaDichVuDependOnSanPhamVaDichVuModel(
-					sanPhamVaDichVuModel);
-			listSanPhamVaDichVu.add(sanPhamVaDichVu);
+	public static List<SanPhamVaDichVu> ListModelToListEntities(List<SanPhamVaDichVuModel> listSPVDVM) {
+		List<SanPhamVaDichVu> listSPVDV = new ArrayList<SanPhamVaDichVu>();
+		for (SanPhamVaDichVuModel sanPhamVaDichVuModel : listSPVDVM) {
+			SanPhamVaDichVu sanPhamVaDichVu = modelToEntity(sanPhamVaDichVuModel);
+			listSPVDV.add(sanPhamVaDichVu);
 		}
-		return listSanPhamVaDichVu;
+		return listSPVDV;
 	}
 
-	public void them_sua(SanPhamVaDichVuModel SanPhamVaDichVuModel) {
-		_SanPhamVaDichVu = updateDataSanPhamVaDichVuDependOnSanPhamVaDichVuModel(SanPhamVaDichVuModel);
+	public void them_sua(SanPhamVaDichVuModel spvdvm) {
+		boolean checkExisted = false;
+		_SanPhamVaDichVu = modelToEntity(spvdvm);
 		_SanPhamVaDichVuDao.them_sua(_SanPhamVaDichVu);
-		_listSanPhamVaDichVuModels.add(SanPhamVaDichVuModel); // check lai
+		updateListSanPhamVaDichVuModel();
+	}
+	
+	public List<DonViChiTietModel> getListDVCTM(SanPhamVaDichVuModel spvdvm){
+		List<DonViChiTietModel> listDVCTM;
+		for (SanPhamVaDichVu sanPhamVaDichVu : _listSanPhamVaDichVus) {
+			if(sanPhamVaDichVu.getMaDichVu() == spvdvm.getMaDichVu()) {
+				listDVCTM = DonViChiTietService.listEntitiesTolistModel(sanPhamVaDichVu.getListDonViChiTiet());
+				return listDVCTM;
+			}
+		}
+		return null;
 	}
 
 	public void updateListSanPhamVaDichVuModel() {
 		_SanPhamVaDichVuDao.updateListSanPhamVaDichVu();
-		List<SanPhamVaDichVu> listSanPhamVaDichVu = _SanPhamVaDichVuDao.getListSanPhamVaDichVu();
-		_listSanPhamVaDichVuModels = updateListSanPhamVaDichVuModelDependOnListSanPhamVaDichVu(listSanPhamVaDichVu);
+		_listSanPhamVaDichVus = _SanPhamVaDichVuDao.getListSanPhamVaDichVu();
+		_listSanPhamVaDichVuModels = listEntitiesToListModel(_listSanPhamVaDichVus);
 		maxID = _SanPhamVaDichVuDao.getMaxID();
 	}
 
 	public void updateListNhomSPVaDichVuModel(String trangThai) {
 		_SanPhamVaDichVuDao.updateListSanPhamVaDichVu(trangThai);
 		if (trangThai.equals("Hoat Dong")) {
-			List<SanPhamVaDichVu> listSanPhamVaDichVu = _SanPhamVaDichVuDao.getListSanPhamVaDichVu_active();
-			_listSanPhamVaDichVuModels_active = updateListSanPhamVaDichVuModelDependOnListSanPhamVaDichVu(
-					listSanPhamVaDichVu);
+			_listSanPhamVaDichVus = _SanPhamVaDichVuDao.getListSanPhamVaDichVu_active();
+			_listSanPhamVaDichVuModels_active = listEntitiesToListModel(_listSanPhamVaDichVus);
 		} else {
-			List<SanPhamVaDichVu> listSanPhamVaDichVu = _SanPhamVaDichVuDao.getListSanPhamVaDichVu_inactive();
-			_listSanPhamVaDichVuModels_inactive = updateListSanPhamVaDichVuModelDependOnListSanPhamVaDichVu(
-					listSanPhamVaDichVu);
+			_listSanPhamVaDichVus = _SanPhamVaDichVuDao.getListSanPhamVaDichVu_inactive();
+			_listSanPhamVaDichVuModels_inactive = listEntitiesToListModel(_listSanPhamVaDichVus);
 		}
 
 	}

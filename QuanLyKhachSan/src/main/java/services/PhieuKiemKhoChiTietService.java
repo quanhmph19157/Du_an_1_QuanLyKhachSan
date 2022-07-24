@@ -14,31 +14,31 @@ public class PhieuKiemKhoChiTietService implements IPhieuKiemKhoChiTietService{
 	private PhieuKiemKhoChiTietDao _PhieuKiemKhoChiTietDao = (PhieuKiemKhoChiTietDao) ioCContainer.getBean(PhieuKiemKhoChiTietDao.class.toString());
 	private PhieuKiemKhoChiTiet _PhieuKiemKhoChiTiet;
 
-	public static PhieuKiemKhoChiTiet updateDataPhieuKiemKhoChiTietDependOnPhieuKiemKhoChiTietModel(PhieuKiemKhoChiTietModel PhieuKiemKhoChiTietModel) {
-		PhieuKiemKhoChiTiet PhieuKiemKhoChiTiet = new PhieuKiemKhoChiTiet();
-		PhieuKiemKhoChiTiet.setPhieuKiemKho(PhieuKiemKhoService.updateDataPhieuKiemKhoDependOnPhieuKiemKhoModel(PhieuKiemKhoChiTietModel.getPhieuKiemKhoModel()));
-		PhieuKiemKhoChiTiet.setSanPhamVaDichVu(SanPhamVaDichVuService.updateDataSanPhamVaDichVuDependOnSanPhamVaDichVuModel(PhieuKiemKhoChiTietModel.getSanPhamVaDichVuModel()));
-		PhieuKiemKhoChiTiet.setSoLuongTruocKhiKiem(PhieuKiemKhoChiTietModel.getSoLuongTruocKhiKiem());
-		PhieuKiemKhoChiTiet.setSoLuongThucTe(PhieuKiemKhoChiTietModel.getSoLuongThucTe());
-		PhieuKiemKhoChiTiet.setSoLuongChenhLech(PhieuKiemKhoChiTietModel.getSoLuongChenhLech());
-		PhieuKiemKhoChiTiet.setGhiChuLiDoChenhLech(PhieuKiemKhoChiTietModel.getGhiChuLiDoChenhLech());
-		return PhieuKiemKhoChiTiet;
+	public static PhieuKiemKhoChiTiet modelToEntity(PhieuKiemKhoChiTietModel pkkctm) {
+		PhieuKiemKhoChiTiet pkkct = new PhieuKiemKhoChiTiet();
+		pkkct.setPhieuKiemKho(PhieuKiemKhoService.modelToEntity(pkkctm.getPhieuKiemKhoModel()));
+		pkkct.setSanPhamVaDichVu(SanPhamVaDichVuService.modelToEntity(pkkctm.getSanPhamVaDichVuModel()));
+		pkkct.setSoLuongTruocKhiKiem(pkkctm.getSoLuongTruocKhiKiem());
+		pkkct.setSoLuongThucTe(pkkctm.getSoLuongThucTe());
+		pkkct.setSoLuongChenhLech(pkkctm.getSoLuongChenhLech());
+		pkkct.setGhiChuLiDoChenhLech(pkkctm.getGhiChuLiDoChenhLech());
+		return pkkct;
 	}
-	public static PhieuKiemKhoChiTietModel updateDataPhieuKiemKhoChiTietModelDependOnPhieuKiemKhoChiTiet(PhieuKiemKhoChiTiet phieuKiemKhoChiTiet) {
-		PhieuKiemKhoChiTietModel phieuKiemKhoChiTietModel = new PhieuKiemKhoChiTietModel();
-		phieuKiemKhoChiTietModel.setPhieuKiemKhoModel(PhieuKiemKhoService.updateDataPhieuKiemKhoModelDependOnPhieuKiemKho(phieuKiemKhoChiTiet.getPhieuKiemKho()));
-		phieuKiemKhoChiTietModel.setSanPhamVaDichVuModel(SanPhamVaDichVuService.updateDataSanPhamVaDichVuModelDependOnSanPhamVaDichVu(phieuKiemKhoChiTiet.getSanPhamVaDichVu()));
-		phieuKiemKhoChiTietModel.setSoLuongTruocKhiKiem(phieuKiemKhoChiTiet.getSoLuongTruocKhiKiem());
-		phieuKiemKhoChiTietModel.setSoLuongThucTe(phieuKiemKhoChiTiet.getSoLuongThucTe());
-		phieuKiemKhoChiTietModel.setSoLuongChenhLech(phieuKiemKhoChiTiet.getSoLuongChenhLech());
-		phieuKiemKhoChiTietModel.setGhiChuLiDoChenhLech(phieuKiemKhoChiTiet.getGhiChuLiDoChenhLech());
-		return phieuKiemKhoChiTietModel;
+	public static PhieuKiemKhoChiTietModel entityToModel(PhieuKiemKhoChiTiet pkkct) {
+		PhieuKiemKhoChiTietModel pkkctm = new PhieuKiemKhoChiTietModel();
+		pkkctm.setPhieuKiemKhoModel(PhieuKiemKhoService.entityToModel(pkkct.getPhieuKiemKho()));
+		pkkctm.setSanPhamVaDichVuModel(SanPhamVaDichVuService.entityToModel(pkkct.getSanPhamVaDichVu()));
+		pkkctm.setSoLuongTruocKhiKiem(pkkct.getSoLuongTruocKhiKiem());
+		pkkctm.setSoLuongThucTe(pkkct.getSoLuongThucTe());
+		pkkctm.setSoLuongChenhLech(pkkct.getSoLuongChenhLech());
+		pkkctm.setGhiChuLiDoChenhLech(pkkct.getGhiChuLiDoChenhLech());
+		return pkkctm;
 	}
 	
-	public static List<PhieuKiemKhoChiTietModel> updateListPhieuKiemKhoChiTietModelDependOnListPhieuKiemKhoChiTiet (List<PhieuKiemKhoChiTiet> listPhieuKiemKhoChiTiet){
+	public static List<PhieuKiemKhoChiTietModel> listEntitiesToListModel (List<PhieuKiemKhoChiTiet> listPhieuKiemKhoChiTiet){
 		List<PhieuKiemKhoChiTietModel> litPhieuKiemKhoChiTietModel = new ArrayList<PhieuKiemKhoChiTietModel>();
 		for (PhieuKiemKhoChiTiet phieuKiemKhoChiTiet : listPhieuKiemKhoChiTiet) {
-			PhieuKiemKhoChiTietModel phieuKiemKhoChiTietModel = updateDataPhieuKiemKhoChiTietModelDependOnPhieuKiemKhoChiTiet(phieuKiemKhoChiTiet);
+			PhieuKiemKhoChiTietModel phieuKiemKhoChiTietModel = entityToModel(phieuKiemKhoChiTiet);
 			litPhieuKiemKhoChiTietModel.add(phieuKiemKhoChiTietModel);
 		}
 		return litPhieuKiemKhoChiTietModel;
@@ -46,14 +46,14 @@ public class PhieuKiemKhoChiTietService implements IPhieuKiemKhoChiTietService{
 	public static List<PhieuKiemKhoChiTiet> updateListPhieuKiemKhoChiTietDependOnListPhieuKiemKhoChiTietModel (List<PhieuKiemKhoChiTietModel> listPhieuKiemKhoChiTietModel){
 		List<PhieuKiemKhoChiTiet> litPhieuKiemKhoChiTiet = new ArrayList<PhieuKiemKhoChiTiet>();
 		for (PhieuKiemKhoChiTietModel phieuKiemKhoChiTietModel : listPhieuKiemKhoChiTietModel) {
-			PhieuKiemKhoChiTiet phieuKiemKhoChiTiet= updateDataPhieuKiemKhoChiTietDependOnPhieuKiemKhoChiTietModel(phieuKiemKhoChiTietModel);
+			PhieuKiemKhoChiTiet phieuKiemKhoChiTiet= modelToEntity(phieuKiemKhoChiTietModel);
 			litPhieuKiemKhoChiTiet.add(phieuKiemKhoChiTiet);
 		}
 		return litPhieuKiemKhoChiTiet;
 	}
 
 	public void them_sua(PhieuKiemKhoChiTietModel PhieuKiemKhoChiTietModel) {
-		_PhieuKiemKhoChiTiet = updateDataPhieuKiemKhoChiTietDependOnPhieuKiemKhoChiTietModel(PhieuKiemKhoChiTietModel);
+		_PhieuKiemKhoChiTiet = modelToEntity(PhieuKiemKhoChiTietModel);
 		_PhieuKiemKhoChiTietDao.them_sua(_PhieuKiemKhoChiTiet);
 		_listPhieuKiemKhoChiTietModels.add(PhieuKiemKhoChiTietModel);
 	}
@@ -62,7 +62,7 @@ public class PhieuKiemKhoChiTietService implements IPhieuKiemKhoChiTietService{
 	public void updateListPhieuKiemKhoChiTietModel() {
 		_PhieuKiemKhoChiTietDao.updateListPhieuKiemKhoChiTiet();
 		List<PhieuKiemKhoChiTiet> listPhieuKiemKhoChiTiet = _PhieuKiemKhoChiTietDao.getListPhieuKiemKhoChiTiet();
-		_listPhieuKiemKhoChiTietModels = updateListPhieuKiemKhoChiTietModelDependOnListPhieuKiemKhoChiTiet(listPhieuKiemKhoChiTiet);
+		_listPhieuKiemKhoChiTietModels = listEntitiesToListModel(listPhieuKiemKhoChiTiet);
 
 	}
 

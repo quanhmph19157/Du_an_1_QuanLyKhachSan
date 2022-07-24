@@ -51,9 +51,16 @@ public class Utilities {
 		return "false";
 	}
 	
-	public static String regexCheckDouble(String phoneNumber) {
+	public static String regexCheckDouble(String text) {
 		Pattern pattern = Pattern.compile("^(\\-)?[0-9]+(.[0-9]+)?$");
-		if(pattern.matcher(phoneNumber).find()) {
+		if(pattern.matcher(text).find()) {
+			return "true";
+		}
+		return "false";
+	}
+	public static String regexCheckSoNguyenDuong(String text) {
+		Pattern pattern = Pattern.compile("^\\d+$");
+		if(pattern.matcher(text).find()) {
 			return "true";
 		}
 		return "false";

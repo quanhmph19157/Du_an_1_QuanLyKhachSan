@@ -10,6 +10,7 @@ import javax.persistence.OneToMany;
 
 import entities.DichVuPhong;
 import entities.DonViTinh;
+import entities.PhieuNhapKhoChiTiet;
 import entities.SanPhamVaDichVu;
 
 public class DonViChiTietModel {
@@ -19,18 +20,15 @@ public class DonViChiTietModel {
 	private int giaTriQuyDoi;
 	private double giaBan;
 	private String trangThai;
-	private List<DichVuPhongModel> listDichVuPhongModel;
 	
 	public DonViChiTietModel(int maDonViChiTiet, DonViTinhModel donViTinhModel,
-			SanPhamVaDichVuModel sanPhamVaDichVuModel, int giaTriQuyDoi, double giaBan, String trangThai,
-			List<DichVuPhongModel> listDichVuPhongModel) {
+			SanPhamVaDichVuModel sanPhamVaDichVuModel, int giaTriQuyDoi, double giaBan, String trangThai) {
 		this.maDonViChiTiet = maDonViChiTiet;
 		this.donViTinhModel = donViTinhModel;
 		this.sanPhamVaDichVuModel = sanPhamVaDichVuModel;
 		this.giaTriQuyDoi = giaTriQuyDoi;
 		this.giaBan = giaBan;
 		this.trangThai = trangThai;
-		this.listDichVuPhongModel = listDichVuPhongModel;
 	}
 	public DonViChiTietModel() {
 	}
@@ -70,18 +68,15 @@ public class DonViChiTietModel {
 	public void setTrangThai(String trangThai) {
 		this.trangThai = trangThai;
 	}
-	public List<DichVuPhongModel> getListDichVuPhongModel() {
-		return listDichVuPhongModel;
-	}
-	public void setListDichVuPhongModel(List<DichVuPhongModel> listDichVuPhongModel) {
-		this.listDichVuPhongModel = listDichVuPhongModel;
-	}
 	@Override
 	public String toString() {
 		return "DonViChiTietModel [maDonViChiTiet=" + maDonViChiTiet + ", donViTinhModel=" + donViTinhModel
 				+ ", sanPhamVaDichVuModel=" + sanPhamVaDichVuModel + ", giaTriQuyDoi=" + giaTriQuyDoi + ", giaBan="
-				+ giaBan + ", trangThai=" + trangThai + ", listDichVuPhongModel=" + listDichVuPhongModel + "]";
+				+ giaBan + ", trangThai=" + trangThai + "]";
 	}
+	
+	
+	
 	
 	
 }

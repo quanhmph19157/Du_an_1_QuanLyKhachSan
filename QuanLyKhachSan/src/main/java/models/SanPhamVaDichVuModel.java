@@ -29,14 +29,8 @@ public class SanPhamVaDichVuModel {
 	private KhoModel khoModel;
 	private String moTa;
 	private String trangThai;
-	private List<DonViChiTietModel> listDonViChiTietModel;
-	private List<PhieuKiemKhoChiTietModel> listPhieuKiemKhoChiTietModel;
-	private List<PhieuNhapKhoChiTietModel> listPhieuNhapKhoChiTietModel;
-	
 	public SanPhamVaDichVuModel(int maDichVu, String tenHangHoa, NhomSPVaDichVuModel nhomSPVaDichVuModel,
-			int soLuongTon, double giaVon, KhoModel khoModel, String moTa, String trangThai,
-			List<DonViChiTietModel> listDonViChiTietModel, List<PhieuKiemKhoChiTietModel> listPhieuKiemKhoChiTietModel,
-			List<PhieuNhapKhoChiTietModel> listPhieuNhapKhoChiTietModel) {
+			int soLuongTon, double giaVon, KhoModel khoModel, String moTa, String trangThai) {
 		this.maDichVu = maDichVu;
 		this.tenHangHoa = tenHangHoa;
 		this.nhomSPVaDichVuModel = nhomSPVaDichVuModel;
@@ -45,12 +39,8 @@ public class SanPhamVaDichVuModel {
 		this.khoModel = khoModel;
 		this.moTa = moTa;
 		this.trangThai = trangThai;
-		this.listDonViChiTietModel = listDonViChiTietModel;
-		this.listPhieuKiemKhoChiTietModel = listPhieuKiemKhoChiTietModel;
-		this.listPhieuNhapKhoChiTietModel = listPhieuNhapKhoChiTietModel;
 	}
 	public SanPhamVaDichVuModel() {
-		
 	}
 	public int getMaDichVu() {
 		return maDichVu;
@@ -100,33 +90,8 @@ public class SanPhamVaDichVuModel {
 	public void setTrangThai(String trangThai) {
 		this.trangThai = trangThai;
 	}
-	public List<DonViChiTietModel> getListDonViChiTietModel() {
-		return listDonViChiTietModel;
-	}
-	public void setListDonViChiTietModel(List<DonViChiTietModel> listDonViChiTietModel) {
-		this.listDonViChiTietModel = listDonViChiTietModel;
-	}
-	public List<PhieuKiemKhoChiTietModel> getListPhieuKiemKhoChiTietModel() {
-		return listPhieuKiemKhoChiTietModel;
-	}
-	public void setListPhieuKiemKhoChiTietModel(List<PhieuKiemKhoChiTietModel> listPhieuKiemKhoChiTietModel) {
-		this.listPhieuKiemKhoChiTietModel = listPhieuKiemKhoChiTietModel;
-	}
-	public List<PhieuNhapKhoChiTietModel> getListPhieuNhapKhoChiTietModel() {
-		return listPhieuNhapKhoChiTietModel;
-	}
-	public void setListPhieuNhapKhoChiTietModel(List<PhieuNhapKhoChiTietModel> listPhieuNhapKhoChiTietModel) {
-		this.listPhieuNhapKhoChiTietModel = listPhieuNhapKhoChiTietModel;
-	}
-	@Override
-	public String toString() {
-		return "SanPhamVaDichVuModel [maDichVu=" + maDichVu + ", tenHangHoa=" + tenHangHoa + ", nhomSPVaDichVuModel="
-				+ nhomSPVaDichVuModel + ", soLuongTon=" + soLuongTon + ", giaVon=" + giaVon + ", khoModel=" + khoModel
-				+ ", moTa=" + moTa + ", trangThai=" + trangThai + ", listDonViChiTietModel=" + listDonViChiTietModel
-				+ ", listPhieuKiemKhoChiTietModel=" + listPhieuKiemKhoChiTietModel + ", listPhieuNhapKhoChiTietModel="
-				+ listPhieuNhapKhoChiTietModel + "]";
-	}
 
 	
+
 
 }

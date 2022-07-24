@@ -18,7 +18,7 @@ public class HistoryService implements IHistoryService{
 	public static History updateDataHistoryDependOnHistoryModel(HistoryModel HistoryModel) {
 		History History = new History();
 		History.setId(HistoryModel.getId());
-		History.setNhanVien(NhanVienService.updateDataNhanVienDependOnNhanVienModel(HistoryModel.getNhanVienModel()));
+		History.setNhanVien(NhanVienService.modelToEntity(HistoryModel.getNhanVienModel()));
 		History.setDoiTuong(HistoryModel.getDoiTuong());
 		History.setHanhDong(HistoryModel.getHanhDong());
 		History.setGhiChu(HistoryModel.getGhiChu());
@@ -28,7 +28,7 @@ public class HistoryService implements IHistoryService{
 	public static HistoryModel updateDataHistoryModelDependOnHistory(History History) {
 		HistoryModel HistoryModel = new HistoryModel();
 		HistoryModel.setId(History.getId());
-		HistoryModel.setNhanVienModel(NhanVienService.updateDataNhanVienModelDependOnNhanVien(History.getNhanVien()));
+		HistoryModel.setNhanVienModel(NhanVienService.entityToModel(History.getNhanVien()));
 		HistoryModel.setDoiTuong(History.getDoiTuong());
 		HistoryModel.setHanhDong(History.getHanhDong());
 		HistoryModel.setGhiChu(History.getGhiChu());

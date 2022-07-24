@@ -3,10 +3,14 @@ package dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.text.StyledEditorKit.ForegroundAction;
+
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 
+import entities.DonViChiTiet;
 import entities.NhanVien;
+import entities.PhieuKiemKhoChiTiet;
 import entities.SanPhamVaDichVu;
 import utils.DB_Connection;
 
@@ -20,7 +24,7 @@ public class SanPhamVaDichVuDao implements ISanPhamVaDichVuDao{
 	public void them_sua(SanPhamVaDichVu sanPhamVaDichVu) {
 		Session session = new DB_Connection().getSession();
 		session.beginTransaction();
-		session.save(sanPhamVaDichVu);
+		session.saveOrUpdate(sanPhamVaDichVu);
 		session.getTransaction().commit();
 		session.close();
 	}

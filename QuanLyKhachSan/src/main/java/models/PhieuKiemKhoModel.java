@@ -20,19 +20,18 @@ import entities.NhanVien;
 
 public class PhieuKiemKhoModel {
 	private int maKiemKho;
-	private Date ngayKiemKho;
+	private String ngayKiemKho;
 	private NhanVienModel nhanVienModel;
 	private KhoModel khoModel;
-	private List<PhieuKiemKhoChiTietModel> listPhieuKiemKhoChiTietModel;
+	private String ghiChu;
 	
-	
-	public PhieuKiemKhoModel(int maKiemKho, Date ngayKiemKho, NhanVienModel nhanVienModel, KhoModel khoModel,
-			List<PhieuKiemKhoChiTietModel> listPhieuKiemKhoChiTietModel) {
+	public PhieuKiemKhoModel(int maKiemKho, String ngayKiemKho, NhanVienModel nhanVienModel, KhoModel khoModel,
+			String ghiChu) {
 		this.maKiemKho = maKiemKho;
 		this.ngayKiemKho = ngayKiemKho;
 		this.nhanVienModel = nhanVienModel;
 		this.khoModel = khoModel;
-		this.listPhieuKiemKhoChiTietModel = listPhieuKiemKhoChiTietModel;
+		this.ghiChu = ghiChu;
 	}
 	
 	public PhieuKiemKhoModel() {
@@ -46,11 +45,11 @@ public class PhieuKiemKhoModel {
 		this.maKiemKho = maKiemKho;
 	}
 
-	public Date getNgayKiemKho() {
+	public String getNgayKiemKho() {
 		return ngayKiemKho;
 	}
 
-	public void setNgayKiemKho(Date ngayKiemKho) {
+	public void setNgayKiemKho(String ngayKiemKho) {
 		this.ngayKiemKho = ngayKiemKho;
 	}
 
@@ -70,20 +69,15 @@ public class PhieuKiemKhoModel {
 		this.khoModel = khoModel;
 	}
 
-	public List<PhieuKiemKhoChiTietModel> getListPhieuKiemKhoChiTietModel() {
-		return listPhieuKiemKhoChiTietModel;
+	public String getGhiChu() {
+		return ghiChu;
 	}
 
-	public void setListPhieuKiemKhoChiTietModel(List<PhieuKiemKhoChiTietModel> listPhieuKiemKhoChiTietModel) {
-		this.listPhieuKiemKhoChiTietModel = listPhieuKiemKhoChiTietModel;
+	public void setGhiChu(String ghiChu) {
+		this.ghiChu = ghiChu;
 	}
 
-	@Override
-	public String toString() {
-		return "PhieuKiemKhoModel [maKiemKho=" + maKiemKho + ", ngayKiemKho=" + ngayKiemKho + ", nhanVienModel="
-				+ nhanVienModel + ", khoModel=" + khoModel + ", listPhieuKiemKhoChiTietModel="
-				+ listPhieuKiemKhoChiTietModel + "]";
-	}
+	
 	
 	
 	

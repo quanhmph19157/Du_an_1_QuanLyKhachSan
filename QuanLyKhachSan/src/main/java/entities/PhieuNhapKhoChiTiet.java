@@ -17,14 +17,14 @@ public class PhieuNhapKhoChiTiet implements Serializable{
 	private PhieuNhapKho phieuNhapKho;
 	@Id
 	@ManyToOne
-	private SanPhamVaDichVu sanPhamVaDichVu;
+	private DonViChiTiet donViChiTiet;
 	private int soLuong;
 	private double giaNhap;
 	private String ghiChu;
-	public PhieuNhapKhoChiTiet(PhieuNhapKho phieuNhapKho, SanPhamVaDichVu sanPhamVaDichVu, int soLuong, double giaNhap,
+	public PhieuNhapKhoChiTiet(PhieuNhapKho phieuNhapKho, DonViChiTiet donViChiTiet, int soLuong, double giaNhap,
 			String ghiChu) {
 		this.phieuNhapKho = phieuNhapKho;
-		this.sanPhamVaDichVu = sanPhamVaDichVu;
+		this.donViChiTiet = donViChiTiet;
 		this.soLuong = soLuong;
 		this.giaNhap = giaNhap;
 		this.ghiChu = ghiChu;
@@ -38,11 +38,11 @@ public class PhieuNhapKhoChiTiet implements Serializable{
 	public void setPhieuNhapKho(PhieuNhapKho phieuNhapKho) {
 		this.phieuNhapKho = phieuNhapKho;
 	}
-	public SanPhamVaDichVu getSanPhamVaDichVu() {
-		return sanPhamVaDichVu;
+	public DonViChiTiet getDonViChiTiet() {
+		return donViChiTiet;
 	}
-	public void setSanPhamVaDichVu(SanPhamVaDichVu sanPhamVaDichVu) {
-		this.sanPhamVaDichVu = sanPhamVaDichVu;
+	public void setDonViChiTiet(DonViChiTiet donViChiTiet) {
+		this.donViChiTiet = donViChiTiet;
 	}
 	public int getSoLuong() {
 		return soLuong;
@@ -62,11 +62,7 @@ public class PhieuNhapKhoChiTiet implements Serializable{
 	public void setGhiChu(String ghiChu) {
 		this.ghiChu = ghiChu;
 	}
-	@Override
-	public String toString() {
-		return "PhieuNhapKhoChiTiet [phieuNhapKho=" + phieuNhapKho + ", sanPhamVaDichVu=" + sanPhamVaDichVu
-				+ ", soLuong=" + soLuong + ", giaNhap=" + giaNhap + ", ghiChu=" + ghiChu + "]";
-	}
+
 
 	
 	

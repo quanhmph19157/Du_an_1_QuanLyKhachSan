@@ -20,8 +20,7 @@ import javax.persistence.Table;
 public class PhieuNhapKho {
 	@Id
 	private int maNhap;
-	private String ghiChu;
-	private Date ngayNhap;
+	private String ngayNhap;
 	private String tinhTrang;
 	@ManyToOne
 	private NhanVien nhanVien;
@@ -30,10 +29,9 @@ public class PhieuNhapKho {
 	private double phiShip;
 	@OneToMany (mappedBy = "phieuNhapKho")
 	private List<PhieuNhapKhoChiTiet> listPhieuNhapKhoChiTiet;
-	public PhieuNhapKho(int maNhap, String ghiChu, Date ngayNhap, String tinhTrang, NhanVien nhanVien, double giamGia,
+	public PhieuNhapKho(int maNhap, String ngayNhap, String tinhTrang, NhanVien nhanVien, double giamGia,
 			double vat, double phiShip, List<PhieuNhapKhoChiTiet> listPhieuNhapKhoChiTiet) {
 		this.maNhap = maNhap;
-		this.ghiChu = ghiChu;
 		this.ngayNhap = ngayNhap;
 		this.tinhTrang = tinhTrang;
 		this.nhanVien = nhanVien;
@@ -51,16 +49,10 @@ public class PhieuNhapKho {
 	public void setMaNhap(int maNhap) {
 		this.maNhap = maNhap;
 	}
-	public String getGhiChu() {
-		return ghiChu;
-	}
-	public void setGhiChu(String ghiChu) {
-		this.ghiChu = ghiChu;
-	}
-	public Date getNgayNhap() {
+	public String getNgayNhap() {
 		return ngayNhap;
 	}
-	public void setNgayNhap(Date ngayNhap) {
+	public void setNgayNhap(String ngayNhap) {
 		this.ngayNhap = ngayNhap;
 	}
 	public String getTinhTrang() {
@@ -98,12 +90,6 @@ public class PhieuNhapKho {
 	}
 	public void setListPhieuNhapKhoChiTiet(List<PhieuNhapKhoChiTiet> listPhieuNhapKhoChiTiet) {
 		this.listPhieuNhapKhoChiTiet = listPhieuNhapKhoChiTiet;
-	}
-	@Override
-	public String toString() {
-		return "PhieuNhapKho [maNhap=" + maNhap + ", ghiChu=" + ghiChu + ", ngayNhap=" + ngayNhap + ", tinhTrang="
-				+ tinhTrang + ", nhanVien=" + nhanVien + ", giamGia=" + giamGia + ", vat=" + vat + ", phiShip="
-				+ phiShip + ", listPhieuNhapKhoChiTiet=" + listPhieuNhapKhoChiTiet + "]";
 	}
 	
 	

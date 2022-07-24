@@ -18,7 +18,7 @@ public class DichVuPhongService implements IDichVuPhongService{
 	public static DichVuPhong updateDataDichVuPhongDependOnDichVuPhongModel(DichVuPhongModel DichVuPhongModel) {
 		DichVuPhong DichVuPhong = new DichVuPhong();
 		DichVuPhong.setMaDichVuPhong(DichVuPhongModel.getMaDichVuPhong());
-		DichVuPhong.setDonViChiTiet(DonViChiTietService.updateDataDonViChiTietDependOnDonViChiTietModel(DichVuPhongModel.getDonViChiTietModel()));
+		DichVuPhong.setDonViChiTiet(DonViChiTietService.modelToEntity(DichVuPhongModel.getDonViChiTietModel()));
 		DichVuPhong.setKhachTrongPhong(KhachTrongPhongService.updateDataKhachTrongPhongDependOnKhachTrongPhongModel(DichVuPhongModel.getKhachTrongPhongModel()));
 		DichVuPhong.setGiaBan(DichVuPhongModel.getGiaBan());
 		DichVuPhong.setSoLuong(DichVuPhongModel.getSoLuong());
@@ -28,7 +28,7 @@ public class DichVuPhongService implements IDichVuPhongService{
 	public static DichVuPhongModel updateDataDichVuPhongModelDependOnDichVuPhong(DichVuPhong DichVuPhong) {
 		DichVuPhongModel DichVuPhongModel = new DichVuPhongModel();
 		DichVuPhongModel.setMaDichVuPhong(DichVuPhong.getMaDichVuPhong());
-		DichVuPhongModel.setDonViChiTietModel(DonViChiTietService.updateDataDonViChiTietModelDependOnDonViChiTiet(DichVuPhong.getDonViChiTiet()));
+		DichVuPhongModel.setDonViChiTietModel(DonViChiTietService.entityToModel(DichVuPhong.getDonViChiTiet()));
 		DichVuPhongModel.setKhachTrongPhongModel(KhachTrongPhongService.updateDataKhachTrongPhongModelDependOnKhachTrongPhong(DichVuPhong.getKhachTrongPhong()));
 		DichVuPhongModel.setGiaBan(DichVuPhong.getGiaBan());
 		DichVuPhongModel.setSoLuong(DichVuPhong.getSoLuong());
