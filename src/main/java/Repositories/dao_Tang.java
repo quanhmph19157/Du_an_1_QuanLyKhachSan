@@ -39,6 +39,7 @@ public class dao_Tang {
 				return;
 			}
 			ss.delete(t);
+			JOptionPane.showMessageDialog(comp, "xóa thành công");
 		}
 		tx.commit();
 	}

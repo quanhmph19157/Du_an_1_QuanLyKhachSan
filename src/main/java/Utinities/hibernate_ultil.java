@@ -18,8 +18,6 @@ public class hibernate_ultil {
 					.addAnnotatedClass(LoaiPhong.class)
 					.addAnnotatedClass(KhachTrongPhong.class)
 					.addAnnotatedClass(HoaDon.class)
-					.addAnnotatedClass(DichVu.class)
-					.addAnnotatedClass(ChiTietDichVu.class)
 					.addAnnotatedClass(KhachHang.class)
 					.addAnnotatedClass(NhanVien.class)
 					.addAnnotatedClass(ChucVu.class)

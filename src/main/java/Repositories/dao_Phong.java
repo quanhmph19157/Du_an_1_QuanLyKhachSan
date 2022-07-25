@@ -40,6 +40,7 @@ public class dao_Phong {
 				return;
 			}
 			ss.delete(phong.get(i));
+			JOptionPane.showMessageDialog(comp, "Xóa thành công");
 		}
 		tx.commit();
 	}
