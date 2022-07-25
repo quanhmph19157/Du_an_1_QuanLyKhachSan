@@ -21,7 +21,6 @@ public class LoaiPhong {
 
 
 	public LoaiPhong(int maLoaiPhong, String tenLoai, List<Phong> dSPhong) {
-		super();
 		MaLoaiPhong = maLoaiPhong;
 		TenLoai = tenLoai;
 		DSPhong = dSPhong;

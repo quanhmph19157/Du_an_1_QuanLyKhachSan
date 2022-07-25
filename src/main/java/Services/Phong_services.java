@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import Entities.HoaDonPhong;
+import Entities.KhachTrongPhong;
+import Entities.LoaiPhong;
 import Entities.Phong;
 import Repositories.dao_Phong;
+import ViewModels.ModelLoaiPhong;
 import ViewModels.ModelPhong;
 public class Phong_services {
 	dao_Phong dao;
@@ -21,7 +23,10 @@ public class Phong_services {
 		ArrayList<Phong> arr_p=new ArrayList<Phong>();
 		for(ModelPhong p:arr) {
 			System.out.println(p.getMaPhong());
-			arr_p.add(new Phong(p.getMaPhong(),ser_t.tranform(p.getTang()),p.getLoaiphong()));
+			if(p.getLoaiphong()==null) {
+				arr_p.add(new Phong(p.getMaPhong(),ser_t.tranform(p.getTang())));
+			}
+			else arr_p.add(new Phong(p.getMaPhong(),ser_t.tranform(p.getTang()),new LoaiPhong(p.getLoaiphong().getMaLoaiPhong(),p.getLoaiphong().getTenLoai())));
 		}
 		dao.themsua(arr_p);
 	}
@@ -29,9 +34,7 @@ public class Phong_services {
 	public void xoa(Component comp,Collection<ModelPhong> arr) {
 		ArrayList<Phong> arr_p=new ArrayList<Phong>();
 		for(ModelPhong p:arr) {
-			List<HoaDonPhong> hd=new ArrayList<HoaDonPhong>();
-			p.setDSHoaDonPhong(hd);
-			arr_p.add(new Phong(p.getMaPhong(),ser_t.tranform(p.getTang()),p.getLoaiphong(),p.getDSHoaDonPhong()));
+			arr_p.add(new Phong(p.getMaPhong(),ser_t.tranform(p.getTang())));
 		}
 		dao.xoa(comp, arr_p);
 	}

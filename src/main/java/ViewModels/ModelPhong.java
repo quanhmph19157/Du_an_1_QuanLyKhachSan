@@ -4,35 +4,33 @@ import java.util.List;
 
 import javax.persistence.OneToMany;
 
-import Entities.HoaDonPhong;
+import Entities.KhachTrongPhong;
 import Entities.LoaiPhong;
 
 public class ModelPhong {
 	private int maPhong;
 	private ModelTang tang;
-	private LoaiPhong loaiphong;
-	private List<HoaDonPhong> DSHoaDonPhong;
+	private ModelLoaiPhong loaiphong;
+	private List<ModelKhachTrongPhong> DSModelKhachTrongPhong;
 	
 	public ModelPhong(int maPhong, ModelTang tang) {
 		this.maPhong = maPhong;
 		this.tang = tang;
 	}
-	
-	
 
-	public ModelPhong(int maPhong, ModelTang tang, LoaiPhong loaiphong, List<HoaDonPhong> dSHoaDonPhong) {
+	public ModelPhong(int maPhong, ModelTang tang, ModelLoaiPhong loaiphong) {
 		this.maPhong = maPhong;
 		this.tang = tang;
 		this.loaiphong = loaiphong;
-		DSHoaDonPhong = dSHoaDonPhong;
 	}
-
-
-
-	public ModelPhong(int maPhong, ModelTang tang, LoaiPhong loaiphong) {
+	
+	public ModelPhong(int maPhong, ModelTang tang, ModelLoaiPhong loaiphong,
+			List<ModelKhachTrongPhong> dSModelKhachTrongPhong) {
+		super();
 		this.maPhong = maPhong;
 		this.tang = tang;
 		this.loaiphong = loaiphong;
+		DSModelKhachTrongPhong = dSModelKhachTrongPhong;
 	}
 
 	public ModelPhong() {
@@ -56,28 +54,16 @@ public class ModelPhong {
 
 
 
-	public LoaiPhong getLoaiphong() {
+	public ModelLoaiPhong getLoaiphong() {
 		return loaiphong;
 	}
 
 
 
-	public void setLoaiphong(LoaiPhong loaiphong) {
+	public void setLoaiphong(ModelLoaiPhong loaiphong) {
 		this.loaiphong = loaiphong;
 	}
 
-
-
-	public List<HoaDonPhong> getDSHoaDonPhong() {
-		return DSHoaDonPhong;
-	}
-
-
-
-	public void setDSHoaDonPhong(List<HoaDonPhong> dSHoaDonPhong) {
-		DSHoaDonPhong = dSHoaDonPhong;
-	}
-	
 	
 
 }

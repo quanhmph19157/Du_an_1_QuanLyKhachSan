@@ -36,7 +36,7 @@ public class Tang_services {
 		for(ModelTang tang:Tang) {
 			List<Phong> phong=new ArrayList<Phong>();
 			for(ModelPhong p:tang.getDSPhong()) {
-				phong.add(new Phong(p.getMaPhong(),tranform(tang),p.getLoaiphong(),p.getDSHoaDonPhong()));
+				phong.add(new Phong(p.getMaPhong(),tranform(tang)));
 			}
 			t.add(new Tang(tang.getMaTang(),ks_ser.transform(tang.getKhachsan()),phong));
 		}

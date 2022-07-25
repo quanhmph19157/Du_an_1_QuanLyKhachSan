@@ -2,37 +2,46 @@ package Entities;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 @Entity
-public class HoaDonPhong implements Serializable{
+public class KhachTrongPhong implements Serializable{
 	@Id
+	private String id;
 	@ManyToOne
 	private HoaDon hoadon;
-	@Id
 	@ManyToOne
 	private Phong phong;
-	private Timestamp NgayCheckOut;
+	@ManyToOne
+	private KhachHang khachhang; 
 	private float GiaPhong;
 	private float PhuPhi;
 	private String GhiChu;
-	
-	public HoaDonPhong(HoaDon hoadon, Phong phong, Timestamp ngayCheckOut, float giaPhong, float phuPhi,
+	@OneToMany (mappedBy = "khachtrongphong")
+	private List<ThanhToan> dsthanhtoan;
+	public KhachTrongPhong(String id, HoaDon hoadon, Phong phong, KhachHang khachhang, float giaPhong, float phuPhi,
 			String ghiChu) {
+		super();
+		this.id = id;
 		this.hoadon = hoadon;
 		this.phong = phong;
-		NgayCheckOut = ngayCheckOut;
+		this.khachhang = khachhang;
 		GiaPhong = giaPhong;
 		PhuPhi = phuPhi;
 		GhiChu = ghiChu;
 	}
-	
-	public HoaDonPhong() {
+	public String getId() {
+		return id;
 	}
-	
+	public void setId(String id) {
+		this.id = id;
+	}
 	public HoaDon getHoadon() {
 		return hoadon;
 	}
@@ -45,11 +54,11 @@ public class HoaDonPhong implements Serializable{
 	public void setPhong(Phong phong) {
 		this.phong = phong;
 	}
-	public Timestamp getNgayCheckOut() {
-		return NgayCheckOut;
+	public KhachHang getKhachhang() {
+		return khachhang;
 	}
-	public void setNgayCheckOut(Timestamp ngayCheckOut) {
-		NgayCheckOut = ngayCheckOut;
+	public void setKhachhang(KhachHang khachhang) {
+		this.khachhang = khachhang;
 	}
 	public float getGiaPhong() {
 		return GiaPhong;

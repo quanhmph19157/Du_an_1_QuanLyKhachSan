@@ -1,5 +1,6 @@
 package Entities;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -17,97 +18,69 @@ public class HoaDon {
 	@Id
 	private int maHoaDon;
 	@OneToMany(mappedBy = "hoadon")
-	private List<HoaDonPhong> DSHoaDonPhong;
-	@OneToMany(mappedBy = "hoadon")
-	private List<ChiTietDichVu> dsdichvu;
-	@ManyToMany
-	private List<KhachHang> dskhachhang;
+	private List<KhachTrongPhong> dskhactrongphong;
 	@ManyToOne
 	private NhanVien nhanvien;
 	private String TrangThai;
-	private Timestamp NgayCheckIn;
-	private Timestamp NgayTao;
-	
-	
-	
-	public HoaDon(int maHoaDon, List<HoaDonPhong> dSHoaDonPhong, List<ChiTietDichVu> dsdichvu,
-			List<KhachHang> dskhachhang, NhanVien nhanvien, String trangThai, Timestamp ngayCheckIn,
-			Timestamp ngayTao) {
-		this.maHoaDon = maHoaDon;
-		DSHoaDonPhong = dSHoaDonPhong;
-		this.dsdichvu = dsdichvu;
-		this.dskhachhang = dskhachhang;
+	private Date NgayCheckIn;
+	private Date ngayCheckOut;
+	private Date NgayTao;
+	public HoaDon(int maHoaDon, List<KhachTrongPhong> dskhactrongphong, NhanVien nhanvien, String trangThai,
+			Date ngayCheckIn, Date ngayCheckOut, Date ngayTao) {
+ 		this.maHoaDon = maHoaDon;
+		this.dskhactrongphong = dskhactrongphong;
 		this.nhanvien = nhanvien;
 		TrangThai = trangThai;
 		NgayCheckIn = ngayCheckIn;
+		this.ngayCheckOut = ngayCheckOut;
 		NgayTao = ngayTao;
 	}
-
 	public HoaDon() {
 	}
-
 	public int getMaHoaDon() {
 		return maHoaDon;
 	}
-
 	public void setMaHoaDon(int maHoaDon) {
 		this.maHoaDon = maHoaDon;
 	}
-
-	public List<HoaDonPhong> getDSHoaDonPhong() {
-		return DSHoaDonPhong;
+	public List<KhachTrongPhong> getDskhactrongphong() {
+		return dskhactrongphong;
 	}
-
-	public void setDSHoaDonPhong(List<HoaDonPhong> dSHoaDonPhong) {
-		DSHoaDonPhong = dSHoaDonPhong;
+	public void setDskhactrongphong(List<KhachTrongPhong> dskhactrongphong) {
+		this.dskhactrongphong = dskhactrongphong;
 	}
-
-	public List<ChiTietDichVu> getDsdichvu() {
-		return dsdichvu;
-	}
-
-	public void setDsdichvu(List<ChiTietDichVu> dsdichvu) {
-		this.dsdichvu = dsdichvu;
-	}
-
-	public List<KhachHang> getDskhachhang() {
-		return dskhachhang;
-	}
-
-	public void setDskhachhang(List<KhachHang> dskhachhang) {
-		this.dskhachhang = dskhachhang;
-	}
-
 	public NhanVien getNhanvien() {
 		return nhanvien;
 	}
-
 	public void setNhanvien(NhanVien nhanvien) {
 		this.nhanvien = nhanvien;
 	}
-
 	public String getTrangThai() {
 		return TrangThai;
 	}
-
 	public void setTrangThai(String trangThai) {
 		TrangThai = trangThai;
 	}
-
-	public Timestamp getNgayCheckIn() {
+	public Date getNgayCheckIn() {
 		return NgayCheckIn;
 	}
-
-	public void setNgayCheckIn(Timestamp ngayCheckIn) {
+	public void setNgayCheckIn(Date ngayCheckIn) {
 		NgayCheckIn = ngayCheckIn;
 	}
-
-	public Timestamp getNgayTao() {
+	public Date getNgayCheckOut() {
+		return ngayCheckOut;
+	}
+	public void setNgayCheckOut(Date ngayCheckOut) {
+		this.ngayCheckOut = ngayCheckOut;
+	}
+	public Date getNgayTao() {
 		return NgayTao;
 	}
-
-	public void setNgayTao(Timestamp ngayTao) {
+	public void setNgayTao(Date ngayTao) {
 		NgayTao = ngayTao;
 	}
-
+	
+	
+	
+	
 }

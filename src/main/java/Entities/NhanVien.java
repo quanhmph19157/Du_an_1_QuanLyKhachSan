@@ -16,8 +16,8 @@ public class NhanVien {
 	private String TrangThai;
 	private String Email;
 	private String GioiTinh;
-	@OneToMany(mappedBy = "nhanvien")
-	private List<TaiKhoan> dstaikhoan;
+	private String TaiKhoan;
+	private String MatKhau;
 	@ManyToOne
 	private ChucVu chucvu;
 	@OneToMany(mappedBy = "nhanvien")
@@ -34,6 +34,23 @@ public class NhanVien {
 		this.chucvu = chucvu;
 		this.dshoadon = dshoadon;
 	}
+	
+	public NhanVien(String maNhanVien, String tenNhanVien, String cMND, String sDT, String trangThai, String email,
+			String gioiTinh, String taiKhoan, String matKhau, ChucVu chucvu, List<HoaDon> dshoadon) {
+		super();
+		MaNhanVien = maNhanVien;
+		TenNhanVien = tenNhanVien;
+		CMND = cMND;
+		SDT = sDT;
+		TrangThai = trangThai;
+		Email = email;
+		GioiTinh = gioiTinh;
+		TaiKhoan = taiKhoan;
+		MatKhau = matKhau;
+		this.chucvu = chucvu;
+		this.dshoadon = dshoadon;
+	}
+
 	public NhanVien() {
 	}
 	public String getMaNhanVien() {
@@ -89,6 +106,22 @@ public class NhanVien {
 	}
 	public void setDshoadon(List<HoaDon> dshoadon) {
 		this.dshoadon = dshoadon;
+	}
+
+	public String getTaiKhoan() {
+		return TaiKhoan;
+	}
+
+	public void setTaiKhoan(String taiKhoan) {
+		TaiKhoan = taiKhoan;
+	}
+
+	public String getMatKhau() {
+		return MatKhau;
+	}
+
+	public void setMatKhau(String matKhau) {
+		MatKhau = matKhau;
 	}
 	
 	

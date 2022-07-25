@@ -108,7 +108,7 @@ public class QuanLyKhachSan extends JFrame {
 				int chon=cbx_loaiPhong.getSelectedIndex();
 				if(List_Phong.size()>0) {
 					for(int i=0;i<List_Phong.size();i++) {
-						List_Phong.get(i).setLoaiphong(new LoaiPhong(list_lp.get(chon).getMaLoaiPhong(),list_lp.get(chon).getTenLoai()));
+						List_Phong.get(i).setLoaiphong(new ModelLoaiPhong(list_lp.get(chon).getMaLoaiPhong(),list_lp.get(chon).getTenLoai()));
 						ser_p.themsua(List_Phong);
 					}
 					list_tang = ser_ks.getKs().getDSTang();

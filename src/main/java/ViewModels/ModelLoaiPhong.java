@@ -10,7 +10,7 @@ public class ModelLoaiPhong {
 
 	private int MaLoaiPhong;
 	private String TenLoai;
-	private List<Phong> DSPhong;
+	private List<ModelPhong> DSPhong;
 	
 	public ModelLoaiPhong() {
 		//TODO Auto-generated constructor stub
@@ -19,6 +19,14 @@ public class ModelLoaiPhong {
 	public ModelLoaiPhong(int maLoaiPhong, String tenLoai) {
 		MaLoaiPhong = maLoaiPhong;
 		TenLoai = tenLoai;
+	}
+	
+	
+
+	public ModelLoaiPhong(int maLoaiPhong, String tenLoai, List<ModelPhong> dSPhong) {
+		MaLoaiPhong = maLoaiPhong;
+		TenLoai = tenLoai;
+		DSPhong = dSPhong;
 	}
 
 	public int getMaLoaiPhong() {
@@ -37,11 +45,11 @@ public class ModelLoaiPhong {
 		TenLoai = tenLoai;
 	}
 
-	public List<Phong> getDSPhong() {
+	public List<ModelPhong> getDSPhong() {
 		return DSPhong;
 	}
 
-	public void setDSPhong(List<Phong> dSPhong) {
+	public void setDSPhong(List<ModelPhong> dSPhong) {
 		DSPhong = dSPhong;
 	}
 	

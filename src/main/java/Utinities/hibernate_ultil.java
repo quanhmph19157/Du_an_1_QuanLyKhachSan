@@ -16,7 +16,7 @@ public class hibernate_ultil {
 					.addAnnotatedClass(Tang.class)
 					.addAnnotatedClass(Phong.class)
 					.addAnnotatedClass(LoaiPhong.class)
-					.addAnnotatedClass(HoaDonPhong.class)
+					.addAnnotatedClass(KhachTrongPhong.class)
 					.addAnnotatedClass(HoaDon.class)
 					.addAnnotatedClass(DichVu.class)
 					.addAnnotatedClass(ChiTietDichVu.class)
@@ -24,7 +24,7 @@ public class hibernate_ultil {
 					.addAnnotatedClass(NhanVien.class)
 					.addAnnotatedClass(ChucVu.class)
 					.addAnnotatedClass(Quyen.class)
-					.addAnnotatedClass(TaiKhoan.class);
+					.addAnnotatedClass(ThanhToan.class);
 			ServiceRegistry svr=new ServiceRegistryBuilder().applySettings(conf.getProperties()).buildServiceRegistry();
 			session =conf.buildSessionFactory(svr).openSession();
 		}

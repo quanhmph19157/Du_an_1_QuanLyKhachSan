@@ -15,6 +15,10 @@ public class ModelTang {
 		this.khachsan = khachsan;
 		DSPhong = dSPhong;
 	}
+	
+	public ModelTang(int maTang) {
+		this.maTang = maTang;
+	}
 
 	public ModelTang() {
 	}

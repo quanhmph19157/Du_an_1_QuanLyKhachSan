@@ -17,7 +17,7 @@ public class Phong {
 	@ManyToOne
 	private LoaiPhong loaiphong;
 	@OneToMany(mappedBy = "phong")
-	private List<HoaDonPhong> DSHoaDonPhong;
+	private List<KhachTrongPhong> DSKhachTrongPhong;
 	
 	public Phong(int maPhong, Tang tang, LoaiPhong loaiphong) {
 		this.maPhong = maPhong;
@@ -25,12 +25,11 @@ public class Phong {
 		this.loaiphong = loaiphong;
 	}
 
-	public Phong(int maPhong, Tang tang, LoaiPhong loaiphong, List<HoaDonPhong> dSHoaDonPhong) {
-		super();
+	public Phong(int maPhong, Tang tang, LoaiPhong loaiphong, List<KhachTrongPhong> dSKhachTrongPhong) {
 		this.maPhong = maPhong;
 		this.tang = tang;
 		this.loaiphong = loaiphong;
-		DSHoaDonPhong = dSHoaDonPhong;
+		DSKhachTrongPhong = dSKhachTrongPhong;
 	}
 
 	public Phong(int maPhong, Tang tang) {
@@ -65,13 +64,15 @@ public class Phong {
 		this.loaiphong = loaiphong;
 	}
 
-	public List<HoaDonPhong> getDSHoaDonPhong() {
-		return DSHoaDonPhong;
+	public List<KhachTrongPhong> getDSKhachTrongPhong() {
+		return DSKhachTrongPhong;
 	}
 
-	public void setDSHoaDonPhong(List<HoaDonPhong> dSHoaDonPhong) {
-		DSHoaDonPhong = dSHoaDonPhong;
+	public void setDSKhachTrongPhong(List<KhachTrongPhong> dSKhachTrongPhong) {
+		DSKhachTrongPhong = dSKhachTrongPhong;
 	}
+
+	
 	
 	
 }

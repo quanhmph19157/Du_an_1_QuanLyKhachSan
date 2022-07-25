@@ -4,10 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Entities.KhachSan;
+import Entities.KhachTrongPhong;
 import Entities.Phong;
 import Entities.Tang;
 import Repositories.dao_KhachSan;
 import ViewModels.ModelKhachSan;
+import ViewModels.ModelKhachTrongPhong;
+import ViewModels.ModelLoaiPhong;
 import ViewModels.ModelPhong;
 import ViewModels.ModelTang;
 
@@ -48,7 +51,15 @@ public class KhachSan_services {
 			mks.setDiaChi(t.getKhachsan().getDiaChi());
 			ModelTang tang=new ModelTang(t.getMaTang(),mks,dsphong);
 			for(Phong p:t.getDSPhong()) {
-				tang.getDSPhong().add(new ModelPhong(p.getMaPhong(),tang,p.getLoaiphong(),p.getDSHoaDonPhong()));
+				if(p.getLoaiphong()==null)tang.getDSPhong().add(new ModelPhong(p.getMaPhong(),tang));
+				else if(p.getDSKhachTrongPhong()==null) tang.getDSPhong().add(new ModelPhong(p.getMaPhong(),tang,new ModelLoaiPhong(p.getLoaiphong().getMaLoaiPhong(),p.getLoaiphong().getTenLoai())));
+				else {
+					List<ModelKhachTrongPhong> dsktp=new ArrayList<ModelKhachTrongPhong>();
+					for(KhachTrongPhong ktp:p.getDSKhachTrongPhong()) {
+						dsktp.add(new ModelKhachTrongPhong(String.valueOf(ktp.getHoadon().getMaHoaDon())+String.valueOf(ktp.getPhong().getMaPhong()+String.valueOf(ktp.getKhachhang().getMaKhachHang())), ktp.getGiaPhong(), ktp.getPhuPhi(), ktp.getGhiChu()));
+					}
+					tang.getDSPhong().add(new ModelPhong(p.getMaPhong(),tang,new ModelLoaiPhong(p.getLoaiphong().getMaLoaiPhong(),p.getLoaiphong().getTenLoai()),dsktp));
+				}
 			}
 			dstang.add(tang);
 		}

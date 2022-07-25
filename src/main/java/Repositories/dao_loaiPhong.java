@@ -20,13 +20,9 @@ public class dao_loaiPhong {
 
 	public List<LoaiPhong> select() {
 		ss.clear();
-		Query qr = ss.createQuery("select MaLoaiPhong, TenLoai from LoaiPhong");
-		List<LoaiPhong> list = new ArrayList<LoaiPhong>();
-		List<Object[]>a=qr.list();
-		for (int i = 0; i < qr.list().size(); i++) {
-			list.add(new LoaiPhong(Integer.parseInt(String.valueOf(a.get(i)[0])),String.valueOf(a.get(i)[1])));
-		}
-		return list;
+		Query qr = ss.createQuery("from LoaiPhong");
+		System.out.println(qr.list().size());
+		return qr.list();
 	}
 	
 }

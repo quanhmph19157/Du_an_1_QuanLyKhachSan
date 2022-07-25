@@ -1,10 +1,12 @@
 package Entities;
 
+import java.sql.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.UniqueConstraint;
 
 @Entity
@@ -15,19 +17,39 @@ public class KhachHang {
 	private String CMND;
 	private String SDT;
 	private String Email;
-	@ManyToMany(mappedBy = "dskhachhang")
-	private List<HoaDon> dshoadon;
+	private Date NgaySinh;
+	private String GioiTinh;
+	private String DiaChi;
+	@OneToMany(mappedBy = "khachhang")
+	private List<KhachTrongPhong> dskhachtrongphong;
 	
-	public KhachHang(int maKhachHang, String tenKhachHang, String cMND, String sDT, String email,
-			List<HoaDon> dshoadon) {
+	public KhachHang(int maKhachHang, String tenKhachHang, String cMND, String sDT, String email, Date ngaySinh,
+			String gioiTinh, String diaChi) {
+		super();
 		MaKhachHang = maKhachHang;
 		TenKhachHang = tenKhachHang;
 		CMND = cMND;
 		SDT = sDT;
 		Email = email;
-		this.dshoadon = dshoadon;
+		NgaySinh = ngaySinh;
+		GioiTinh = gioiTinh;
+		DiaChi = diaChi;
 	}
-	
+
+	public KhachHang(int maKhachHang, String tenKhachHang, String cMND, String sDT, String email, Date ngaySinh,
+			String gioiTinh, String diaChi, List<KhachTrongPhong> dskhachtrongphong) {
+		super();
+		MaKhachHang = maKhachHang;
+		TenKhachHang = tenKhachHang;
+		CMND = cMND;
+		SDT = sDT;
+		Email = email;
+		NgaySinh = ngaySinh;
+		GioiTinh = gioiTinh;
+		DiaChi = diaChi;
+		this.dskhachtrongphong = dskhachtrongphong;
+	}
+
 	public KhachHang() {
 	}
 	
@@ -61,11 +83,39 @@ public class KhachHang {
 	public void setEmail(String email) {
 		Email = email;
 	}
-	public List<HoaDon> getDshoadon() {
-		return dshoadon;
+	
+
+	public List<KhachTrongPhong> getDskhachtrongphong() {
+		return dskhachtrongphong;
 	}
-	public void setDshoadon(List<HoaDon> dshoadon) {
-		this.dshoadon = dshoadon;
+
+	public void setDskhachtrongphong(List<KhachTrongPhong> dskhachtrongphong) {
+		this.dskhachtrongphong = dskhachtrongphong;
 	}
+
+	public Date getNgaySinh() {
+		return NgaySinh;
+	}
+
+	public void setNgaySinh(Date ngaySinh) {
+		NgaySinh = ngaySinh;
+	}
+
+	public String getGioiTinh() {
+		return GioiTinh;
+	}
+
+	public void setGioiTinh(String gioiTinh) {
+		GioiTinh = gioiTinh;
+	}
+
+	public String getDiaChi() {
+		return DiaChi;
+	}
+
+	public void setDiaChi(String diaChi) {
+		DiaChi = diaChi;
+	}
+	
 	
 }

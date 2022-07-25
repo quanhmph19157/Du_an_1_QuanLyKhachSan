@@ -16,25 +16,26 @@ import Utinities.hibernate_ultil;
 
 public class dao_Phong {
 	Session ss;
+
 	public dao_Phong() {
-		//TODO Auto-generated constructor stub
-		ss=hibernate_ultil.ss();
+		// TODO Auto-generated constructor stub
+		ss = hibernate_ultil.ss();
 	}
 
 	public void themsua(ArrayList<Phong> phong) {
 		ss.clear();
-		Transaction tx= ss.beginTransaction();
-		for(int i=0;i<phong.size();i++) {
+		Transaction tx = ss.beginTransaction();
+		for (int i = 0; i < phong.size(); i++) {
 			ss.saveOrUpdate(phong.get(i));
 		}
 		tx.commit();
 	}
-	
-	public void xoa(Component comp,ArrayList<Phong> phong) {
+
+	public void xoa(Component comp, ArrayList<Phong> phong) {
 		ss.clear();
-		Transaction tx= ss.beginTransaction();
-		for(int i=0;i<phong.size();i++) {
-			if(!phong.get(i).getDSHoaDonPhong().isEmpty()) {
+		Transaction tx = ss.beginTransaction();
+		for (int i = 0; i < phong.size(); i++) {
+			if (phong.get(i).getDSKhachTrongPhong() != null) {
 				JOptionPane.showMessageDialog(comp, "Không thể xóa phòng có lịch sử hóa đơn");
 				return;
 			}
@@ -42,12 +43,12 @@ public class dao_Phong {
 		}
 		tx.commit();
 	}
-	
-	public List<Phong> getP(Collection<Integer> arr){
-		List<Phong> p=new ArrayList<Phong>();
-		for(Integer a:arr) {
-			Query qr=ss.createQuery("from Phong where MaPhong='"+a+"'");
-			p.add((Phong)qr.uniqueResult());
+
+	public List<Phong> getP(Collection<Integer> arr) {
+		List<Phong> p = new ArrayList<Phong>();
+		for (Integer a : arr) {
+			Query qr = ss.createQuery("from Phong where MaPhong='" + a + "'");
+			p.add((Phong) qr.uniqueResult());
 		}
 		return p;
 	}
