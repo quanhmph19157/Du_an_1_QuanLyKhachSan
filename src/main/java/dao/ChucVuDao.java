@@ -33,4 +33,10 @@ private static ArrayList<ChucVu> _listChucVus = new ArrayList<ChucVu>();
 	public ArrayList<ChucVu> getListChucVu() {
 		return _listChucVus;
 	}
+	
+	public static void main(String[] args) {
+		ChucVu chucVu = new ChucVu(0,"Quản lý", "Hoat Dong", null, null);
+		ChucVuDao cvd = new ChucVuDao();
+		cvd.them_sua(chucVu);
+	}
 }

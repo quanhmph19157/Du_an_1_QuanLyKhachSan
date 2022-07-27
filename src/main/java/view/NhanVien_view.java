@@ -410,13 +410,15 @@ public class NhanVien_view extends JFrame {
 		model.addColumn("Giới tính");
 		model.addColumn("Email");
 		model.addColumn("Chức vụ");
-		model.addColumn("Địa chỉ");
+//		model.addColumn("Địa chỉ");
 		model.addColumn("Ngày sinh");
 		model.addColumn("Cmnd");
 		model.addColumn("Mật khẩu");
 		_listNhanVienModels = _nhanVienService.getListNhanVienModel();
+		int stt= 1;
 		for (NhanVienModel nhanVienModel : _listNhanVienModels) {
-			model.addRow(new Object[] {nhanVienModel.getTenNV(),nhanVienModel.getSdt(),nhanVienModel.getGioiTinh(),nhanVienModel.getEmail(),nhanVienModel.getChucVuModel().getTenChucVu(),nhanVienModel.getNgaySinh(),nhanVienModel.getCmnd(),nhanVienModel.getPassword()});
+			model.addRow(new Object[] {stt,nhanVienModel.getTenNV(),nhanVienModel.getSdt(),nhanVienModel.getGioiTinh(),nhanVienModel.getEmail(),nhanVienModel.getChucVuModel().getTenChucVu(),nhanVienModel.getNgaySinh(),nhanVienModel.getCmnd(),nhanVienModel.getPassword()});
+			stt++;
 		}
 		table.setModel(model);
 	}
@@ -457,7 +459,7 @@ public class NhanVien_view extends JFrame {
 		if(!matKhau.equals("")) {
 			matKhau = utils.Utilities.hashingPassword(matKhau);
 		}
-		NhanVienModel nvm = new NhanVienModel(maNhanVien, tenNhanVien, soDienThoai, gioiTinh, email, chucVuModel, "Hoat Dong", cmnd, "TaiKhoan", matKhau, date);
+		NhanVienModel nvm = new NhanVienModel(maNhanVien, tenNhanVien, soDienThoai, gioiTinh, email, chucVuModel,"Hoat Dong", cmnd,maNhanVien, matKhau, date);
 		return nvm;
 	}
 }

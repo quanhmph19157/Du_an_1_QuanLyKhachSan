@@ -48,6 +48,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.event.CaretListener;
+import javax.swing.event.CaretEvent;
 
 public class Kho_view extends JFrame {
 	private IoCContainer _ioCContainer  = new IoCContainer();
@@ -165,6 +167,11 @@ public class Kho_view extends JFrame {
 		panel_2_1_2.setBounds(133, 21, 1076, 51);
 		panel_2_1_1_1.add(panel_2_1_2);
 		txt_timKiem = new JTextField();
+		txt_timKiem.addCaretListener(new CaretListener() {
+			public void caretUpdate(CaretEvent e) {
+				timKiem();
+			}
+		});
 		txt_timKiem.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent e) {
@@ -301,6 +308,51 @@ public class Kho_view extends JFrame {
 			}
 		
 		table.setModel(model);
+	}
+	
+	public void timKiem() {
+//		DefaultTableModel model = new DefaultTableModel();
+//		model.addColumn("Stt");
+//		model.addColumn("MÃ KHO");
+//		model.addColumn("TÊN KHO");
+//		model.addColumn("TRẠNG THÁI");
+//		List<KhoModel> listKhoModel = _khoService.getListKhoModel();
+//		int stt = 1;
+//			if(switchButton_trangThaiLoc.isSelected()) {
+//				for (KhoModel khoModel : listKhoModel) {
+//					if(khoModel.getTrangThai().equals("Hoat Dong")) {
+//						if(txt_timKiem.getText().equals("Nhập tên để tìm kiếm")) {
+//							model.addRow(new Object[] {stt,khoModel.getMaKho(),khoModel.getTenKho(),khoModel.getTrangThai()});
+//							stt++;
+//						}else {
+//							String keySearch = txt_timKiem.getText().trim();
+//							if(khoModel.toString().contains(keySearch));{
+//								model.addRow(new Object[] {stt,khoModel.getMaKho(),khoModel.getTenKho(),khoModel.getTrangThai()});
+//								stt++;
+//							}
+//						}
+//						
+//					}
+//				}
+//			}
+//			if(!switchButton_trangThaiLoc.isSelected()) {
+//				for (KhoModel khoModel : listKhoModel) {
+//					if(khoModel.getTrangThai().equals("Khong Hoat Dong")) {
+//						if(txt_timKiem.getText().equals("Nhập tên để tìm kiếm")) {
+//							model.addRow(new Object[] {stt,khoModel.getMaKho(),khoModel.getTenKho(),khoModel.getTrangThai()});
+//							stt++;
+//						}else {
+//							String keySearch = txt_timKiem.getText().trim();
+//							if(khoModel.toString().contains(keySearch));{
+//								model.addRow(new Object[] {stt,khoModel.getMaKho(),khoModel.getTenKho(),khoModel.getTrangThai()});
+//								stt++;
+//							}
+//						}
+//					}
+//				}
+//			}
+//		
+//		table.setModel(model);
 	}
 	
 	public KhoModel getInforFromFormIntoKhoModel() {

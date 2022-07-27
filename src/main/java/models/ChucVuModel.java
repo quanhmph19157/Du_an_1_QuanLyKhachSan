@@ -1,5 +1,6 @@
 package models;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Id;
@@ -8,7 +9,7 @@ import javax.persistence.OneToMany;
 import entities.NhanVien;
 import entities.Quyen_cv;
 
-public class ChucVuModel {
+public class ChucVuModel implements Serializable{
 	private int maChucVu;
 	private String tenChucVu;
 	private String trangThai;

@@ -1,5 +1,6 @@
 package models;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.List;
 
@@ -20,7 +21,7 @@ import entities.HoaDon;
 import entities.PhieuKiemKho;
 import entities.PhieuNhapKho;
 
-public class NhanVienModel {
+public class NhanVienModel implements Serializable{
 	private String maNV;
 	private String tenNV;
 	private String sdt;

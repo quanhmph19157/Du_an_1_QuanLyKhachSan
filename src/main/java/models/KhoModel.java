@@ -50,6 +50,11 @@ public class KhoModel {
 	public void setTrangThai(String trangThai) {
 		this.trangThai = trangThai;
 	}
+
+	@Override
+	public String toString() {
+		return maKho+"/"+tenKho + "/" + trangThai;
+	}
 	
 	
 	

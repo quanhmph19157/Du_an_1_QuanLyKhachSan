@@ -28,7 +28,7 @@ public class NhanVienService implements INhanVienService {
 		nhanVien.setSdt(nhanVienModel.getSdt());
 		nhanVien.setGioiTinh(nhanVienModel.getGioiTinh());
 		nhanVien.setEmail(nhanVienModel.getEmail());
-//		nhanVien.setChucVu(ChucVuService.modelToEntity(nhanVienModel.getChucVuModel()));
+		nhanVien.setChucVu(ChucVuService.modelToEntity(nhanVienModel.getChucVuModel()));
 		nhanVien.setTrangThai(nhanVienModel.getTrangThai());
 		nhanVien.setCmnd(nhanVienModel.getCmnd());
 		nhanVien.setUserName(nhanVienModel.getUserName());
@@ -45,12 +45,12 @@ public class NhanVienService implements INhanVienService {
 		nhanVienModel.setSdt(nhanVien.getSdt());
 		nhanVienModel.setGioiTinh(nhanVien.getGioiTinh());
 		nhanVienModel.setEmail(nhanVien.getEmail());
-//		nhanVienModel.setChucVuModel(ChucVuService.entityToModel(nhanVien.getChucVu()));
+		nhanVienModel.setChucVuModel(ChucVuService.entityToModel(nhanVien.getChucVu()));
 		nhanVienModel.setTrangThai(nhanVien.getTrangThai());
 		nhanVienModel.setCmnd(nhanVien.getCmnd());
 		nhanVienModel.setUserName(nhanVien.getUserName());
 		nhanVienModel.setPassword(nhanVien.getPassword());
-		nhanVienModel.setNgaySinh(nhanVienModel.getNgaySinh());
+		nhanVienModel.setNgaySinh(nhanVien.getNgaySinh());
 		return nhanVienModel;
 	}
 	
@@ -73,19 +73,11 @@ public class NhanVienService implements INhanVienService {
 	}
 	
 	public void them_sua(NhanVienModel nhanVienModel) {
-		modelToEntity(nhanVienModel);
+		_nhanVien = modelToEntity(nhanVienModel);
 		_nhanVienDao.them_sua(_nhanVien);
 		_listNhanVienModels.add(nhanVienModel);
 	}
 
-	
-	
-//	public ChucVuModel updateDataChucVuModelDependOnChucVu(ChucVu chucVu) {
-//		ChucVuModel chucVuModel = new ChucVuModel();
-//		chucVuModel.setMaChucVu(chucVu.getMaChucVu());
-//		chucVuModel.setTenChucVu(chucVu.getTenChucVu());
-//		return chucVuModel;
-//	}
 	
 	public void updateListNhanVienModel() {
 		_nhanVienDao.updateListNhanVien();
