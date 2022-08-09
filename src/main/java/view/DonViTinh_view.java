@@ -52,9 +52,9 @@ public class DonViTinh_view extends JFrame {
 	private JTextField txtMaDonVi;
 	private JButton btn_them;
 	private JButton btn_sua;
-	private SwitchButton switchButton_nhap;
-	private SwitchButton switchButton_danhSach;
 	private JTable table;
+	private JComboBox cbx_trangThai_danhSach;
+	private JComboBox cbx_trangThai;
 
 	/**
 	 * Launch the application.
@@ -154,21 +154,24 @@ public class DonViTinh_view extends JFrame {
 		});
 		scrollPane.setViewportView(table);
 		
-		 switchButton_danhSach = new SwitchButton();
-		 switchButton_danhSach.setSelected(true);
-		 switchButton_danhSach.addMouseListener(new MouseAdapter() {
-		 	@Override
-		 	public void mouseClicked(MouseEvent e) {
-		 		updateTable();
-		 	}
-		 });
-		switchButton_danhSach.setBounds(10, 29, 55, 25);
-		panel_4.add(switchButton_danhSach);
-		switchButton_danhSach.setBackground(new Color(0, 153, 204));
+		JPanel panel_2_2_1_1_1 = new JPanel();
+		panel_2_2_1_1_1.setLayout(null);
+		panel_2_2_1_1_1.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(192, 192, 192)), "Tr\u1EA1ng th\u00E1i", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panel_2_2_1_1_1.setBackground(Color.WHITE);
+		panel_2_2_1_1_1.setBounds(10, 11, 164, 51);
+		panel_4.add(panel_2_2_1_1_1);
 		
-		JLabel lblNewLabel = new JLabel("Trạng thái");
-		lblNewLabel.setBounds(10, 3, 63, 31);
-		panel_4.add(lblNewLabel);
+		cbx_trangThai_danhSach = new JComboBox();
+		cbx_trangThai_danhSach.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				updateTable();
+			}
+		});
+		cbx_trangThai_danhSach.setModel(new DefaultComboBoxModel(new String[] {"Hoat Dong", "Khong Hoat Dong"}));
+		cbx_trangThai_danhSach.setBorder(new EmptyBorder(-11, -4, -11, -1));
+		cbx_trangThai_danhSach.setBackground(Color.WHITE);
+		cbx_trangThai_danhSach.setBounds(10, 18, 144, 28);
+		panel_2_2_1_1_1.add(cbx_trangThai_danhSach);
 		
 		JPanel panel_2_1_1 = new JPanel();
 		panel_2_1_1.setLayout(null);
@@ -210,16 +213,6 @@ public class DonViTinh_view extends JFrame {
 		txtMaDonVi.setBounds(10, 18, 378, 29);
 		panel_2_1_1_1.add(txtMaDonVi);
 		
-		JLabel lblNewLabel_1 = new JLabel("Trạng thái");
-		lblNewLabel_1.setBounds(972, 22, 63, 31);
-		panel_1.add(lblNewLabel_1);
-		
-		 switchButton_nhap = new SwitchButton();
-		 switchButton_nhap.setSelected(true);
-		switchButton_nhap.setBackground(new Color(0, 153, 204));
-		switchButton_nhap.setBounds(972, 56, 55, 25);
-		panel_1.add(switchButton_nhap);
-		
 		JButton btnNewButton = new JButton("Clear");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -231,6 +224,7 @@ public class DonViTinh_view extends JFrame {
 		panel_1.add(btnNewButton);
 		
 		 btn_sua = new JButton("Sửa");
+		 btn_sua.setEnabled(false);
 		 btn_sua.addActionListener(new ActionListener() {
 		 	public void actionPerformed(ActionEvent e) {
 		 		DonViTinhModel donViTinhModel = getInforFromFormIntoDonViTinhModel();
@@ -255,11 +249,25 @@ public class DonViTinh_view extends JFrame {
 		btn_them.setBackground(Color.ORANGE);
 		btn_them.setBounds(1165, 30, 89, 23);
 		panel_1.add(btn_them);
+		
+		JPanel panel_2_2_1_1 = new JPanel();
+		panel_2_2_1_1.setLayout(null);
+		panel_2_2_1_1.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(192, 192, 192)), "Tr\u1EA1ng th\u00E1i", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panel_2_2_1_1.setBackground(Color.WHITE);
+		panel_2_2_1_1.setBounds(903, 30, 187, 51);
+		panel_1.add(panel_2_2_1_1);
+		
+		cbx_trangThai = new JComboBox();
+		cbx_trangThai.setModel(new DefaultComboBoxModel(new String[] {"Hoat Dong", "Khong Hoat Dong"}));
+		cbx_trangThai.setBorder(new EmptyBorder(-11, -4, -11, -1));
+		cbx_trangThai.setBackground(Color.WHITE);
+		cbx_trangThai.setBounds(10, 18, 167, 28);
+		panel_2_2_1_1.add(cbx_trangThai);
 		updateTable();
 	}
 	
 	public void clearForm() {
-		switchButton_nhap.setSelected(true);
+		cbx_trangThai.setSelectedIndex(0);
 		txtMaDonVi.setText("");
 		txt_tenDonVi.setText("Nhập tên đơn vị");
 		btn_sua.setEnabled(false);
@@ -270,11 +278,7 @@ public class DonViTinh_view extends JFrame {
 		txtMaDonVi.setText(table.getModel().getValueAt(table.getSelectedRow(), 1)+"");
 		txt_tenDonVi.setText(table.getModel().getValueAt(table.getSelectedRow(), 2)+"");
 		String trangThai = table.getModel().getValueAt(table.getSelectedRow(), 3)+"";
-		if(trangThai.equals("Hoạt Động")) {
-			switchButton_nhap.setSelected(true);
-		}else {
-			switchButton_nhap.setSelected(false);
-		}
+		cbx_trangThai.setSelectedItem(trangThai);
 		btn_them.setEnabled(false);
 		btn_sua.setEnabled(true);
 	}
@@ -288,7 +292,7 @@ public class DonViTinh_view extends JFrame {
 		_listDonViTinhModels = _donViTinhService.getListDonViTinhModel();
 		int stt = 1;
 		
-		if(switchButton_danhSach.isSelected()) {
+		if(cbx_trangThai_danhSach.getSelectedItem().toString().equals("Hoat Dong")) {
 			for (DonViTinhModel donViTinhModel : _listDonViTinhModels) {
 				if(donViTinhModel.getTrangThai().equals("Hoat Dong")) {
 					model.addRow(new Object[] {stt,donViTinhModel.getMaDonVi(),donViTinhModel.getTenDonVi(),donViTinhModel.getTrangThai()});
@@ -297,7 +301,7 @@ public class DonViTinh_view extends JFrame {
 			}
 				
 		}
-		if(!switchButton_danhSach.isSelected()) {
+		if(cbx_trangThai_danhSach.getSelectedItem().toString().equals("Khong Hoat Dong")) {
 			for (DonViTinhModel donViTinhModel : _listDonViTinhModels) {
 				if(donViTinhModel.getTrangThai().equals("Khong Hoat Dong")) {
 					model.addRow(new Object[] {stt,donViTinhModel.getMaDonVi(),donViTinhModel.getTenDonVi(),donViTinhModel.getTrangThai()});
@@ -316,13 +320,7 @@ public class DonViTinh_view extends JFrame {
 		}else {
 			maDonVi = Integer.parseInt(txtMaDonVi.getText());
 		}
-		String trangThai = "";
-		if(switchButton_nhap.isSelected()) {
-			trangThai = "Hoat Dong";
-		}else {
-			trangThai = "Khong Hoat Dong";
-		}
-		
+		String trangThai = cbx_trangThai.getSelectedItem().toString();
 		String tenDonVi = txt_tenDonVi.getText().trim();
 		List<DonViChiTietModel> listViChiTietModels = new ArrayList<DonViChiTietModel>();
 		DonViTinhModel donViTinhModel = new DonViTinhModel(maDonVi, tenDonVi, trangThai);

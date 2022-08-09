@@ -8,7 +8,7 @@ import entities.Tang;
 import models.TangModel;
 import utils.IoCContainer;
 
-public class TangService implements ITangService{
+public class TangService{
 	private IoCContainer ioCContainer = new IoCContainer();
 	private List<TangModel> _listTangModels = new ArrayList<TangModel>();
 	private TangDao _TangDao = (TangDao) ioCContainer.getBean(TangDao.class.toString());
@@ -19,7 +19,6 @@ public class TangService implements ITangService{
 		Tang.setMaTang(TangModel.getMaTang());
 		Tang.setKhachSan(KhachSanService.updateDataKhachSanDependOnKhachSanModel(TangModel.getKhachSanModel()));
 		Tang.setTrangThai(TangModel.getTrangThai());
-		Tang.setListPhong(PhongService.updateListPhongDependOnListPhongModel(TangModel.getListPhongModel()));
 		return Tang;
 	}
 	
@@ -28,7 +27,6 @@ public class TangService implements ITangService{
 		TangModel.setMaTang(Tang.getMaTang());
 		TangModel.setKhachSanModel(KhachSanService.updateDataKhachSanModelDependOnKhachSan(Tang.getKhachSan()));
 		TangModel.setTrangThai(Tang.getTrangThai());
-		TangModel.setListPhongModel(PhongService.updateListPhongModelDependOnListPhong(Tang.getListPhong()));
 		return TangModel;
 	}
 	

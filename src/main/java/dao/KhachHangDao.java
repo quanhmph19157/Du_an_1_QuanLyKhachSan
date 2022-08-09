@@ -8,7 +8,7 @@ import org.hibernate.Session;
 import entities.KhachHang;
 import utils.DB_Connection;
 
-public class KhachHangDao implements IKhachHangDao{
+public class KhachHangDao{
 private ArrayList<KhachHang> _listKhachHangs = new ArrayList<KhachHang>();
 	
 	public void them_sua(KhachHang KhachHang) {

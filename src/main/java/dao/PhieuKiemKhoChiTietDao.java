@@ -8,7 +8,7 @@ import org.hibernate.Session;
 import entities.PhieuKiemKhoChiTiet;
 import utils.DB_Connection;
 
-public class PhieuKiemKhoChiTietDao implements IPhieuKiemKhoChiTietDao{
+public class PhieuKiemKhoChiTietDao{
 private static ArrayList<PhieuKiemKhoChiTiet> _listPhieuKiemKhoChiTiets = new ArrayList<PhieuKiemKhoChiTiet>();
 	
 	public void them_sua(PhieuKiemKhoChiTiet phieuKiemKhoChiTiet) {

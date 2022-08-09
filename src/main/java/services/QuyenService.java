@@ -8,7 +8,7 @@ import entities.Quyen;
 import models.QuyenModel;
 import utils.IoCContainer;
 
-public class QuyenService implements IQuyenService{
+public class QuyenService{
 	private IoCContainer ioCContainer = new IoCContainer();
 	private List<QuyenModel> _listQuyenModels = new ArrayList<QuyenModel>();
 	private QuyenDao _QuyenDao = (QuyenDao) ioCContainer.getBean(QuyenDao.class.toString());
@@ -18,7 +18,6 @@ public class QuyenService implements IQuyenService{
 		Quyen Quyen = new Quyen();
 		Quyen.setMaQuyen(QuyenModel.getMaQuyen());
 		Quyen.setTenQuyen(QuyenModel.getTenQuyen());
-		Quyen.setListQuyen_cv(Quyen_cvService.updateListQuyen_cvDependOnListQuyen_cvModel(QuyenModel.getListQuyen_cvModel()));
 		return Quyen;
 	}
 	
@@ -26,7 +25,6 @@ public class QuyenService implements IQuyenService{
 		QuyenModel QuyenModel = new QuyenModel();
 		QuyenModel.setMaQuyen(Quyen.getMaQuyen());
 		QuyenModel.setTenQuyen(Quyen.getTenQuyen());
-		QuyenModel.setListQuyen_cvModel(Quyen_cvService.updateListQuyen_cvModelDependOnListQuyen_cv(Quyen.getListQuyen_cv()));
 		return QuyenModel;
 	}
 	

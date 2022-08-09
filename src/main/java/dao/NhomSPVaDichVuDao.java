@@ -9,7 +9,7 @@ import org.hibernate.Session;
 import entities.NhomSPVaDichVu;
 import utils.DB_Connection;
 
-public class NhomSPVaDichVuDao implements INhomSPVaDichVu{
+public class NhomSPVaDichVuDao{
 private static List<NhomSPVaDichVu> _listNhomSPVaDichVus = new ArrayList<NhomSPVaDichVu>();
 private static List<NhomSPVaDichVu> _listNhomSPVaDichVus_active = new ArrayList<NhomSPVaDichVu>();
 private static List<NhomSPVaDichVu> _listNhomSPVaDichVus_inactive = new ArrayList<NhomSPVaDichVu>();

@@ -118,8 +118,14 @@ public class NhanVienModel implements Serializable{
 	public void setNgaySinh(Date ngaySinh) {
 		this.ngaySinh = ngaySinh;
 	}
+	@Override
+	public String toString() {
+		return "NhanVienModel [maNV=" + maNV + ", tenNV=" + tenNV + ", sdt=" + sdt + ", gioiTinh=" + gioiTinh
+				+ ", email=" + email + ", chucVuModel=" + chucVuModel + ", trangThai=" + trangThai + ", cmnd=" + cmnd
+				+ ", userName=" + userName + ", password=" + password + ", ngaySinh=" + ngaySinh + "]";
+	}
 	
-
+	
 	
 	
 	

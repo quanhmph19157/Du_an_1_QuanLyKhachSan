@@ -8,7 +8,7 @@ import org.hibernate.Session;
 import entities.PhieuNhapKhoChiTiet;
 import utils.DB_Connection;
 
-public class PhieuNhapKhoChiTietDao implements IPhieuNhapKhoChiTietDao{
+public class PhieuNhapKhoChiTietDao{
 	private static ArrayList<PhieuNhapKhoChiTiet> _listPhieuNhapKhoChiTiets = new ArrayList<PhieuNhapKhoChiTiet>();
 	public void them_sua(PhieuNhapKhoChiTiet phieuNhapKhoChiTiet) {
 		Session session = new DB_Connection().getSession();

@@ -9,7 +9,7 @@ import models.ChucVuModel;
 import models.Quyen_cvModel;
 import utils.IoCContainer;
 
-public class Quyen_cvService implements IQuyen_cvService{
+public class Quyen_cvService {
 	private IoCContainer ioCContainer = new IoCContainer();
 	private List<Quyen_cvModel> _listQuyen_cvModels = new ArrayList<Quyen_cvModel>();
 	private Quyen_cvDao _Quyen_cvDao = (Quyen_cvDao) ioCContainer.getBean(Quyen_cvDao.class.toString());

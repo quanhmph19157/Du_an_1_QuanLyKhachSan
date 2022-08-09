@@ -8,7 +8,7 @@ import org.hibernate.Session;
 import entities.Quyen;
 import utils.DB_Connection;
 
-public class QuyenDao implements IQuyenDao{
+public class QuyenDao{
 private ArrayList<Quyen> _listQuyens = new ArrayList<Quyen>();
 	
 	public void them_sua(Quyen Quyen) {

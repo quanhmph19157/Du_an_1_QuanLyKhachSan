@@ -48,6 +48,8 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.JRadioButton;
+import javax.swing.JCheckBox;
 
 public class SanPhamVaDichVu_view extends JFrame {
 	private IoCContainer _ioCContainer  = new IoCContainer();
@@ -75,22 +77,27 @@ public class SanPhamVaDichVu_view extends JFrame {
 	private JTextField txt_giaBan;
 	private JTable table_danhSachDonViTinhActive;
 	private JTable table_danhSachDonViTinhInactive;
-	private SwitchButton switchButton_nhap;
 	private JComboBox cbx_nhomSanPham;
 	private JTextArea txt_moTa;
 	private JTextField txt_soLuongTon;
 	private JTextField txt_giaVon;
 	private JComboBox cbx_kho;
-	private SwitchButton switchButton_nhapDonViTinh;
 	private JButton btn_suaSanPham;
 	private JButton btn_themSanPham;
 	private JComboBox cbx_donViTinh;
 	private JButton btn_suaDonVi;
 	private JButton btn_themDonVi;
-	private SwitchButton switchButton_danhSach;
 	private JTextField txt_maDonVi;
 	private JButton btn_xoaDonVi;
 	private JPanel panel_donViTinh;
+	private JCheckBox ckb_donViCoBan;
+	private JComboBox cbx_trangThai_danhSach;
+	private JComboBox cbx_kho_danhSach;
+	private JComboBox cbx_nhomSanPham_danhSach;
+	private JComboBox cbx_nhomHangHoa;
+	private JComboBox cbx_sapXep;
+	private JComboBox cbx_trangThai_sanPham;
+	private JComboBox cbx_trangThai_donVi;
 
 	/**
 	 * Launch the application.
@@ -141,30 +148,19 @@ public class SanPhamVaDichVu_view extends JFrame {
 		tabbedPane.addTab("Danh Sách", null, panel_3, null);
 		panel_3.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Trạng thái");
-		lblNewLabel.setBounds(20, 11, 63, 31);
-		panel_3.add(lblNewLabel);
-		
-		switchButton_danhSach = new SwitchButton();
-		switchButton_danhSach.setSelected(true);
-		switchButton_danhSach.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				updateTable_danhSachSanPhamVaDichVu();
-			}
-		});
-		switchButton_danhSach.setBounds(20, 37, 55, 25);
-		panel_3.add(switchButton_danhSach);
-		switchButton_danhSach.setBackground(new Color(0, 153, 204));
-		
 		JPanel panel_2 = new JPanel();
-		panel_2.setBounds(543, 19, 338, 51);
+		panel_2.setBounds(730, 19, 338, 51);
 		panel_3.add(panel_2);
 		panel_2.setBackground(Color.WHITE);
 		panel_2.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(192, 192, 192)), "Nh\u00F3m s\u1EA3n ph\u1EA9m", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		panel_2.setLayout(null);
 		
-		JComboBox cbx_nhomSanPham_danhSach = new JComboBox();
+		cbx_nhomSanPham_danhSach = new JComboBox();
+		cbx_nhomSanPham_danhSach.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				updateTable_danhSachSanPhamVaDichVu();
+			}
+		});
 		cbx_nhomSanPham_danhSach.setModel(new DefaultComboBoxModel(new String[] {"Tất cả"}));
 		cbx_nhomSanPham_danhSach.setBackground(Color.WHITE);
 		cbx_nhomSanPham_danhSach.setBounds(10, 18, 318, 28);
@@ -203,11 +199,16 @@ public class SanPhamVaDichVu_view extends JFrame {
 		panel_2_2.setLayout(null);
 		panel_2_2.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(192, 192, 192)), "Nh\u00F3m h\u00E0ng h\u00F3a", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		panel_2_2.setBackground(Color.WHITE);
-		panel_2_2.setBounds(195, 19, 338, 51);
+		panel_2_2.setBounds(378, 19, 338, 51);
 		panel_3.add(panel_2_2);
 		
-		JComboBox cbx_nhomHangHoa = new JComboBox();
-		cbx_nhomHangHoa.setModel(new DefaultComboBoxModel(new String[] {"Tất cả", "Sản phẩm", "Dịch vụ"}));
+		cbx_nhomHangHoa = new JComboBox();
+		cbx_nhomHangHoa.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				updateTable_danhSachSanPhamVaDichVu();
+			}
+		});
+		cbx_nhomHangHoa.setModel(new DefaultComboBoxModel(new String[] {"Tất cả", "San pham", "Dich vu"}));
 		cbx_nhomHangHoa.setBorder(new EmptyBorder(-11, -4, -11, -1));
 		cbx_nhomHangHoa.setBackground(Color.WHITE);
 		cbx_nhomHangHoa.setBounds(10, 18, 318, 28);
@@ -217,15 +218,52 @@ public class SanPhamVaDichVu_view extends JFrame {
 		panel_2_3.setLayout(null);
 		panel_2_3.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(192, 192, 192)), "S\u1EAFp x\u1EBFp", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		panel_2_3.setBackground(Color.WHITE);
-		panel_2_3.setBounds(891, 19, 338, 51);
+		panel_2_3.setBounds(891, 81, 338, 51);
 		panel_3.add(panel_2_3);
 		
-		JComboBox cbx_sapXep = new JComboBox();
-		cbx_sapXep.setModel(new DefaultComboBoxModel(new String[] {"Tên A => Z", "Tên Z => A", "Giá: Thấp => Cao", "Giá: Cao => Thấp", "Ngày cập nhật: Cũ nhất", "Ngày cập nhật: Mới nhất"}));
+		cbx_sapXep = new JComboBox();
+		cbx_sapXep.setModel(new DefaultComboBoxModel(new String[] {"Tên A => Z", "Tên Z => A", "Giá: Thấp => Cao", "Giá: Cao => Thấp"}));
 		cbx_sapXep.setBorder(new EmptyBorder(-11, -4, -11, -1));
 		cbx_sapXep.setBackground(Color.WHITE);
 		cbx_sapXep.setBounds(10, 18, 318, 28);
 		panel_2_3.add(cbx_sapXep);
+		
+		JPanel panel_2_2_1 = new JPanel();
+		panel_2_2_1.setLayout(null);
+		panel_2_2_1.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(192, 192, 192)), "Kho", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panel_2_2_1.setBackground(Color.WHITE);
+		panel_2_2_1.setBounds(207, 19, 161, 51);
+		panel_3.add(panel_2_2_1);
+		
+		cbx_kho_danhSach = new JComboBox();
+		cbx_kho_danhSach.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				updateTable_danhSachSanPhamVaDichVu();
+			}
+		});
+		cbx_kho_danhSach.setBorder(new EmptyBorder(-11, -4, -11, -1));
+		cbx_kho_danhSach.setBackground(Color.WHITE);
+		cbx_kho_danhSach.setBounds(10, 18, 141, 28);
+		panel_2_2_1.add(cbx_kho_danhSach);
+		
+		JPanel panel_2_2_1_1 = new JPanel();
+		panel_2_2_1_1.setLayout(null);
+		panel_2_2_1_1.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(192, 192, 192)), "Tr\u1EA1ng th\u00E1i", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panel_2_2_1_1.setBackground(Color.WHITE);
+		panel_2_2_1_1.setBounds(10, 19, 187, 51);
+		panel_3.add(panel_2_2_1_1);
+		
+		cbx_trangThai_danhSach = new JComboBox();
+		cbx_trangThai_danhSach.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				updateTable_danhSachSanPhamVaDichVu();
+			}
+		});
+		cbx_trangThai_danhSach.setModel(new DefaultComboBoxModel(new String[] {"Hoat Dong", "Khong Hoat Dong"}));
+		cbx_trangThai_danhSach.setBorder(new EmptyBorder(-11, -4, -11, -1));
+		cbx_trangThai_danhSach.setBackground(Color.WHITE);
+		cbx_trangThai_danhSach.setBounds(10, 18, 167, 28);
+		panel_2_2_1_1.add(cbx_trangThai_danhSach);
 		
 		JPanel panel_4 = new JPanel();
 		tabbedPane.addTab("Cập Nhật Sản Phẩm - Dịch Vụ", null, panel_4, null);
@@ -323,7 +361,7 @@ public class SanPhamVaDichVu_view extends JFrame {
 		table_danhSachDonViTinhActive.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
-				doClickOnTable_danhSachDonViTinh(table_danhSachDonViTinhActive);
+				doClickOnTable_danhSachDonViTinh(table_danhSachDonViTinhActive,"Hoat Dong");
 			}
 		});
 		scrollPane_1.setViewportView(table_danhSachDonViTinhActive);
@@ -336,23 +374,23 @@ public class SanPhamVaDichVu_view extends JFrame {
 		panel_2_1_1_1_1.setLayout(null);
 		panel_2_1_1_1_1.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(192, 192, 192)), "Gi\u00E1 tr\u1ECB quy \u0111\u1ED5i", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		panel_2_1_1_1_1.setBackground(Color.WHITE);
-		panel_2_1_1_1_1.setBounds(367, 27, 171, 51);
+		panel_2_1_1_1_1.setBounds(315, 27, 102, 51);
 		panel.add(panel_2_1_1_1_1);
 		
 		txt_giaTriQuyDoi = new JTextField();
-		txt_giaTriQuyDoi.setText("1");
 		txt_giaTriQuyDoi.setEditable(false);
+		txt_giaTriQuyDoi.setText("1");
 		txt_giaTriQuyDoi.setColumns(10);
 		txt_giaTriQuyDoi.setBorder(null);
 		txt_giaTriQuyDoi.setBackground(Color.WHITE);
-		txt_giaTriQuyDoi.setBounds(10, 18, 151, 22);
+		txt_giaTriQuyDoi.setBounds(10, 18, 80, 22);
 		panel_2_1_1_1_1.add(txt_giaTriQuyDoi);
 		
 		JPanel panel_2_1_1_1_3 = new JPanel();
 		panel_2_1_1_1_3.setLayout(null);
 		panel_2_1_1_1_3.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(192, 192, 192)), "Gi\u00E1 b\u00E1n", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		panel_2_1_1_1_3.setBackground(Color.WHITE);
-		panel_2_1_1_1_3.setBounds(548, 27, 171, 51);
+		panel_2_1_1_1_3.setBounds(427, 27, 152, 51);
 		panel.add(panel_2_1_1_1_3);
 		
 		txt_giaBan = new JTextField("Nhập giá bán");
@@ -369,21 +407,21 @@ public class SanPhamVaDichVu_view extends JFrame {
 		txt_giaBan.setColumns(10);
 		txt_giaBan.setBorder(null);
 		txt_giaBan.setBackground(Color.WHITE);
-		txt_giaBan.setBounds(10, 18, 151, 22);
+		txt_giaBan.setBounds(10, 18, 127, 22);
 		panel_2_1_1_1_3.add(txt_giaBan);
 		
 		 panel_donViTinh = new JPanel();
 		panel_donViTinh.setLayout(null);
 		panel_donViTinh.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(192, 192, 192)), "\u0110\u01A1n v\u1ECB c\u01A1 b\u1EA3n", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		panel_donViTinh.setBackground(Color.WHITE);
-		panel_donViTinh.setBounds(115, 27, 242, 51);
+		panel_donViTinh.setBounds(100, 27, 205, 51);
 		panel.add(panel_donViTinh);
 		
 		cbx_donViTinh = new JComboBox();
 		cbx_donViTinh.setModel(new DefaultComboBoxModel(new String[] {"Chọn đơn vị tính"}));
 		cbx_donViTinh.setBorder(new EmptyBorder(-11, -4, -11, -1));
 		cbx_donViTinh.setBackground(Color.WHITE);
-		cbx_donViTinh.setBounds(10, 18, 222, 28);
+		cbx_donViTinh.setBounds(10, 18, 185, 28);
 		panel_donViTinh.add(cbx_donViTinh);
 		
 		JButton btnNewButton = new JButton("Làm mới");
@@ -422,16 +460,6 @@ public class SanPhamVaDichVu_view extends JFrame {
 		btn_themDonVi.setBounds(831, 40, 87, 38);
 		panel.add(btn_themDonVi);
 		
-		switchButton_nhapDonViTinh = new SwitchButton();
-		switchButton_nhapDonViTinh.setSelected(true);
-		switchButton_nhapDonViTinh.setBackground(new Color(0, 153, 204));
-		switchButton_nhapDonViTinh.setBounds(725, 53, 55, 25);
-		panel.add(switchButton_nhapDonViTinh);
-		
-		JLabel lblNewLabel_2 = new JLabel("Trạng thái");
-		lblNewLabel_2.setBounds(725, 19, 63, 31);
-		panel.add(lblNewLabel_2);
-		
 		JScrollPane scrollPane_1_1 = new JScrollPane();
 		scrollPane_1_1.setBounds(632, 120, 577, 159);
 		panel.add(scrollPane_1_1);
@@ -440,7 +468,7 @@ public class SanPhamVaDichVu_view extends JFrame {
 		table_danhSachDonViTinhInactive.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
-				doClickOnTable_danhSachDonViTinh(table_danhSachDonViTinhInactive);
+				doClickOnTable_danhSachDonViTinh(table_danhSachDonViTinhInactive,"Khong Hoat Dong");
 			}
 		});
 		scrollPane_1_1.setViewportView(table_danhSachDonViTinhInactive);
@@ -453,7 +481,7 @@ public class SanPhamVaDichVu_view extends JFrame {
 		panel_2_1_1_1_3_1.setLayout(null);
 		panel_2_1_1_1_3_1.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(192, 192, 192)), "M\u00E3 \u0111\u01A1n v\u1ECB", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		panel_2_1_1_1_3_1.setBackground(Color.WHITE);
-		panel_2_1_1_1_3_1.setBounds(10, 27, 95, 51);
+		panel_2_1_1_1_3_1.setBounds(10, 27, 80, 51);
 		panel.add(panel_2_1_1_1_3_1);
 		
 		txt_maDonVi = new JTextField("");
@@ -461,7 +489,7 @@ public class SanPhamVaDichVu_view extends JFrame {
 		txt_maDonVi.setColumns(10);
 		txt_maDonVi.setBorder(null);
 		txt_maDonVi.setBackground(Color.WHITE);
-		txt_maDonVi.setBounds(10, 18, 75, 22);
+		txt_maDonVi.setBounds(10, 18, 57, 22);
 		panel_2_1_1_1_3_1.add(txt_maDonVi);
 		
 		btn_suaSanPham = new JButton("Sửa");
@@ -488,16 +516,6 @@ public class SanPhamVaDichVu_view extends JFrame {
 		btn_themSanPham.setBackground(new Color(255, 204, 102));
 		btn_themSanPham.setBounds(753, 588, 152, 32);
 		panel_4.add(btn_themSanPham);
-		
-		switchButton_nhap = new SwitchButton();
-		switchButton_nhap.setSelected(true);
-		switchButton_nhap.setBackground(new Color(0, 153, 204));
-		switchButton_nhap.setBounds(1130, 69, 55, 25);
-		panel_4.add(switchButton_nhap);
-		
-		JLabel lblNewLabel_2_1 = new JLabel("Trạng thái");
-		lblNewLabel_2_1.setBounds(1130, 43, 66, 20);
-		panel_4.add(lblNewLabel_2_1);
 		
 		JPanel panel_2_4_1 = new JPanel();
 		panel_2_4_1.setLayout(null);
@@ -543,8 +561,8 @@ public class SanPhamVaDichVu_view extends JFrame {
 		txt_giaVon.setBackground(Color.WHITE);
 		txt_giaVon.setBounds(10, 18, 266, 29);
 		panel_2_1_2_1_1.add(txt_giaVon);
-		updateCbx_nhomSanPham();
-		updateCbx_kho();
+		updateCbx_nhomSanPham("cbx_nhomSanPham");
+		updateCbx_nhomSanPham("cbx_nhomSanPham_danhSach");
 		updateCbx_doViTinh();
 		
 		txt_maDonVi.setText(maxID_donViChiTiet+"");
@@ -559,34 +577,85 @@ public class SanPhamVaDichVu_view extends JFrame {
 		btn_xoaDonVi.setBackground(Color.ORANGE);
 		btn_xoaDonVi.setBounds(1025, 40, 87, 38);
 		panel.add(btn_xoaDonVi);
-		updateTable_danhSachSanPhamVaDichVu();
+		
+		ckb_donViCoBan = new JCheckBox("Đơn vị cơ bản");
+		ckb_donViCoBan.setSelected(true);
+		ckb_donViCoBan.setEnabled(false);
+		ckb_donViCoBan.setBounds(714, 40, 111, 38);
+		panel.add(ckb_donViCoBan);
+		
+		JPanel panel_2_2_1_1_1_1 = new JPanel();
+		panel_2_2_1_1_1_1.setBounds(589, 27, 119, 51);
+		panel.add(panel_2_2_1_1_1_1);
+		panel_2_2_1_1_1_1.setLayout(null);
+		panel_2_2_1_1_1_1.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(192, 192, 192)), "Tr\u1EA1ng th\u00E1i", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panel_2_2_1_1_1_1.setBackground(Color.WHITE);
+		
+		cbx_trangThai_donVi = new JComboBox();
+		cbx_trangThai_donVi.setModel(new DefaultComboBoxModel(new String[] {"Hoat Dong", "Khong Hoat Dong"}));
+		cbx_trangThai_donVi.setBorder(new EmptyBorder(-11, -4, -11, -1));
+		cbx_trangThai_donVi.setBackground(Color.WHITE);
+		cbx_trangThai_donVi.setBounds(10, 18, 99, 28);
+		panel_2_2_1_1_1_1.add(cbx_trangThai_donVi);
+		
+		JPanel panel_2_2_1_1_1 = new JPanel();
+		panel_2_2_1_1_1.setLayout(null);
+		panel_2_2_1_1_1.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(192, 192, 192)), "Tr\u1EA1ng th\u00E1i", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panel_2_2_1_1_1.setBackground(Color.WHITE);
+		panel_2_2_1_1_1.setBounds(1094, 43, 133, 51);
+		panel_4.add(panel_2_2_1_1_1);
+		
+		cbx_trangThai_sanPham = new JComboBox();
+		cbx_trangThai_sanPham.setModel(new DefaultComboBoxModel(new String[] {"Hoat Dong", "Khong Hoat Dong"}));
+		cbx_trangThai_sanPham.setBorder(new EmptyBorder(-11, -4, -11, -1));
+		cbx_trangThai_sanPham.setBackground(Color.WHITE);
+		cbx_trangThai_sanPham.setBounds(10, 18, 113, 28);
+		panel_2_2_1_1_1.add(cbx_trangThai_sanPham);
 		updateTxt_maSanPham();
+		updateCbx_kho("cbx_kho");
+		updateCbx_kho("cbx_kho_danhSach");
+		updateTable_danhSachSanPhamVaDichVu();
 	}
 	
 	public void updateTxt_maSanPham() {
 		txt_maSanPham.setText(maxID_sanSPVaDichVu+"");
 	}
-	public void updateCbx_nhomSanPham() {
+	public void updateCbx_nhomSanPham(String tenCbxNhomSanPham) {
 		_listNhomSPVaDichVuModels_active = _nhomSPVaDichVuService.getListNhomSPVaDichVuModelActive();
 		String arrayNhomSPVaDichVu[] = new String[_listNhomSPVaDichVuModels_active.size()+1];
-		arrayNhomSPVaDichVu[0] = "--Chọn nhóm--";
+		
 		int index =1;
 		for (NhomSPVaDichVuModel nhomSPVaDichVuModel : _listNhomSPVaDichVuModels_active) {
 			arrayNhomSPVaDichVu[index] = nhomSPVaDichVuModel.getTenNhomSP();
 			index++;
 		}
-		cbx_nhomSanPham.setModel(new DefaultComboBoxModel(arrayNhomSPVaDichVu));
+		if(tenCbxNhomSanPham.equals("cbx_nhomSanPham")) {
+			arrayNhomSPVaDichVu[0] = "--Chọn nhóm--";
+			cbx_nhomSanPham.setModel(new DefaultComboBoxModel(arrayNhomSPVaDichVu));
+		}
+		if(tenCbxNhomSanPham.equals("cbx_nhomSanPham_danhSach")) {
+			arrayNhomSPVaDichVu[0] = "Tất cả";
+			cbx_nhomSanPham_danhSach.setModel(new DefaultComboBoxModel(arrayNhomSPVaDichVu));
+		}
+		
 	}
-	public void updateCbx_kho() {
+	
+	public void updateCbx_kho(String cbxKho) {
 		_listKhoModels_active = _khoService.getListKhoModel_active();
 		String arrayKho[] = new String[_listKhoModels_active.size()+1];
-		arrayKho[0] = "--Chọn kho--";
 		int index =1;
 		for (KhoModel khoModel : _listKhoModels_active) {
 			arrayKho[index] = khoModel.getTenKho();
 			index++;
 		}
-		cbx_kho.setModel(new DefaultComboBoxModel(arrayKho));
+		if(cbxKho.equals("cbx_kho")) {
+			arrayKho[0] = "--Chọn kho--";
+			cbx_kho.setModel(new DefaultComboBoxModel(arrayKho));
+		}
+		if(cbxKho.equals("cbx_kho_danhSach")) {
+			arrayKho[0] = "Tất cả";
+			cbx_kho_danhSach.setModel(new DefaultComboBoxModel(arrayKho));
+		}
 	}
 	
 	public void updateCbx_doViTinh() {
@@ -602,8 +671,10 @@ public class SanPhamVaDichVu_view extends JFrame {
 	}
 	
 	public void clearFormSanPham() {
-		switchButton_nhap.setSelected(true);
-		switchButton_nhapDonViTinh.setSelected(true);
+		cbx_trangThai_sanPham.setSelectedIndex(0);
+		cbx_trangThai_donVi.setSelectedIndex(0);
+//		switchButton_nhap.setSelected(true);
+//		switchButton_nhapDonViTinh.setSelected(true);
 		txt_maSanPham.setText("");
 		txt_tenHangHoa.setText("Nhập tên hàng hóa");
 		cbx_nhomSanPham.setSelectedIndex(0);
@@ -621,11 +692,19 @@ public class SanPhamVaDichVu_view extends JFrame {
 	}
 	
 	public void clearFormDonViTinh() {
-		txt_maDonVi.setText(maxID_donViChiTiet+"");
+		
+		if(_listDonViChiTietModels.size() ==0) {
+			txt_giaTriQuyDoi.setEditable(false);
+			txt_giaTriQuyDoi.setText("1");
+			
+		}else {
+			txt_giaTriQuyDoi.setEditable(true);
+		}
+		txt_maDonVi.setText(maxID_donViChiTiet1+"");
 		cbx_donViTinh.setSelectedIndex(0);
-		txt_giaTriQuyDoi.setText("");
 		txt_giaBan.setText("Nhập giá bán");
-		switchButton_nhapDonViTinh.setSelected(true);
+		cbx_donViTinh.setSelectedIndex(0);
+//		switchButton_nhapDonViTinh.setSelected(true);
 		btn_suaDonVi.setEnabled(false);
 		btn_xoaDonVi.setEnabled(false);
 		btn_themDonVi.setEnabled(true);
@@ -635,17 +714,19 @@ public class SanPhamVaDichVu_view extends JFrame {
 	
 	public void doClickOnTable_danhSachSanPhamVaDichVu() {
 		int maSanPham = Integer.parseInt(table_danhSachSanPhamVaDichVu.getModel().getValueAt(table_danhSachSanPhamVaDichVu.getSelectedRow(), 1)+"");
-//		int stt_SPSelected = 0;
 		for (SanPhamVaDichVuModel sanPhamVaDichVuModel : _listSanPhamVaDichVuModels) {
 			if(sanPhamVaDichVuModel.getMaDichVu() == maSanPham) {
 				txt_maSanPham.setText(sanPhamVaDichVuModel.getMaDichVu()+"");
 				txt_tenHangHoa.setText(sanPhamVaDichVuModel.getTenHangHoa());
 				cbx_nhomSanPham.setSelectedItem(sanPhamVaDichVuModel.getNhomSPVaDichVuModel().getTenNhomSP());
-				if(sanPhamVaDichVuModel.getTrangThai().equals("Hoat Dong")) {
-					switchButton_nhap.setSelected(true);
-				}else {
-					switchButton_nhap.setSelected(false);
-				}
+//				if(.equals("Hoat Dong")) {
+//					switchButton_nhap.setSelected(true);
+//				}else {
+//					switchButton_nhap.setSelected(false);
+//				}
+				
+				cbx_trangThai_sanPham.setSelectedItem(sanPhamVaDichVuModel.getTrangThai());
+				
 				cbx_kho.setSelectedItem(sanPhamVaDichVuModel.getKhoModel().getTenKho());
 				txt_soLuongTon.setText(sanPhamVaDichVuModel.getSoLuongTon()+"");
 				txt_giaVon.setText(sanPhamVaDichVuModel.getGiaVon()+"");
@@ -656,23 +737,40 @@ public class SanPhamVaDichVu_view extends JFrame {
 				updateTable_danhSachDonViTinhInactive(_listDonViChiTietModels);
 			}
 			btn_suaSanPham.setEnabled(true);
-			checkDonViCoBan();
+			btn_themSanPham.setEnabled(false);
+			clearFormDonViTinh();
+//			checkDonViCoBan();
 //			stt_SPSelected++;
 		}
 	}
 	
-	public void doClickOnTable_danhSachDonViTinh(JTable tableDonViTinh) {
+	public void doClickOnTable_danhSachDonViTinh(JTable tableDonViTinh , String trangThaiTable) {
 		int maDonVi = Integer.parseInt(tableDonViTinh.getModel().getValueAt(tableDonViTinh.getSelectedRow(), 1)+"");
 		txt_maDonVi.setText(maDonVi+"");
 		cbx_donViTinh.setSelectedItem(tableDonViTinh.getModel().getValueAt(tableDonViTinh.getSelectedRow(), 2));
 		txt_giaTriQuyDoi.setText(tableDonViTinh.getModel().getValueAt(tableDonViTinh.getSelectedRow(), 3)+"");
 		txt_giaBan.setText(tableDonViTinh.getModel().getValueAt(tableDonViTinh.getSelectedRow(), 4)+"");
-		String trangThai =tableDonViTinh.getModel().getValueAt(tableDonViTinh.getSelectedRow(), 5)+"";
-		if(trangThai.equals("Hoat Dong")) {
-			switchButton_nhapDonViTinh.setSelected(true);
+		
+		String trangThai="";
+		if(trangThaiTable.equals("Hoat Dong")) {
+			String donViCoBan = tableDonViTinh.getModel().getValueAt(tableDonViTinh.getSelectedRow(), 5)+"";
+			if(donViCoBan.equals("true")) {
+				ckb_donViCoBan.setSelected(true);
+			}else {
+				ckb_donViCoBan.setSelected(false);
+			}
+			trangThai =tableDonViTinh.getModel().getValueAt(tableDonViTinh.getSelectedRow(), 6)+"";
 		}else {
-			switchButton_nhapDonViTinh.setSelected(false);
+			trangThai =tableDonViTinh.getModel().getValueAt(tableDonViTinh.getSelectedRow(), 5)+"";
+			ckb_donViCoBan.setSelected(false);
 		}
+		
+//		if(trangThai.equals("Hoat Dong")) {
+//			switchButton_nhapDonViTinh.setSelected(true);
+//		}else {
+//			switchButton_nhapDonViTinh.setSelected(false);
+//		}
+		cbx_trangThai_donVi.setSelectedItem(trangThai);
 		
 		if(maDonVi>=maxID_donViChiTiet) {
 			btn_xoaDonVi.setEnabled(true);
@@ -696,11 +794,19 @@ public class SanPhamVaDichVu_view extends JFrame {
 		model.addColumn("TÊN ĐƠN VỊ");
 		model.addColumn("GIÁ TRỊ QUY ĐỔI");
 		model.addColumn("GIÁ BÁN");
+		model.addColumn("ĐƠN VỊ CƠ BẢN");
 		model.addColumn("TRẠNG THÁI");
 		int stt =1;
 		for (DonViChiTietModel donViChiTietModel : listDonViChiTietModels) {
 			if(donViChiTietModel.getTrangThai().equals("Hoat Dong")) {
-				model.addRow(new Object[] {stt,donViChiTietModel.getMaDonViChiTiet(),donViChiTietModel.getDonViTinhModel().getTenDonVi(),donViChiTietModel.getGiaTriQuyDoi(),donViChiTietModel.getGiaBan(),donViChiTietModel.getTrangThai()});
+				String donViCoBan = donViChiTietModel.getDonViMacDinh()+"";
+				if(donViCoBan.equals("1")) {
+					donViCoBan = "true";
+				}
+				if(donViCoBan.equals("0")) {
+					donViCoBan = "false";
+				}
+				model.addRow(new Object[] {stt,donViChiTietModel.getMaDonViChiTiet(),donViChiTietModel.getDonViTinhModel().getTenDonVi(),donViChiTietModel.getGiaTriQuyDoi(),donViChiTietModel.getGiaBan(),donViCoBan,donViChiTietModel.getTrangThai()});
 			}
 		}
 		table_danhSachDonViTinhActive.setModel(model);
@@ -724,6 +830,10 @@ public class SanPhamVaDichVu_view extends JFrame {
 	}
 	
 	public void updateTable_danhSachSanPhamVaDichVu() {
+		String tenKho = cbx_kho_danhSach.getSelectedItem().toString();
+		String nhomHangHoa = cbx_nhomHangHoa.getSelectedItem().toString();
+		String nhomSanPham = cbx_nhomSanPham_danhSach.getSelectedItem().toString();
+		
 		DefaultTableModel model = new DefaultTableModel();
 		model.addColumn("Stt");
 		model.addColumn("MÃ DỊCH VỤ");
@@ -737,21 +847,134 @@ public class SanPhamVaDichVu_view extends JFrame {
 		_listSanPhamVaDichVuModels = _sanPhamVaDichVuService.getListSanPhamVaDichVuModel();
 	
 			int stt =1;
-			if(switchButton_danhSach.isSelected()) {
-				for (SanPhamVaDichVuModel sanPhamVaDichVuModel : _listSanPhamVaDichVuModels) {
-					if(sanPhamVaDichVuModel.getTrangThai().equals("Hoat Dong")) {
-						model.addRow(new Object[] {stt, sanPhamVaDichVuModel.getMaDichVu(), sanPhamVaDichVuModel.getTenHangHoa() , sanPhamVaDichVuModel.getNhomSPVaDichVuModel().getTenNhomSP(), sanPhamVaDichVuModel.getSoLuongTon(), sanPhamVaDichVuModel.getGiaVon(), sanPhamVaDichVuModel.getKhoModel().getTenKho() , sanPhamVaDichVuModel.getTrangThai()});
+			List<SanPhamVaDichVuModel> listSPVDVM = new ArrayList<SanPhamVaDichVuModel>();
+			if(cbx_trangThai_danhSach.getSelectedItem().toString().equals("Hoat Dong")) {
+				for (SanPhamVaDichVuModel spvdvm : _listSanPhamVaDichVuModels) {
+					if(spvdvm.getTrangThai().equals("Hoat Dong") && tenKho.equals("Tất cả") && nhomHangHoa.equals("Tất cả") && nhomSanPham.equals("Tất cả")) {
+						listSPVDVM.add(spvdvm);
+					}
+					
+					if(spvdvm.getTrangThai().equals("Hoat Dong") && !tenKho.equals("Tất cả") && nhomHangHoa.equals("Tất cả") && nhomSanPham.equals("Tất cả")) {
+						if(spvdvm.getKhoModel().getTenKho().equals(tenKho)) {
+							listSPVDVM.add(spvdvm);
+						}
+					}
+					
+					if(spvdvm.getTrangThai().equals("Hoat Dong") && tenKho.equals("Tất cả") && !nhomHangHoa.equals("Tất cả") && nhomSanPham.equals("Tất cả")) {
+						if(spvdvm.getNhomSPVaDichVuModel().getNhomHangHoa().equals(nhomHangHoa)) {
+							listSPVDVM.add(spvdvm);
+						}
+					}
+					
+					if(spvdvm.getTrangThai().equals("Hoat Dong") && tenKho.equals("Tất cả") && nhomHangHoa.equals("Tất cả") && !nhomSanPham.equals("Tất cả")) {
+						if(spvdvm.getNhomSPVaDichVuModel().getTenNhomSP().equals(nhomSanPham)) {
+							listSPVDVM.add(spvdvm);
+						}
+					}
+					
+					if(spvdvm.getTrangThai().equals("Hoat Dong") && !tenKho.equals("Tất cả") && !nhomHangHoa.equals("Tất cả") && nhomSanPham.equals("Tất cả")) {
+						if(spvdvm.getKhoModel().getTenKho().equals(tenKho)) {
+							if(spvdvm.getNhomSPVaDichVuModel().getNhomHangHoa().equals(nhomHangHoa)) {
+								listSPVDVM.add(spvdvm);
+							}
+						}
+					}
+					
+					if(spvdvm.getTrangThai().equals("Hoat Dong") && !tenKho.equals("Tất cả") && nhomHangHoa.equals("Tất cả") && !nhomSanPham.equals("Tất cả")) {
+						if(spvdvm.getKhoModel().getTenKho().equals(tenKho)) {
+							if(spvdvm.getNhomSPVaDichVuModel().getTenNhomSP().equals(nhomSanPham)) {
+								listSPVDVM.add(spvdvm);
+							}
+						}
+					}
+					
+					if(spvdvm.getTrangThai().equals("Hoat Dong") && tenKho.equals("Tất cả") && !nhomHangHoa.equals("Tất cả") && !nhomSanPham.equals("Tất cả")) {
+						if(spvdvm.getNhomSPVaDichVuModel().getNhomHangHoa().equals(nhomHangHoa)) {
+							if(spvdvm.getNhomSPVaDichVuModel().getTenNhomSP().equals(nhomSanPham)) {
+								listSPVDVM.add(spvdvm);
+							}
+						}
+					}
+					
+					if(spvdvm.getTrangThai().equals("Hoat Dong") && !tenKho.equals("Tất cả") && !nhomHangHoa.equals("Tất cả") && !nhomSanPham.equals("Tất cả")) {
+						if(spvdvm.getKhoModel().getTenKho().equals(tenKho)) {
+							if(spvdvm.getNhomSPVaDichVuModel().getNhomHangHoa().equals(nhomHangHoa)) {
+								if(spvdvm.getNhomSPVaDichVuModel().getTenNhomSP().equals(nhomSanPham)) {
+									listSPVDVM.add(spvdvm);
+								}
+							}
+						}
 					}
 				}
 			}
 				
-			if(!switchButton_danhSach.isSelected()) {
-				for (SanPhamVaDichVuModel sanPhamVaDichVuModel : _listSanPhamVaDichVuModels) {
-					if(sanPhamVaDichVuModel.getTrangThai().equals("Khong Hoat Dong")) {
-						model.addRow(new Object[] {stt, sanPhamVaDichVuModel.getMaDichVu(), sanPhamVaDichVuModel.getTenHangHoa() , sanPhamVaDichVuModel.getNhomSPVaDichVuModel().getTenNhomSP(), sanPhamVaDichVuModel.getSoLuongTon(), sanPhamVaDichVuModel.getGiaVon(), sanPhamVaDichVuModel.getKhoModel().getTenKho() , sanPhamVaDichVuModel.getTrangThai()});
+			if(cbx_trangThai_danhSach.getSelectedItem().toString().equals("Khong Hoat Dong")) {
+				for (SanPhamVaDichVuModel spvdvm : _listSanPhamVaDichVuModels) {
+					
+					if(spvdvm.getTrangThai().equals("Khong Hoat Dong") && tenKho.equals("Tất cả") && nhomHangHoa.equals("Tất cả") && nhomSanPham.equals("Tất cả")) {
+						listSPVDVM.add(spvdvm);
+					}
+					
+					if(spvdvm.getTrangThai().equals("Khong Hoat Dong") && !tenKho.equals("Tất cả") && nhomHangHoa.equals("Tất cả") && nhomSanPham.equals("Tất cả")) {
+						if(spvdvm.getKhoModel().getTenKho().equals(tenKho)) {
+							listSPVDVM.add(spvdvm);
+						}
+					}
+					
+					if(spvdvm.getTrangThai().equals("Khong Hoat Dong") && tenKho.equals("Tất cả") && !nhomHangHoa.equals("Tất cả") && nhomSanPham.equals("Tất cả")) {
+						if(spvdvm.getNhomSPVaDichVuModel().getNhomHangHoa().equals(nhomHangHoa)) {
+							listSPVDVM.add(spvdvm);
+						}
+					}
+					
+					if(spvdvm.getTrangThai().equals("Khong Hoat Dong") && tenKho.equals("Tất cả") && nhomHangHoa.equals("Tất cả") && !nhomSanPham.equals("Tất cả")) {
+						if(spvdvm.getNhomSPVaDichVuModel().getTenNhomSP().equals(nhomSanPham)) {
+							listSPVDVM.add(spvdvm);
+						}
+					}
+					
+					if(spvdvm.getTrangThai().equals("Khong Hoat Dong") && !tenKho.equals("Tất cả") && !nhomHangHoa.equals("Tất cả") && nhomSanPham.equals("Tất cả")) {
+						if(spvdvm.getKhoModel().getTenKho().equals(tenKho)) {
+							if(spvdvm.getNhomSPVaDichVuModel().getNhomHangHoa().equals(nhomHangHoa)) {
+								listSPVDVM.add(spvdvm);
+							}
+						}
+					}
+					
+					if(spvdvm.getTrangThai().equals("Khong Hoat Dong") && !tenKho.equals("Tất cả") && nhomHangHoa.equals("Tất cả") && !nhomSanPham.equals("Tất cả")) {
+						if(spvdvm.getKhoModel().getTenKho().equals(tenKho)) {
+							if(spvdvm.getNhomSPVaDichVuModel().getTenNhomSP().equals(nhomSanPham)) {
+								listSPVDVM.add(spvdvm);
+							}
+						}
+					}
+					
+					if(spvdvm.getTrangThai().equals("Khong Hoat Dong") && tenKho.equals("Tất cả") && !nhomHangHoa.equals("Tất cả") && !nhomSanPham.equals("Tất cả")) {
+						if(spvdvm.getNhomSPVaDichVuModel().getNhomHangHoa().equals(nhomHangHoa)) {
+							if(spvdvm.getNhomSPVaDichVuModel().getTenNhomSP().equals(nhomSanPham)) {
+								listSPVDVM.add(spvdvm);
+							}
+						}
+					}
+					
+					if(spvdvm.getTrangThai().equals("Khong Hoat Dong") && !tenKho.equals("Tất cả") && !nhomHangHoa.equals("Tất cả") && !nhomSanPham.equals("Tất cả")) {
+						if(spvdvm.getKhoModel().getTenKho().equals(tenKho)) {
+							if(spvdvm.getNhomSPVaDichVuModel().getNhomHangHoa().equals(nhomHangHoa)) {
+								if(spvdvm.getNhomSPVaDichVuModel().getTenNhomSP().equals(nhomSanPham)) {
+									listSPVDVM.add(spvdvm);
+								}
+							}
+						}
 					}
 				}
 			}
+			
+			for (SanPhamVaDichVuModel spvdvm : listSPVDVM) {
+				String sapXep = cbx_sapXep.getSelectedItem().toString();
+				model.addRow(new Object[] {stt, spvdvm.getMaDichVu(), spvdvm.getTenHangHoa() , spvdvm.getNhomSPVaDichVuModel().getTenNhomSP(), spvdvm.getSoLuongTon(), spvdvm.getGiaVon(), spvdvm.getKhoModel().getTenKho() , spvdvm.getTrangThai()});
+			
+			}
+			
 		table_danhSachSanPhamVaDichVu.setModel(model);
 	}
 	
@@ -792,15 +1015,17 @@ public class SanPhamVaDichVu_view extends JFrame {
 	public boolean checkDonViCoBan() {
 		boolean check = true;
 		for (DonViChiTietModel donViChiTietModel : _listDonViChiTietModels) {
-			if(donViChiTietModel.getGiaTriQuyDoi() == 1) {
-				panel_donViTinh.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(192, 192, 192)), "Đơn vị quy đổi", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+			if(donViChiTietModel.getDonViMacDinh() == 1) {
 				txt_giaTriQuyDoi.setEditable(true);
+				ckb_donViCoBan.setSelected(false);
 				check = false;
+				break;
 			}
 		}
 		if(check) {
 			panel_donViTinh.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(192, 192, 192)), "Đơn vị cơ bản", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 			txt_giaTriQuyDoi.setEditable(false);
+			ckb_donViCoBan.setSelected(true);
 		}
 		return true;
 	}
@@ -825,6 +1050,10 @@ public class SanPhamVaDichVu_view extends JFrame {
 	}
 	public void xoaDonViTinh() 
 	{
+		if(ckb_donViCoBan.isSelected()) {
+			JOptionPane.showMessageDialog(null, "Không thể xóa đơn vị cơ bản của sản phẩm");
+			return;
+		}
 		int maDonViChiTiet = Integer.parseInt(txt_maDonVi.getText().trim());
 		for(int i =0 ; i<_listDonViChiTietModels.size() ; i++) {
 			if(_listDonViChiTietModels.get(i).getMaDonViChiTiet() == maDonViChiTiet) {
@@ -837,15 +1066,15 @@ public class SanPhamVaDichVu_view extends JFrame {
 		updateTable_danhSachDonViTinhActive(_listDonViChiTietModels);
 	}
 	
-	public String checkSwitchButton(SwitchButton sw) {
-		String trangThai ="";
-		if(switchButton_nhapDonViTinh.isSelected()) {
-			trangThai = "Hoat Dong";
-		}else {
-			trangThai = "Khong Hoat Dong";
-		}
-		return trangThai;
-	}
+//	public String checkSwitchButton(SwitchButton sw) {
+//		String trangThai ="";
+//		if(switchButton_nhapDonViTinh.isSelected()) {
+//			trangThai = "Hoat Dong";
+//		}else {
+//			trangThai = "Khong Hoat Dong";
+//		}
+//		return trangThai;
+//	}
 	
 	public DonViChiTietModel getInforFromFormIntoDonViChiTietModel() {
 		SanPhamVaDichVuModel sanPhamVaDichVuModel = getInforFromFormIntoSanPhamVaDichVuModel();
@@ -886,14 +1115,33 @@ public class SanPhamVaDichVu_view extends JFrame {
 			return null;
 		}
 		
-		String trangThai =checkSwitchButton(switchButton_nhapDonViTinh);
-		DonViChiTietModel dvctm = new DonViChiTietModel(maDonViChiTiet, donViTinhModel, sanPhamVaDichVuModel, giaTriQuyDoi, giaBan, trangThai);
+		int donViCoBan =-1;
+		if(ckb_donViCoBan.isSelected()) {
+			donViCoBan = 1;
+		}else {
+			donViCoBan = 0;
+		}
+		
+		if(donViCoBan != 1 && giaTriQuyDoi ==1) {
+			JOptionPane.showMessageDialog(null, "Chỉ đơn vị cơ bản mới có giá trị quy đổi là 1");
+			return null;
+		}
+		
+		
+		String trangThai =cbx_trangThai_donVi.getSelectedItem().toString();
+		
+		if(donViCoBan ==1 && trangThai.equals("Khong Hoat Dong")) {
+			JOptionPane.showMessageDialog(null, "Đơn vị cơ bản không được để trạng thái không hoạt động");
+			return null;
+		}
+		
+		DonViChiTietModel dvctm = new DonViChiTietModel(maDonViChiTiet, donViTinhModel, sanPhamVaDichVuModel, giaTriQuyDoi, giaBan, trangThai , donViCoBan);
 		return dvctm;
 	}
 	
 	public SanPhamVaDichVuModel getInforFromFormIntoSanPhamVaDichVuModel() {
 		int maDichVu = maDichVu = Integer.parseInt(txt_maSanPham.getText());;
-		String trangThai = checkSwitchButton(switchButton_nhap);
+		String trangThai = cbx_trangThai_sanPham.getSelectedItem().toString();
 		String tenHangHoa = txt_tenHangHoa.getText().trim();
 		if(tenHangHoa.equals("")) {
 			JOptionPane.showMessageDialog(null, "Vui lòng nhập tên hàng hóa");
@@ -927,6 +1175,10 @@ public class SanPhamVaDichVu_view extends JFrame {
 	}
 
 	public void them_suaSanPham() {
+		if(_listDonViChiTietModels.size()==0) {
+			JOptionPane.showMessageDialog(null, "Vui lòng nhập đơn vị cho sản phẩm");
+			return;
+		}
 		SanPhamVaDichVuModel sanPhamVaDichVuModel = getInforFromFormIntoSanPhamVaDichVuModel();
 		_sanPhamVaDichVuService.them_sua(sanPhamVaDichVuModel);
 		for (DonViChiTietModel donViChiTietModel : _listDonViChiTietModels) {
@@ -934,6 +1186,4 @@ public class SanPhamVaDichVu_view extends JFrame {
 		}
 		updateTable_danhSachSanPhamVaDichVu();
 	}
-	// chưa thể xử lí check có phải đơn vị cơ bản không . tạm thời check chống đối doclickontable donvitinh
-	// xử lí không cho edit giá trị quy đổi nếu là đơn vị cơ bản , không cho xoa
 }

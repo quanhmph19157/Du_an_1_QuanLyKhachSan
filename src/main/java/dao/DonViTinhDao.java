@@ -9,7 +9,7 @@ import entities.DonViChiTiet;
 import entities.DonViTinh;
 import utils.DB_Connection;
 
-public class DonViTinhDao implements IDonViTinhDao{
+public class DonViTinhDao{
 	private static ArrayList<DonViTinh> _listDonViTinhs = new ArrayList<DonViTinh>();
 	private static ArrayList<DonViTinh> _listDonViTinhs_active = new ArrayList<DonViTinh>();
 	private static ArrayList<DonViTinh> _listDonViTinhs_inactive = new ArrayList<DonViTinh>();

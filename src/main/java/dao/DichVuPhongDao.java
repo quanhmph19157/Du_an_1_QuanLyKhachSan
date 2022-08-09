@@ -8,7 +8,7 @@ import org.hibernate.Session;
 import entities.DichVuPhong;
 import utils.DB_Connection;
 
-public class DichVuPhongDao implements IDichVuPhongDao{
+public class DichVuPhongDao{
 private ArrayList<DichVuPhong> _listDichVuPhongs = new ArrayList<DichVuPhong>();
 	
 	public void them_sua(DichVuPhong DichVuPhong) {

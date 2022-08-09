@@ -8,7 +8,7 @@ import entities.KhachSan;
 import models.KhachSanModel;
 import utils.IoCContainer;
 
-public class KhachSanService implements IKhachSanService{
+public class KhachSanService{
 	private IoCContainer ioCContainer = new IoCContainer();
 	private List<KhachSanModel> _listKhachSanModels = new ArrayList<KhachSanModel>();
 	private KhachSanDao _KhachSanDao = (KhachSanDao) ioCContainer.getBean(KhachSanDao.class.toString());
@@ -21,7 +21,6 @@ public class KhachSanService implements IKhachSanService{
 		KhachSan.setEmail(KhachSanModel.getEmail());
 		KhachSan.setSdt(KhachSanModel.getSdt());
 		KhachSan.setDiaChi(KhachSanModel.getDiaChi());
-		KhachSan.setListTang(TangService.updateListTangDependOnListTangModel(KhachSanModel.getListTangModel()));
 		return KhachSan;
 	}
 	
@@ -32,7 +31,6 @@ public class KhachSanService implements IKhachSanService{
 		KhachSanModel.setEmail(KhachSan.getEmail());
 		KhachSanModel.setSdt(KhachSan.getSdt());
 		KhachSanModel.setDiaChi(KhachSan.getDiaChi());
-		KhachSanModel.setListTangModel(TangService.updateListTangModelDependOnListTang(KhachSan.getListTang()));
 		return KhachSanModel;
 	}
 	

@@ -90,6 +90,12 @@ public class SanPhamVaDichVuModel {
 	public void setTrangThai(String trangThai) {
 		this.trangThai = trangThai;
 	}
+	@Override
+	public String toString() {
+		return "SanPhamVaDichVuModel [maDichVu=" + maDichVu + ", tenHangHoa=" + tenHangHoa + ", nhomSPVaDichVuModel="
+				+ nhomSPVaDichVuModel + ", soLuongTon=" + soLuongTon + ", giaVon=" + giaVon + ", khoModel=" + khoModel
+				+ ", moTa=" + moTa + ", trangThai=" + trangThai + "]";
+	}
 
 	
 

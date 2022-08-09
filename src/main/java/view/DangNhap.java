@@ -148,7 +148,7 @@ public class DangNhap extends JFrame {
 		int index = 0;
 
 		for (NhanVienModel nhanVienModel : _listAccount) {
-			arrayTK[index] = nhanVienModel.getMaNV();
+			arrayTK[index] = nhanVienModel.getUserName();
 			index++;
 		}
 		cbx_taiKhoan.setModel(new DefaultComboBoxModel(arrayTK));
@@ -201,7 +201,7 @@ public class DangNhap extends JFrame {
 		btn_login.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				NhanVienService nvs = new NhanVienService();
-				nvs.updateListNhanVienModel();
+				nvs.updateListNhanVienModel_active("Hoat Dong");
 				List<NhanVienModel> list = new ArrayList<NhanVienModel>();
 					list = nvs.getListNhanVienModel();
 
@@ -212,11 +212,10 @@ public class DangNhap extends JFrame {
 				NhanVienModel userAreUsing;
 
 				for (NhanVienModel nhanVienModel : list) {
-					if (nhanVienModel.getMaNV().equals(taiKhoan)
+					if (nhanVienModel.getUserName().equals(taiKhoan)
 							&& nhanVienModel.getPassword().equals(Utilities.hashingPassword(matKhau))) {
 						userAreUsing = nhanVienModel;
 						if (cbxNhoMatKhau.isSelected()) {
-							System.out.print("da chay den 219");
 							if (_listAccount.isEmpty()) {
 								NhanVienModel nvm = new NhanVienModel(nhanVienModel.getMaNV(), nhanVienModel.getTenNV(), nhanVienModel.getSdt(), nhanVienModel.getGioiTinh(), nhanVienModel.getEmail(), nhanVienModel.getChucVuModel(), nhanVienModel.getTrangThai(), nhanVienModel.getCmnd(), nhanVienModel.getUserName(), matKhau, nhanVienModel.getNgaySinh());
 								_listAccount.add(nvm);
@@ -229,7 +228,6 @@ public class DangNhap extends JFrame {
 									ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
 
 									for (NhanVienModel nhanVienModel11 : _listAccount) {
-										System.out.print(nhanVienModel11.toString());
 										objectOutputStream.writeObject(nhanVienModel11);
 									}
 
@@ -349,6 +347,9 @@ public class DangNhap extends JFrame {
 						}
 
 //						viewMain(userAreUsing);
+						MainMenu mainMenu = new MainMenu(userAreUsing);
+						mainMenu.setVisible(true);
+						
 						System.out.print("Đăng nhập thành công");
 						check = "true";
 						break;

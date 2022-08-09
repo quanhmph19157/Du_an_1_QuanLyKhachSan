@@ -13,15 +13,15 @@ import entities.SanPhamVaDichVu;
 
 public class DichVuPhongModel {
 	private int maDichVuPhong;
-	private	DonViChiTietModel donViChiTietModel;
+	private	SanPhamVaDichVuModel SanPhamVaDichVuModel;
 	private KhachTrongPhongModel khachTrongPhongModel;
 	private double giaBan;
 	private int soLuong;
 	
-	public DichVuPhongModel(int maDichVuPhong, DonViChiTietModel donViChiTietModel,
+	public DichVuPhongModel(int maDichVuPhong, SanPhamVaDichVuModel SanPhamVaDichVuModel,
 			KhachTrongPhongModel khachTrongPhongModel, double giaBan, int soLuong) {
 		this.maDichVuPhong = maDichVuPhong;
-		this.donViChiTietModel = donViChiTietModel;
+		this.SanPhamVaDichVuModel = SanPhamVaDichVuModel;
 		this.khachTrongPhongModel = khachTrongPhongModel;
 		this.giaBan = giaBan;
 		this.soLuong = soLuong;
@@ -38,12 +38,12 @@ public class DichVuPhongModel {
 		this.maDichVuPhong = maDichVuPhong;
 	}
 
-	public DonViChiTietModel getDonViChiTietModel() {
-		return donViChiTietModel;
+	public SanPhamVaDichVuModel getSanPhamVaDichVuModel() {
+		return SanPhamVaDichVuModel;
 	}
 
-	public void setDonViChiTietModel(DonViChiTietModel donViChiTietModel) {
-		this.donViChiTietModel = donViChiTietModel;
+	public void setSanPhamVaDichVuModel(SanPhamVaDichVuModel SanPhamVaDichVuModel) {
+		this.SanPhamVaDichVuModel = SanPhamVaDichVuModel;
 	}
 
 	public KhachTrongPhongModel getKhachTrongPhongModel() {
@@ -72,7 +72,7 @@ public class DichVuPhongModel {
 
 	@Override
 	public String toString() {
-		return "DichVuPhongModel [maDichVuPhong=" + maDichVuPhong + ", donViChiTietModel=" + donViChiTietModel
+		return "DichVuPhongModel [maDichVuPhong=" + maDichVuPhong + ", SanPhamVaDichVuModel=" + SanPhamVaDichVuModel
 				+ ", khachTrongPhongModel=" + khachTrongPhongModel + ", giaBan=" + giaBan + ", soLuong=" + soLuong
 				+ "]";
 	}

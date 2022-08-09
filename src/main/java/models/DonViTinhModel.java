@@ -52,6 +52,11 @@ public class DonViTinhModel {
 		this.trangThai = trangThai;
 	}
 
+	@Override
+	public String toString() {
+		return "DonViTinhModel [maDonVi=" + maDonVi + ", tenDonVi=" + tenDonVi + ", trangThai=" + trangThai + "]";
+	}
 
+	
 
 }

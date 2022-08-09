@@ -10,7 +10,6 @@ import entities.ChucVu;
 import entities.DichVuPhong;
 import entities.DonViChiTiet;
 import entities.DonViTinh;
-import entities.Gia;
 import entities.History;
 import entities.HoaDon;
 import entities.KhachHang;
@@ -43,7 +42,7 @@ public class DB_Connection {
 		Configuration configuration = new Configuration().configure().addAnnotatedClass(ChucVu.class)
 				.addAnnotatedClass(Quyen.class).addAnnotatedClass(Quyen_cv.class).addAnnotatedClass(KhachSan.class)
 				.addAnnotatedClass(Tang.class).addAnnotatedClass(Phong.class).addAnnotatedClass(LoaiPhong.class)
-				.addAnnotatedClass(Gia.class).addAnnotatedClass(KhachTrongPhong.class).addAnnotatedClass(HoaDon.class)
+				.addAnnotatedClass(KhachTrongPhong.class).addAnnotatedClass(HoaDon.class)
 				.addAnnotatedClass(History.class).addAnnotatedClass(NhanVien.class).addAnnotatedClass(KhachHang.class)
 				.addAnnotatedClass(PhieuNhapKho.class).addAnnotatedClass(PhieuKiemKho.class)
 				.addAnnotatedClass(PhieuKiemKhoChiTiet.class).addAnnotatedClass(PhieuNhapKhoChiTiet.class)

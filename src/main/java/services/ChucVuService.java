@@ -11,7 +11,7 @@ import models.ChucVuModel;
 import models.NhanVienModel;
 import utils.IoCContainer;
 
-public class ChucVuService implements IChucVuService{
+public class ChucVuService{
 	private IoCContainer ioCContainer = new IoCContainer();
 	private List<ChucVuModel> _listChucVuModels = new ArrayList<ChucVuModel>();
 	private ChucVuDao _chucVuDao = (ChucVuDao) ioCContainer.getBean(ChucVuDao.class.toString());

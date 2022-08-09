@@ -8,7 +8,7 @@ import entities.DonViTinh;
 import models.DonViTinhModel;
 import utils.IoCContainer;
 
-public class DonViTinhService implements IDonViTinhService {
+public class DonViTinhService {
 	private IoCContainer ioCContainer = new IoCContainer();
 	private List<DonViTinhModel> _listDonViTinhModels = new ArrayList<DonViTinhModel>();
 	private List<DonViTinhModel> _listDonViTinhModels_active = new ArrayList<DonViTinhModel>();

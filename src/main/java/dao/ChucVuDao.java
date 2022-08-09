@@ -8,7 +8,7 @@ import org.hibernate.Session;
 import entities.ChucVu;
 import utils.DB_Connection;
 
-public class ChucVuDao implements IChucVuDao{
+public class ChucVuDao{
 private static ArrayList<ChucVu> _listChucVus = new ArrayList<ChucVu>();
 	
 	public void them_sua(ChucVu chucVu) {

@@ -12,7 +12,7 @@ import entities.PhieuNhapKhoChiTiet;
 import entities.SanPhamVaDichVu;
 import utils.DB_Connection;
 
-public class DonViChiTietDao implements IDonViChiTietDao{
+public class DonViChiTietDao{
 	private static List<DonViChiTiet> _listDonViChiTiets = new ArrayList<DonViChiTiet>();
 	private int maxID;
 	

@@ -8,7 +8,7 @@ import entities.DichVuPhong;
 import models.DichVuPhongModel;
 import utils.IoCContainer;
 
-public class DichVuPhongService implements IDichVuPhongService{
+public class DichVuPhongService{
 	private IoCContainer ioCContainer = new IoCContainer();
 	private List<DichVuPhongModel> _listDichVuPhongModels = new ArrayList<DichVuPhongModel>();
 	private DichVuPhongDao _DichVuPhongDao = (DichVuPhongDao) ioCContainer.getBean(DichVuPhongDao.class.toString());
@@ -18,7 +18,7 @@ public class DichVuPhongService implements IDichVuPhongService{
 	public static DichVuPhong updateDataDichVuPhongDependOnDichVuPhongModel(DichVuPhongModel DichVuPhongModel) {
 		DichVuPhong DichVuPhong = new DichVuPhong();
 		DichVuPhong.setMaDichVuPhong(DichVuPhongModel.getMaDichVuPhong());
-		DichVuPhong.setDonViChiTiet(DonViChiTietService.modelToEntity(DichVuPhongModel.getDonViChiTietModel()));
+		DichVuPhong.setSanPhamVaDichVu(SanPhamVaDichVuService.modelToEntity(DichVuPhongModel.getSanPhamVaDichVuModel()));
 		DichVuPhong.setKhachTrongPhong(KhachTrongPhongService.updateDataKhachTrongPhongDependOnKhachTrongPhongModel(DichVuPhongModel.getKhachTrongPhongModel()));
 		DichVuPhong.setGiaBan(DichVuPhongModel.getGiaBan());
 		DichVuPhong.setSoLuong(DichVuPhongModel.getSoLuong());
@@ -28,7 +28,7 @@ public class DichVuPhongService implements IDichVuPhongService{
 	public static DichVuPhongModel updateDataDichVuPhongModelDependOnDichVuPhong(DichVuPhong DichVuPhong) {
 		DichVuPhongModel DichVuPhongModel = new DichVuPhongModel();
 		DichVuPhongModel.setMaDichVuPhong(DichVuPhong.getMaDichVuPhong());
-		DichVuPhongModel.setDonViChiTietModel(DonViChiTietService.entityToModel(DichVuPhong.getDonViChiTiet()));
+		DichVuPhongModel.setSanPhamVaDichVuModel(SanPhamVaDichVuService.entityToModel(DichVuPhong.getSanPhamVaDichVu()));
 		DichVuPhongModel.setKhachTrongPhongModel(KhachTrongPhongService.updateDataKhachTrongPhongModelDependOnKhachTrongPhong(DichVuPhong.getKhachTrongPhong()));
 		DichVuPhongModel.setGiaBan(DichVuPhong.getGiaBan());
 		DichVuPhongModel.setSoLuong(DichVuPhong.getSoLuong());

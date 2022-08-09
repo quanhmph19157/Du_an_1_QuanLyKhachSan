@@ -9,7 +9,7 @@ import models.HoaDonModel;
 import models.KhachTrongPhongModel;
 import utils.IoCContainer;
 
-public class KhachTrongPhongService implements IKhachTrongPhongService{
+public class KhachTrongPhongService{
 	private IoCContainer ioCContainer = new IoCContainer();
 	private List<KhachTrongPhongModel> _listKhachTrongPhongModels = new ArrayList<KhachTrongPhongModel>();
 	private KhachTrongPhongDao _KhachTrongPhongDao = (KhachTrongPhongDao) ioCContainer.getBean(KhachTrongPhongDao.class.toString());
@@ -24,7 +24,6 @@ public class KhachTrongPhongService implements IKhachTrongPhongService{
 		KhachTrongPhong.setGiaPhong(KhachTrongPhongModel.getGiaPhong());
 		KhachTrongPhong.setPhuPhi(KhachTrongPhongModel.getPhuPhi());
 		KhachTrongPhong.setGhiChu(KhachTrongPhongModel.getGhiChu());
-		KhachTrongPhong.setListDichVuPhong(DichVuPhongService.updateListDichVuPhongDependOnListDichVuPhongModel(KhachTrongPhongModel.getListDichVuPhongModel()));
 		return KhachTrongPhong;
 	}
 	
@@ -38,7 +37,6 @@ public class KhachTrongPhongService implements IKhachTrongPhongService{
 		KhachTrongPhongModel.setGiaPhong(KhachTrongPhong.getGiaPhong());
 		KhachTrongPhongModel.setPhuPhi(KhachTrongPhong.getPhuPhi());
 		KhachTrongPhongModel.setGhiChu(KhachTrongPhong.getGhiChu());
-		KhachTrongPhongModel.setListDichVuPhongModel(DichVuPhongService.updateListDichVuPhongModelDependOnListDichVuPhong(KhachTrongPhong.getListDichVuPhong()));
 		return KhachTrongPhongModel;
 	}
 	

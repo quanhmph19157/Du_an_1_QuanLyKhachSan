@@ -9,7 +9,7 @@ import models.NhomSPVaDichVuModel;
 import models.SanPhamVaDichVuModel;
 import utils.IoCContainer;
 
-public class NhomSPVaDichVuService implements INhomSPvaDichVuService{
+public class NhomSPVaDichVuService{
 	private IoCContainer ioCContainer = new IoCContainer();
 	private List<NhomSPVaDichVuModel> _listNhomSPVaDichVuModels = new ArrayList<NhomSPVaDichVuModel>();
 	private List<NhomSPVaDichVuModel> _listNhomSPVaDichVuModelsInactive = new ArrayList<NhomSPVaDichVuModel>();

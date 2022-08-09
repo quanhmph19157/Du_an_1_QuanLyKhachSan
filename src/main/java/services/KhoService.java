@@ -11,7 +11,7 @@ import models.KhoModel;
 import models.SanPhamVaDichVuModel;
 import utils.IoCContainer;
 
-public class KhoService implements IKhoService{
+public class KhoService{
 	private IoCContainer ioCContainer = new IoCContainer();
 	private static List<Kho> _listKho = new ArrayList<Kho>();
 	private List<KhoModel> _listKhoModels = new ArrayList<KhoModel>();

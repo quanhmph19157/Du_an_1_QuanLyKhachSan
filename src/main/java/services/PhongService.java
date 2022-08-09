@@ -8,7 +8,7 @@ import entities.Phong;
 import models.PhongModel;
 import utils.IoCContainer;
 
-public class PhongService implements IPhongService{
+public class PhongService{
 	private IoCContainer ioCContainer = new IoCContainer();
 	private List<PhongModel> _listPhongModels = new ArrayList<PhongModel>();
 	private PhongDao _PhongDao = (PhongDao) ioCContainer.getBean(PhongDao.class.toString());
@@ -17,20 +17,18 @@ public class PhongService implements IPhongService{
 	public static Phong updateDataPhongDependOnPhongModel(PhongModel PhongModel) {
 		Phong Phong = new Phong();
 		Phong.setMaPhong(PhongModel.getMaPhong());
-		Phong.setLoaiPhong(LoaiPhongService.updateDataLoaiPhongDependOnLoaiPhongModel(PhongModel.getLoaiPhongModel()));
+		Phong.setLoaiPhong(LoaiPhongService.modelToEntity(PhongModel.getLoaiPhongModel()));
 		Phong.setTrangThai(PhongModel.getTrangThai());
 		Phong.setTang(TangService.updateDataTangDependOnTangModel(PhongModel.getTangModel()));
-		Phong.setListKhachTrongPhong(KhachTrongPhongService.updateListKhachTrongPhongDependOnListKhachTrongPhongModel(PhongModel.getListKhachTrongPhongModel()));
 		return Phong;
 	}
 	
 	public static PhongModel updateDataPhongModelDependOnPhong(Phong Phong) {
 		PhongModel PhongModel = new PhongModel();
 		PhongModel.setMaPhong(Phong.getMaPhong());
-		PhongModel.setLoaiPhongModel(LoaiPhongService.updateDataLoaiPhongModelDependOnLoaiPhong(Phong.getLoaiPhong()));
+		PhongModel.setLoaiPhongModel(LoaiPhongService.entityToModel(Phong.getLoaiPhong()));
 		PhongModel.setTrangThai(Phong.getTrangThai());
 		PhongModel.setTangModel(TangService.updateDataTangModelDependOnTang(Phong.getTang()));
-		PhongModel.setListKhachTrongPhongModel(KhachTrongPhongService.updateListKhachTrongPhongModelDependOnListKhachTrongPhong(Phong.getListKhachTrongPhong()));
 		return PhongModel;
 	}
 	

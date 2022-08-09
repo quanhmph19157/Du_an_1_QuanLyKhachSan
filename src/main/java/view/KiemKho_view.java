@@ -801,12 +801,13 @@ public class KiemKho_view extends JFrame {
 		int index = cbx_kho.getSelectedIndex()-1;
 		KhoModel khoModel = _listKhoModels_active.get(index);
 		String ghiChu = txt_ghiChu.getText().trim();
-		PhieuKiemKhoModel pkkm = new PhieuKiemKhoModel(maKK, null, _userAreUsing, khoModel, ghiChu);
+		PhieuKiemKhoModel pkkm = new PhieuKiemKhoModel(maKK, ngayKiemKho, _userAreUsing, khoModel, ghiChu);
 		return pkkm;
 	}
 	
 	public PhieuKiemKhoChiTietModel formToPKKCTM () {
 		PhieuKiemKhoModel pkkm = formToPKKM();
+		cbx_kho.setEnabled(false);
 		int soLuongTK = Integer.parseInt(txt_soLuongTK.getText().trim());
 		int soLuongTT = Integer.parseInt(txt_soLuongTT.getText().trim());
 		int soLuongCL = Integer.parseInt(txt_soLuongCL.getText().trim());
@@ -860,6 +861,10 @@ public class KiemKho_view extends JFrame {
 		txt_ghiChu.setText("");
 		clearFormTTSP();
 		_listPhieuKiemKhoChiTietModels = new ArrayList<PhieuKiemKhoChiTietModel>();
+		
+		DefaultTableModel model = new DefaultTableModel();
+		table_sanPham.setModel(model);
+		
 		updateCbx_kho();
 		getMaKK();
 		txt_ghiChu.setEditable(true);

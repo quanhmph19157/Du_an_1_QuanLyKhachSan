@@ -6,11 +6,13 @@ import java.util.List;
 import dao.DonViChiTietDao;
 import entities.DonViChiTiet;
 import models.DonViChiTietModel;
+import models.DonViTinhModel;
 import utils.IoCContainer;
 
-public class DonViChiTietService implements IDonViChiTietService{
+public class DonViChiTietService{
 	private IoCContainer ioCContainer = new IoCContainer();
 	private List<DonViChiTietModel> _listDonViChiTietModels = new ArrayList<DonViChiTietModel>();
+	private List<DonViChiTiet> _listDonViChiTiets = new ArrayList<DonViChiTiet>();
 	private DonViChiTietDao _DonViChiTietDao = (DonViChiTietDao) ioCContainer.getBean(DonViChiTietDao.class.toString());
 	private DonViChiTiet _DonViChiTiet;
 	private DonViChiTietModel _DonViChiTietModel = (DonViChiTietModel) IoCContainer.getBean(DonViChiTietModel.class.toString());
@@ -24,6 +26,7 @@ public class DonViChiTietService implements IDonViChiTietService{
 		DonViChiTiet.setGiaTriQuyDoi(DonViChiTietModel.getGiaTriQuyDoi());
 		DonViChiTiet.setGiaBan(DonViChiTietModel.getGiaBan());
 		DonViChiTiet.setTrangThai(DonViChiTietModel.getTrangThai());
+		DonViChiTiet.setDonViMacDinh(DonViChiTietModel.getDonViMacDinh());
 		return DonViChiTiet;
 	}
 	public static DonViChiTietModel entityToModel(DonViChiTiet donViChiTiet) {
@@ -34,6 +37,7 @@ public class DonViChiTietService implements IDonViChiTietService{
 		donViChiTietModel.setGiaTriQuyDoi(donViChiTiet.getGiaTriQuyDoi());
 		donViChiTietModel.setGiaBan(donViChiTiet.getGiaBan());
 		donViChiTietModel.setTrangThai(donViChiTiet.getTrangThai());
+		donViChiTietModel.setDonViMacDinh(donViChiTiet.getDonViMacDinh());
 		return donViChiTietModel;
 	}
 	
@@ -54,6 +58,7 @@ public class DonViChiTietService implements IDonViChiTietService{
 		}
 		return listDonViChiTietModel;
 	}
+	
 
 	public void them_sua(DonViChiTietModel DonViChiTietModel) {
 		_DonViChiTiet = modelToEntity(DonViChiTietModel);
@@ -61,11 +66,19 @@ public class DonViChiTietService implements IDonViChiTietService{
 		_listDonViChiTietModels.add(DonViChiTietModel); // check lai
 	}
 
+	public DonViTinhModel getDonViTinhModel (DonViChiTietModel dvctm) {
+		for (DonViChiTiet dvct : _listDonViChiTiets) {
+			if(dvct.getMaDonViChiTiet() == dvctm.getMaDonViChiTiet()) {
+				return DonViTinhService.entityToModel(dvct.getDonViTinh());
+			}
+		}
+		return null;
+	}
 	
 	public void updateListDonViChiTietModel() {
 		_DonViChiTietDao.updateListDonViChiTiet();
-		List<DonViChiTiet> listDonViChiTiet = _DonViChiTietDao.getListDonViChiTiet();
-		_listDonViChiTietModels = listEntitiesTolistModel(listDonViChiTiet);
+		_listDonViChiTiets = _DonViChiTietDao.getListDonViChiTiet();
+		_listDonViChiTietModels = listEntitiesTolistModel(_listDonViChiTiets);
 		maxID = _DonViChiTietDao.getMaxID();
 	}
 

@@ -7,37 +7,14 @@ import dao.ChucVuDao;
 import dao.DichVuPhongDao;
 import dao.DonViChiTietDao;
 import dao.DonViTinhDao;
-import dao.GiaDao;
 import dao.HistoryDao;
 import dao.HoaDonDao;
 import dao.SanPhamVaDichVuDao;
 import dao.TangDao;
-import dao.IChucVuDao;
-import dao.IDichVuPhongDao;
-import dao.IDonViChiTietDao;
-import dao.IDonViTinhDao;
-import dao.IGiaDao;
-import dao.IHistoryDao;
-import dao.IHoaDonDao;
-import dao.IKhachHangDao;
-import dao.IKhachTrongPhongDao;
-import dao.IKhoDao;
-import dao.ILoaiPhongDao;
-import dao.ISanPhamVaDichVuDao;
-import dao.ITangDao;
 import dao.KhachHangDao;
 import dao.KhachTrongPhongDao;
 import dao.KhoDao;
 import dao.LoaiPhongDao;
-import dao.INhanVienDao;
-import dao.INhomSPVaDichVu;
-import dao.IPhieuKiemKhoChiTietDao;
-import dao.IPhieuKiemKhoDao;
-import dao.IPhieuNhapKhoChiTietDao;
-import dao.IPhieuNhapKhoDao;
-import dao.IPhongDao;
-import dao.IQuyenDao;
-import dao.IQuyen_cvDao;
 import dao.NhanVienDao;
 import dao.NhomSPVaDichVuDao;
 import dao.PhieuKiemKhoChiTietDao;
@@ -54,37 +31,14 @@ import services.ChucVuService;
 import services.DichVuPhongService;
 import services.DonViChiTietService;
 import services.DonViTinhService;
-import services.GiaService;
 import services.HistoryService;
 import services.HoaDonService;
 import services.SanPhamVaDichVuService;
 import services.TangService;
-import services.IChucVuService;
-import services.IDichVuPhongService;
-import services.IDonViChiTietService;
-import services.IDonViTinhService;
-import services.IGiaService;
-import services.IHistoryService;
-import services.IHoaDonService;
-import services.IKhachHangService;
-import services.IKhachTrongPhongService;
-import services.IKhoService;
-import services.ILoaiPhongService;
-import services.ISanPhamVaDichVuService;
-import services.ITangService;
 import services.KhachHangService;
 import services.KhachTrongPhongService;
 import services.KhoService;
 import services.LoaiPhongService;
-import services.INhanVienService;
-import services.INhomSPvaDichVuService;
-import services.IPhieuKiemKhoChiTietService;
-import services.IPhieuKiemKhoService;
-import services.IPhieuNhapKhoChiTietService;
-import services.IPhieuNhapKhoService;
-import services.IPhongService;
-import services.IQuyenService;
-import services.IQuyen_cvService;
 import services.NhanVienService;
 import services.NhomSPVaDichVuService;
 import services.PhieuKiemKhoChiTietService;
@@ -110,14 +64,14 @@ public class IoCContainer {
 			if (container.containsKey(classNameSpace)) {
 				return container.get(classNameSpace);
 			}
-			ISanPhamVaDichVuDao sanPhamVaDichVuDao = new SanPhamVaDichVuDao();
+			SanPhamVaDichVuDao sanPhamVaDichVuDao = new SanPhamVaDichVuDao();
 			container.put(classNameSpace, sanPhamVaDichVuDao);
 			return sanPhamVaDichVuDao;
 		case "class services.SanPhamVaDichVuService":
 			if (container.containsKey(classNameSpace)) {
 				return container.get(classNameSpace);
 			}
-			ISanPhamVaDichVuService sanPhamVaDichVuService = new SanPhamVaDichVuService();
+			SanPhamVaDichVuService sanPhamVaDichVuService = new SanPhamVaDichVuService();
 			container.put(classNameSpace, sanPhamVaDichVuService);
 			return sanPhamVaDichVuService;
 			
@@ -125,14 +79,14 @@ public class IoCContainer {
 			if (container.containsKey(classNameSpace)) {
 				return container.get(classNameSpace);
 			}
-			INhanVienService nhanVienService = new NhanVienService();
+			NhanVienService nhanVienService = new NhanVienService();
 			container.put(classNameSpace, nhanVienService);
 			return nhanVienService;
 		case "class dao.NhanVienDao":
 			if (container.containsKey(classNameSpace)) {
 				return container.get(classNameSpace);
 			}
-			INhanVienDao nhanVienDao = new NhanVienDao();
+			NhanVienDao nhanVienDao = new NhanVienDao();
 			container.put(classNameSpace, nhanVienDao);
 			return nhanVienDao;
 			
@@ -140,14 +94,14 @@ public class IoCContainer {
 			if (container.containsKey(classNameSpace)) {
 				return container.get(classNameSpace);
 			}
-			IChucVuDao chucVuDao = new ChucVuDao();
+			ChucVuDao chucVuDao = new ChucVuDao();
 			container.put(classNameSpace, chucVuDao);
 			return chucVuDao;
 		case "class services.ChucVuService":
 			if (container.containsKey(classNameSpace)) {
 				return container.get(classNameSpace);
 			}
-			IChucVuService chucVuService = new ChucVuService();
+			ChucVuService chucVuService = new ChucVuService();
 			container.put(classNameSpace, chucVuService);
 			return chucVuService;
 			
@@ -155,7 +109,7 @@ public class IoCContainer {
 			if (container.containsKey(classNameSpace)) {
 				return container.get(classNameSpace);
 			}
-			IKhoService khoService = new KhoService();
+			KhoService khoService = new KhoService();
 			container.put(classNameSpace, khoService);
 			return khoService;
 			
@@ -163,7 +117,7 @@ public class IoCContainer {
 			if (container.containsKey(classNameSpace)) {
 				return container.get(classNameSpace);
 			}
-			IKhoDao khoDao = new KhoDao();
+			KhoDao khoDao = new KhoDao();
 			container.put(classNameSpace, khoDao);
 			return khoDao;
 			
@@ -171,14 +125,14 @@ public class IoCContainer {
 			if (container.containsKey(classNameSpace)) {
 				return container.get(classNameSpace);
 			}
-			INhomSPVaDichVu nhomSPVaDichVu = new NhomSPVaDichVuDao();
+			NhomSPVaDichVuDao nhomSPVaDichVu = new NhomSPVaDichVuDao();
 			container.put(classNameSpace, nhomSPVaDichVu);
 			return nhomSPVaDichVu;
 		case "class services.NhomSPVaDichVuService":
 			if (container.containsKey(classNameSpace)) {
 				return container.get(classNameSpace);
 			}
-			INhomSPvaDichVuService nhomSPvaDichVuService = new NhomSPVaDichVuService();
+			NhomSPVaDichVuService nhomSPvaDichVuService = new NhomSPVaDichVuService();
 			container.put(classNameSpace, nhomSPvaDichVuService);
 			return nhomSPvaDichVuService;
 			
@@ -186,7 +140,7 @@ public class IoCContainer {
 			if (container.containsKey(classNameSpace)) {
 				return container.get(classNameSpace);
 			}
-			IPhieuKiemKhoChiTietDao phieuKiemKhoChiTiet = new PhieuKiemKhoChiTietDao();
+			PhieuKiemKhoChiTietDao phieuKiemKhoChiTiet = new PhieuKiemKhoChiTietDao();
 			container.put(classNameSpace, phieuKiemKhoChiTiet);
 			return phieuKiemKhoChiTiet;
 			
@@ -194,7 +148,7 @@ public class IoCContainer {
 			if (container.containsKey(classNameSpace)) {
 				return container.get(classNameSpace);
 			}
-			IPhieuKiemKhoChiTietService phieuKiemKhoChiTietService = new PhieuKiemKhoChiTietService();
+			PhieuKiemKhoChiTietService phieuKiemKhoChiTietService = new PhieuKiemKhoChiTietService();
 			container.put(classNameSpace, phieuKiemKhoChiTietService);
 			return phieuKiemKhoChiTietService;
 			
@@ -202,7 +156,7 @@ public class IoCContainer {
 			if (container.containsKey(classNameSpace)) {
 				return container.get(classNameSpace);
 			}
-			IPhieuKiemKhoDao phieuKiemKhoDao = new PhieuKiemKhoDao();
+			PhieuKiemKhoDao phieuKiemKhoDao = new PhieuKiemKhoDao();
 			container.put(classNameSpace, phieuKiemKhoDao);
 			return phieuKiemKhoDao;
 			
@@ -210,7 +164,7 @@ public class IoCContainer {
 			if (container.containsKey(classNameSpace)) {
 				return container.get(classNameSpace);
 			}
-			IPhieuKiemKhoService phieuKiemKhoService = new PhieuKiemKhoService();
+			PhieuKiemKhoService phieuKiemKhoService = new PhieuKiemKhoService();
 			container.put(classNameSpace, phieuKiemKhoService);
 			return phieuKiemKhoService;
 			
@@ -218,7 +172,7 @@ public class IoCContainer {
 			if (container.containsKey(classNameSpace)) {
 				return container.get(classNameSpace);
 			}
-			IPhieuNhapKhoChiTietDao phieuNhapKhoChiTietDao = new PhieuNhapKhoChiTietDao();
+			PhieuNhapKhoChiTietDao phieuNhapKhoChiTietDao = new PhieuNhapKhoChiTietDao();
 			container.put(classNameSpace, phieuNhapKhoChiTietDao);
 			return phieuNhapKhoChiTietDao;
 			
@@ -226,7 +180,7 @@ public class IoCContainer {
 			if (container.containsKey(classNameSpace)) {
 				return container.get(classNameSpace);
 			}
-			IPhieuNhapKhoChiTietService phieuNhapKhoChiTietService = new PhieuNhapKhoChiTietService();
+			PhieuNhapKhoChiTietService phieuNhapKhoChiTietService = new PhieuNhapKhoChiTietService();
 			container.put(classNameSpace, phieuNhapKhoChiTietService);
 			return phieuNhapKhoChiTietService;
 			
@@ -234,7 +188,7 @@ public class IoCContainer {
 			if (container.containsKey(classNameSpace)) {
 				return container.get(classNameSpace);
 			}
-			IPhieuNhapKhoDao phieuNhapKhoDao = new PhieuNhapKhoDao();
+			PhieuNhapKhoDao phieuNhapKhoDao = new PhieuNhapKhoDao();
 			container.put(classNameSpace, phieuNhapKhoDao);
 			return phieuNhapKhoDao;
 			
@@ -242,7 +196,7 @@ public class IoCContainer {
 			if (container.containsKey(classNameSpace)) {
 				return container.get(classNameSpace);
 			}
-			IPhieuNhapKhoService phieuNhapKhoService = new PhieuNhapKhoService();
+			PhieuNhapKhoService phieuNhapKhoService = new PhieuNhapKhoService();
 			container.put(classNameSpace, phieuNhapKhoService);
 			return phieuNhapKhoService;
 			
@@ -250,7 +204,7 @@ public class IoCContainer {
 			if (container.containsKey(classNameSpace)) {
 				return container.get(classNameSpace);
 			}
-			IKhachHangDao khachHangDao = new KhachHangDao();
+			KhachHangDao khachHangDao = new KhachHangDao();
 			container.put(classNameSpace, khachHangDao);
 			return khachHangDao;
 			
@@ -258,7 +212,7 @@ public class IoCContainer {
 			if (container.containsKey(classNameSpace)) {
 				return container.get(classNameSpace);
 			}
-			IKhachHangService khachHangService = new KhachHangService();
+			KhachHangService khachHangService = new KhachHangService();
 			container.put(classNameSpace, khachHangService);
 			return khachHangService;
 			
@@ -266,7 +220,7 @@ public class IoCContainer {
 			if (container.containsKey(classNameSpace)) {
 				return container.get(classNameSpace);
 			}
-			IHistoryDao historyDao = new HistoryDao();
+			HistoryDao historyDao = new HistoryDao();
 			container.put(classNameSpace, historyDao);
 			return historyDao;
 			
@@ -274,7 +228,7 @@ public class IoCContainer {
 			if (container.containsKey(classNameSpace)) {
 				return container.get(classNameSpace);
 			}
-			IHistoryService historyService = new HistoryService();
+			HistoryService historyService = new HistoryService();
 			container.put(classNameSpace, historyService);
 			return historyService;
 			
@@ -282,7 +236,7 @@ public class IoCContainer {
 			if (container.containsKey(classNameSpace)) {
 				return container.get(classNameSpace);
 			}
-			IDonViTinhDao donViTinhDao = new DonViTinhDao();
+			DonViTinhDao donViTinhDao = new DonViTinhDao();
 			container.put(classNameSpace, donViTinhDao);
 			return donViTinhDao;
 			
@@ -290,7 +244,7 @@ public class IoCContainer {
 			if (container.containsKey(classNameSpace)) {
 				return container.get(classNameSpace);
 			}
-			IDonViTinhService donViTinhService = new DonViTinhService();
+			DonViTinhService donViTinhService = new DonViTinhService();
 			container.put(classNameSpace, donViTinhService);
 			return donViTinhService;
 			
@@ -298,7 +252,7 @@ public class IoCContainer {
 			if (container.containsKey(classNameSpace)) {
 				return container.get(classNameSpace);
 			}
-			IDonViChiTietDao donViChiTietDao = new DonViChiTietDao();
+			DonViChiTietDao donViChiTietDao = new DonViChiTietDao();
 			container.put(classNameSpace, donViChiTietDao);
 			return donViChiTietDao;
 			
@@ -306,7 +260,7 @@ public class IoCContainer {
 			if (container.containsKey(classNameSpace)) {
 				return container.get(classNameSpace);
 			}
-			IDonViChiTietService donViChiTietService = new DonViChiTietService();
+			DonViChiTietService donViChiTietService = new DonViChiTietService();
 			container.put(classNameSpace, donViChiTietService);
 			return donViChiTietService;
 			
@@ -314,7 +268,7 @@ public class IoCContainer {
 			if (container.containsKey(classNameSpace)) {
 				return container.get(classNameSpace);
 			}
-			IDichVuPhongDao dichVuPhongDao = new DichVuPhongDao();
+			DichVuPhongDao dichVuPhongDao = new DichVuPhongDao();
 			container.put(classNameSpace, dichVuPhongDao);
 			return dichVuPhongDao;
 			
@@ -322,7 +276,7 @@ public class IoCContainer {
 			if (container.containsKey(classNameSpace)) {
 				return container.get(classNameSpace);
 			}
-			IDichVuPhongService dichVuPhongService = new DichVuPhongService();
+			DichVuPhongService dichVuPhongService = new DichVuPhongService();
 			container.put(classNameSpace, dichVuPhongService);
 			return dichVuPhongService;
 			
@@ -330,7 +284,7 @@ public class IoCContainer {
 			if (container.containsKey(classNameSpace)) {
 				return container.get(classNameSpace);
 			}
-			IHoaDonDao hoaDonDao = new HoaDonDao();
+			HoaDonDao hoaDonDao = new HoaDonDao();
 			container.put(classNameSpace, hoaDonDao);
 			return hoaDonDao;
 			
@@ -338,7 +292,7 @@ public class IoCContainer {
 			if (container.containsKey(classNameSpace)) {
 				return container.get(classNameSpace);
 			}
-			IHoaDonService hoaDonService = new HoaDonService();
+			HoaDonService hoaDonService = new HoaDonService();
 			container.put(classNameSpace, hoaDonService);
 			return hoaDonService;
 			
@@ -346,7 +300,7 @@ public class IoCContainer {
 			if (container.containsKey(classNameSpace)) {
 				return container.get(classNameSpace);
 			}
-			IKhachTrongPhongDao khachTrongPhongDao = new KhachTrongPhongDao();
+			KhachTrongPhongDao khachTrongPhongDao = new KhachTrongPhongDao();
 			container.put(classNameSpace, khachTrongPhongDao);
 			return khachTrongPhongDao;
 			
@@ -354,7 +308,7 @@ public class IoCContainer {
 			if (container.containsKey(classNameSpace)) {
 				return container.get(classNameSpace);
 			}
-			IKhachTrongPhongService khachTrongPhongService = new KhachTrongPhongService();
+			KhachTrongPhongService khachTrongPhongService = new KhachTrongPhongService();
 			container.put(classNameSpace, khachTrongPhongService);
 			return khachTrongPhongService;
 			
@@ -362,7 +316,7 @@ public class IoCContainer {
 			if (container.containsKey(classNameSpace)) {
 				return container.get(classNameSpace);
 			}
-			ITangDao tangDao = new TangDao();
+			TangDao tangDao = new TangDao();
 			container.put(classNameSpace, tangDao);
 			return tangDao;
 			
@@ -370,7 +324,7 @@ public class IoCContainer {
 			if (container.containsKey(classNameSpace)) {
 				return container.get(classNameSpace);
 			}
-			ITangService tangService = new TangService();
+			TangService tangService = new TangService();
 			container.put(classNameSpace, tangService);
 			return tangService;
 			
@@ -378,7 +332,7 @@ public class IoCContainer {
 			if (container.containsKey(classNameSpace)) {
 				return container.get(classNameSpace);
 			}
-			IPhongDao phongDao = new PhongDao();
+			PhongDao phongDao = new PhongDao();
 			container.put(classNameSpace, phongDao);
 			return phongDao;
 			
@@ -386,7 +340,7 @@ public class IoCContainer {
 			if (container.containsKey(classNameSpace)) {
 				return container.get(classNameSpace);
 			}
-			IPhongService phongService = new PhongService();
+			PhongService phongService = new PhongService();
 			container.put(classNameSpace, phongService);
 			return phongService;
 			
@@ -394,7 +348,7 @@ public class IoCContainer {
 			if (container.containsKey(classNameSpace)) {
 				return container.get(classNameSpace);
 			}
-			ILoaiPhongDao loaiPhongDao = new LoaiPhongDao();
+			LoaiPhongDao loaiPhongDao = new LoaiPhongDao();
 			container.put(classNameSpace, loaiPhongDao);
 			return loaiPhongDao;
 			
@@ -402,31 +356,16 @@ public class IoCContainer {
 			if (container.containsKey(classNameSpace)) {
 				return container.get(classNameSpace);
 			}
-			ILoaiPhongService loaiPhongService = new LoaiPhongService();
+			LoaiPhongService loaiPhongService = new LoaiPhongService();
 			container.put(classNameSpace, loaiPhongService);
 			return loaiPhongService;
 			
-		case "class dao.GiaDao":
-			if (container.containsKey(classNameSpace)) {
-				return container.get(classNameSpace);
-			}
-			IGiaDao giaDao = new GiaDao();
-			container.put(classNameSpace, giaDao);
-			return giaDao;
-			
-		case "class services.GiaService":
-			if (container.containsKey(classNameSpace)) {
-				return container.get(classNameSpace);
-			}
-			IGiaService giaService = new GiaService();
-			container.put(classNameSpace, giaService);
-			return giaService;
 			
 		case "class dao.QuyenDao":
 			if (container.containsKey(classNameSpace)) {
 				return container.get(classNameSpace);
 			}
-			IQuyenDao quyenDao = new QuyenDao();
+			QuyenDao quyenDao = new QuyenDao();
 			container.put(classNameSpace, quyenDao);
 			return quyenDao;
 			
@@ -434,7 +373,7 @@ public class IoCContainer {
 			if (container.containsKey(classNameSpace)) {
 				return container.get(classNameSpace);
 			}
-			IQuyenService quyenService = new QuyenService();
+			QuyenService quyenService = new QuyenService();
 			container.put(classNameSpace, quyenService);
 			return quyenService;
 			
@@ -442,7 +381,7 @@ public class IoCContainer {
 			if (container.containsKey(classNameSpace)) {
 				return container.get(classNameSpace);
 			}
-			IQuyen_cvDao quyen_cvDao = new Quyen_cvDao();
+			Quyen_cvDao quyen_cvDao = new Quyen_cvDao();
 			container.put(classNameSpace, quyen_cvDao);
 			return quyen_cvDao;
 			
@@ -450,7 +389,7 @@ public class IoCContainer {
 			if (container.containsKey(classNameSpace)) {
 				return container.get(classNameSpace);
 			}
-			IQuyen_cvService quyen_cvService = new Quyen_cvService();
+			Quyen_cvService quyen_cvService = new Quyen_cvService();
 			container.put(classNameSpace, quyen_cvService);
 			return quyen_cvService;
 			

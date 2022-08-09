@@ -8,7 +8,7 @@ import org.hibernate.Session;
 import entities.History;
 import utils.DB_Connection;
 
-public class HistoryDao implements IHistoryDao{
+public class HistoryDao{
 	private ArrayList<History> _listHistorys = new ArrayList<History>();
 	
 	public void them_sua(History History) {

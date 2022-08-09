@@ -5,6 +5,7 @@ import java.util.List;
 
 import dao.SanPhamVaDichVuDao;
 import dao.SanPhamVaDichVuDao;
+import entities.DonViChiTiet;
 import entities.NhomSPVaDichVu;
 import entities.SanPhamVaDichVu;
 import entities.SanPhamVaDichVu;
@@ -16,7 +17,7 @@ import models.PhieuKiemKhoChiTietModel;
 import models.SanPhamVaDichVuModel;
 import models.SanPhamVaDichVuModel;
 
-public class SanPhamVaDichVuService implements ISanPhamVaDichVuService {
+public class SanPhamVaDichVuService{
 	private IoCContainer ioCContainer = new IoCContainer();
 	private List<SanPhamVaDichVu> _listSanPhamVaDichVus = new ArrayList<SanPhamVaDichVu>();
 	private List<SanPhamVaDichVuModel> _listSanPhamVaDichVuModels = new ArrayList<SanPhamVaDichVuModel>();
@@ -72,10 +73,14 @@ public class SanPhamVaDichVuService implements ISanPhamVaDichVuService {
 	}
 
 	public void them_sua(SanPhamVaDichVuModel spvdvm) {
-		boolean checkExisted = false;
 		_SanPhamVaDichVu = modelToEntity(spvdvm);
 		_SanPhamVaDichVuDao.them_sua(_SanPhamVaDichVu);
 		updateListSanPhamVaDichVuModel();
+	}
+	public void them_sua(SanPhamVaDichVuModel spvdvm , String trangThai) {
+		_SanPhamVaDichVu = modelToEntity(spvdvm);
+		_SanPhamVaDichVuDao.them_sua(_SanPhamVaDichVu);
+		updateListSanPhamVaDichVuModel(trangThai);
 	}
 	
 	public List<DonViChiTietModel> getListDVCTM(SanPhamVaDichVuModel spvdvm){
@@ -89,6 +94,22 @@ public class SanPhamVaDichVuService implements ISanPhamVaDichVuService {
 		return null;
 	}
 
+	public DonViChiTietModel getDonViMacDinh(SanPhamVaDichVuModel spvdvm) {
+		for (SanPhamVaDichVu spvdv : _listSanPhamVaDichVus) {
+			if (spvdvm.getMaDichVu() == spvdv.getMaDichVu()) {
+				List<DonViChiTiet> listDVCT = spvdv.getListDonViChiTiet();
+				for (DonViChiTiet donViChiTiet : listDVCT) {
+					if(donViChiTiet.getDonViMacDinh() == 1 && donViChiTiet.getTrangThai().equals("Hoat Dong")) {
+						DonViChiTietModel dvctm = DonViChiTietService.entityToModel(donViChiTiet);
+						return dvctm;
+					}
+				}
+				break;
+			}
+		}
+		return null;
+	}
+	
 	public void updateListSanPhamVaDichVuModel() {
 		_SanPhamVaDichVuDao.updateListSanPhamVaDichVu();
 		_listSanPhamVaDichVus = _SanPhamVaDichVuDao.getListSanPhamVaDichVu();
@@ -96,7 +117,7 @@ public class SanPhamVaDichVuService implements ISanPhamVaDichVuService {
 		maxID = _SanPhamVaDichVuDao.getMaxID();
 	}
 
-	public void updateListNhomSPVaDichVuModel(String trangThai) {
+	public void updateListSanPhamVaDichVuModel(String trangThai) {
 		_SanPhamVaDichVuDao.updateListSanPhamVaDichVu(trangThai);
 		if (trangThai.equals("Hoat Dong")) {
 			_listSanPhamVaDichVus = _SanPhamVaDichVuDao.getListSanPhamVaDichVu_active();

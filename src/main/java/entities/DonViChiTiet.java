@@ -24,12 +24,14 @@ public class DonViChiTiet {
 	private double giaBan;
 	private String macDinhBanHang;
 	private String trangThai;
-	@OneToMany (mappedBy = "donViChiTiet")
-	private List<DichVuPhong> listDichVuPhong;
+	private int donViMacDinh;
 	@OneToMany (mappedBy = "donViChiTiet")
 	private List<PhieuNhapKhoChiTiet> listPhieuNhapKhoChiTiet;
+	
+	
+	
 	public DonViChiTiet(int maDonViChiTiet, DonViTinh donViTinh, SanPhamVaDichVu sanPhamVaDichVu, int giaTriQuyDoi,
-			double giaBan, String macDinhBanHang, String trangThai, List<DichVuPhong> listDichVuPhong,
+			double giaBan, String macDinhBanHang, String trangThai, int donViMacDinh, 
 			List<PhieuNhapKhoChiTiet> listPhieuNhapKhoChiTiet) {
 		this.maDonViChiTiet = maDonViChiTiet;
 		this.donViTinh = donViTinh;
@@ -38,9 +40,10 @@ public class DonViChiTiet {
 		this.giaBan = giaBan;
 		this.macDinhBanHang = macDinhBanHang;
 		this.trangThai = trangThai;
-		this.listDichVuPhong = listDichVuPhong;
+		this.donViMacDinh = donViMacDinh;
 		this.listPhieuNhapKhoChiTiet = listPhieuNhapKhoChiTiet;
 	}
+	
 	public DonViChiTiet() {
 	}
 	public int getMaDonViChiTiet() {
@@ -49,6 +52,15 @@ public class DonViChiTiet {
 	public void setMaDonViChiTiet(int maDonViChiTiet) {
 		this.maDonViChiTiet = maDonViChiTiet;
 	}
+	
+	public int getDonViMacDinh() {
+		return donViMacDinh;
+	}
+
+	public void setDonViMacDinh(int donViMacDinh) {
+		this.donViMacDinh = donViMacDinh;
+	}
+
 	public DonViTinh getDonViTinh() {
 		return donViTinh;
 	}
@@ -84,12 +96,6 @@ public class DonViChiTiet {
 	}
 	public void setTrangThai(String trangThai) {
 		this.trangThai = trangThai;
-	}
-	public List<DichVuPhong> getListDichVuPhong() {
-		return listDichVuPhong;
-	}
-	public void setListDichVuPhong(List<DichVuPhong> listDichVuPhong) {
-		this.listDichVuPhong = listDichVuPhong;
 	}
 	public List<PhieuNhapKhoChiTiet> getListPhieuNhapKhoChiTiet() {
 		return listPhieuNhapKhoChiTiet;

@@ -13,7 +13,7 @@ import models.SanPhamVaDichVuModel;
 import models.NhanVienModel;
 import utils.IoCContainer;
 
-public class NhanVienService implements INhanVienService {
+public class NhanVienService {
 	private IoCContainer ioCContainer = new IoCContainer();
 	private List<NhanVienModel> _listNhanVienModels = new ArrayList<NhanVienModel>();
 	private NhanVienDao _nhanVienDao = (NhanVienDao) ioCContainer.getBean(NhanVienDao.class.toString());
@@ -75,12 +75,24 @@ public class NhanVienService implements INhanVienService {
 	public void them_sua(NhanVienModel nhanVienModel) {
 		_nhanVien = modelToEntity(nhanVienModel);
 		_nhanVienDao.them_sua(_nhanVien);
-		_listNhanVienModels.add(nhanVienModel);
+		updateListNhanVienModel();
+	}
+	
+	public void sua(NhanVienModel nhanVienModel) {
+		_nhanVien = modelToEntity(nhanVienModel);
+		_nhanVienDao.them_sua(_nhanVien);
 	}
 
 	
 	public void updateListNhanVienModel() {
 		_nhanVienDao.updateListNhanVien();
+		List<NhanVien> listNhanVien = _nhanVienDao.getListNhanVien();
+		_listNhanVienModels = listEntitiesToListModel(listNhanVien);
+		_maxID = _nhanVienDao.getMaxID();
+	}
+	
+	public void updateListNhanVienModel_active(String trangThai) {
+		_nhanVienDao.updateListNhanVien_active();
 		List<NhanVien> listNhanVien = _nhanVienDao.getListNhanVien();
 		_listNhanVienModels = listEntitiesToListModel(listNhanVien);
 		_maxID = _nhanVienDao.getMaxID();

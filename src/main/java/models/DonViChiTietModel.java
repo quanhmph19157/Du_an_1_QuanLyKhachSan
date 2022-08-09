@@ -20,15 +20,25 @@ public class DonViChiTietModel {
 	private int giaTriQuyDoi;
 	private double giaBan;
 	private String trangThai;
+	private int donViMacDinh;
+	
 	
 	public DonViChiTietModel(int maDonViChiTiet, DonViTinhModel donViTinhModel,
-			SanPhamVaDichVuModel sanPhamVaDichVuModel, int giaTriQuyDoi, double giaBan, String trangThai) {
+			SanPhamVaDichVuModel sanPhamVaDichVuModel, int giaTriQuyDoi, double giaBan, String trangThai,
+			int donViMacDinh) {
 		this.maDonViChiTiet = maDonViChiTiet;
 		this.donViTinhModel = donViTinhModel;
 		this.sanPhamVaDichVuModel = sanPhamVaDichVuModel;
 		this.giaTriQuyDoi = giaTriQuyDoi;
 		this.giaBan = giaBan;
 		this.trangThai = trangThai;
+		this.donViMacDinh = donViMacDinh;
+	}
+	public int getDonViMacDinh() {
+		return donViMacDinh;
+	}
+	public void setDonViMacDinh(int donViMacDinh) {
+		this.donViMacDinh = donViMacDinh;
 	}
 	public DonViChiTietModel() {
 	}

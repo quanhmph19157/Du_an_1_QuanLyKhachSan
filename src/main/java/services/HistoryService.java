@@ -9,7 +9,7 @@ import models.HistoryModel;
 import models.NhanVienModel;
 import utils.IoCContainer;
 
-public class HistoryService implements IHistoryService{
+public class HistoryService{
 	private IoCContainer ioCContainer = new IoCContainer();
 	private List<HistoryModel> _listHistoryModels = new ArrayList<HistoryModel>();
 	private HistoryDao _HistoryDao = (HistoryDao) ioCContainer.getBean(HistoryDao.class.toString());

@@ -14,7 +14,7 @@ import entities.PhieuKiemKhoChiTiet;
 import entities.SanPhamVaDichVu;
 import utils.DB_Connection;
 
-public class SanPhamVaDichVuDao implements ISanPhamVaDichVuDao{
+public class SanPhamVaDichVuDao{
 	
 	private static List<SanPhamVaDichVu> _listSanPhamVaDichVus = new ArrayList<SanPhamVaDichVu>();
 	private static List<SanPhamVaDichVu> _listSanPhamVaDichVus_active = new ArrayList<SanPhamVaDichVu>();

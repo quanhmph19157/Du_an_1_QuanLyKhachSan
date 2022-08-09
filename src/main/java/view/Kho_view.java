@@ -50,6 +50,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.event.CaretListener;
 import javax.swing.event.CaretEvent;
+import javax.swing.DefaultComboBoxModel;
 
 public class Kho_view extends JFrame {
 	private IoCContainer _ioCContainer  = new IoCContainer();
@@ -61,11 +62,11 @@ public class Kho_view extends JFrame {
 	private JTextField txt_tenKho;
 	private JTextField txt_timKiem;
 	private JTable table;
-	private SwitchButton switchButton_trangThaiLoc;
-	private SwitchButton switchButton_trangThaiNhap;
 	private JButton btnSua;
 	private JButton btnThem;
 	private JTextField txt_maKho;
+	private JComboBox cbx_trangThai_danhSach;
+	private JComboBox cbx_trangThai;
 
 	/**
 	 * Launch the application.
@@ -108,15 +109,9 @@ public class Kho_view extends JFrame {
 		tabbedPane.addTab("Danh Sách", null, panel_3, null);
 		panel_3.setLayout(null);
 		
-		 switchButton_trangThaiNhap = new SwitchButton();
-		switchButton_trangThaiNhap.setBounds(20, 37, 55, 25);
-		switchButton_trangThaiNhap.setSelected(true);
-		panel_3.add(switchButton_trangThaiNhap);
-		switchButton_trangThaiNhap.setBackground(new Color(0, 153, 204));
-		
 		
 		JPanel panel_2_1 = new JPanel();
-		panel_2_1.setBounds(273, 19, 321, 51);
+		panel_2_1.setBounds(190, 19, 321, 51);
 		panel_3.add(panel_2_1);
 		panel_2_1.setBackground(Color.WHITE);
 		panel_2_1.setLayout(null);
@@ -147,24 +142,11 @@ public class Kho_view extends JFrame {
 		panel_2_1_1_1.setBounds(10, 81, 1219, 539);
 		panel_3.add(panel_2_1_1_1);
 		
-		 switchButton_trangThaiLoc = new SwitchButton();
-		 switchButton_trangThaiLoc.addMouseListener(new MouseAdapter() {
-		 	@Override
-		 	public void mouseClicked(MouseEvent e) {
-		 		updateTable();
-		 	}
-		 });
-		 
-		switchButton_trangThaiLoc.setBackground(new Color(0, 153, 204));
-		switchButton_trangThaiLoc.setBounds(10, 39, 55, 25);
-		switchButton_trangThaiLoc.setSelected(true);
-		panel_2_1_1_1.add(switchButton_trangThaiLoc);
-		
 		JPanel panel_2_1_2 = new JPanel();
 		panel_2_1_2.setLayout(null);
 		panel_2_1_2.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(192, 192, 192)), "T\u00ECm ki\u1EBFm", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		panel_2_1_2.setBackground(Color.WHITE);
-		panel_2_1_2.setBounds(133, 21, 1076, 51);
+		panel_2_1_2.setBounds(207, 21, 1002, 51);
 		panel_2_1_1_1.add(panel_2_1_2);
 		txt_timKiem = new JTextField();
 		txt_timKiem.addCaretListener(new CaretListener() {
@@ -186,7 +168,7 @@ public class Kho_view extends JFrame {
 		txt_timKiem.setColumns(10);
 		txt_timKiem.setBorder(null);
 		txt_timKiem.setBackground(Color.WHITE);
-		txt_timKiem.setBounds(10, 18, 1128, 29);
+		txt_timKiem.setBounds(10, 18, 982, 29);
 		panel_2_1_2.add(txt_timKiem);
 		
 		JScrollPane scrollPane = new JScrollPane();
@@ -201,6 +183,25 @@ public class Kho_view extends JFrame {
 			}
 		});
 		scrollPane.setViewportView(table);
+		
+		JPanel panel_2_2_1_1_1 = new JPanel();
+		panel_2_2_1_1_1.setLayout(null);
+		panel_2_2_1_1_1.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(192, 192, 192)), "Tr\u1EA1ng th\u00E1i", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panel_2_2_1_1_1.setBackground(Color.WHITE);
+		panel_2_2_1_1_1.setBounds(10, 21, 187, 51);
+		panel_2_1_1_1.add(panel_2_2_1_1_1);
+		
+		cbx_trangThai_danhSach = new JComboBox();
+		cbx_trangThai_danhSach.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				updateTable();
+			}
+		});
+		cbx_trangThai_danhSach.setModel(new DefaultComboBoxModel(new String[] {"Hoat Dong", "Khong Hoat Dong"}));
+		cbx_trangThai_danhSach.setBorder(new EmptyBorder(-11, -4, -11, -1));
+		cbx_trangThai_danhSach.setBackground(Color.WHITE);
+		cbx_trangThai_danhSach.setBounds(10, 18, 167, 28);
+		panel_2_2_1_1_1.add(cbx_trangThai_danhSach);
 		
 		 btnThem = new JButton("Thêm");
 		 btnThem.addActionListener(new ActionListener() {
@@ -246,7 +247,7 @@ public class Kho_view extends JFrame {
 		panel_2_1_1.setLayout(null);
 		panel_2_1_1.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(192, 192, 192)), "M\u00E3 kho", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		panel_2_1_1.setBackground(Color.WHITE);
-		panel_2_1_1.setBounds(93, 19, 170, 51);
+		panel_2_1_1.setBounds(10, 19, 170, 51);
 		panel_3.add(panel_2_1_1);
 		
 		txt_maKho = new JTextField();
@@ -256,12 +257,26 @@ public class Kho_view extends JFrame {
 		txt_maKho.setBackground(Color.WHITE);
 		txt_maKho.setBounds(10, 18, 150, 29);
 		panel_2_1_1.add(txt_maKho);
+		
+		JPanel panel_2_2_1_1 = new JPanel();
+		panel_2_2_1_1.setLayout(null);
+		panel_2_2_1_1.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(192, 192, 192)), "Tr\u1EA1ng th\u00E1i", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panel_2_2_1_1.setBackground(Color.WHITE);
+		panel_2_2_1_1.setBounds(521, 19, 187, 51);
+		panel_3.add(panel_2_2_1_1);
+		
+		cbx_trangThai = new JComboBox();
+		cbx_trangThai.setModel(new DefaultComboBoxModel(new String[] {"Hoat Dong", "Khong Hoat Dong"}));
+		cbx_trangThai.setBorder(new EmptyBorder(-11, -4, -11, -1));
+		cbx_trangThai.setBackground(Color.WHITE);
+		cbx_trangThai.setBounds(10, 18, 167, 28);
+		panel_2_2_1_1.add(cbx_trangThai);
 		updateTable();
 		
 	}
 	
 	public void clearForm() {
-		switchButton_trangThaiNhap.setSelected(true);
+		cbx_trangThai.setSelectedIndex(0);
 		txt_maKho.setText("");
 		txt_tenKho.setText("Nhập tên kho");
 		btnSua.setEnabled(false);
@@ -271,12 +286,8 @@ public class Kho_view extends JFrame {
 	public void doClickOnTable() {
 		txt_maKho.setText(table.getModel().getValueAt(table.getSelectedRow(), 1)+"");
 		txt_tenKho.setText(table.getModel().getValueAt(table.getSelectedRow(), 2)+"");
-		String trangThai = table.getModel().getValueAt(table.getSelectedRow(), 1)+"";
-		if(trangThai.equals("Hoạt Động")) {
-			switchButton_trangThaiNhap.setSelected(true);
-		}else {
-			switchButton_trangThaiNhap.setSelected(false);
-		}
+		String trangThai = table.getModel().getValueAt(table.getSelectedRow(), 3)+"";
+		cbx_trangThai.setSelectedItem(trangThai);
 		btnThem.setEnabled(false);
 		btnSua.setEnabled(true);
 	}
@@ -290,7 +301,7 @@ public class Kho_view extends JFrame {
 		List<KhoModel> listKhoModel = _khoService.getListKhoModel();
 		int stt = 1;
 		
-			if(switchButton_trangThaiLoc.isSelected()) {
+			if(cbx_trangThai_danhSach.getSelectedItem().toString().equals("Hoat Dong")) {
 				for (KhoModel khoModel : listKhoModel) {
 					if(khoModel.getTrangThai().equals("Hoat Dong")) {
 						model.addRow(new Object[] {stt,khoModel.getMaKho(),khoModel.getTenKho(),khoModel.getTrangThai()});
@@ -298,7 +309,7 @@ public class Kho_view extends JFrame {
 					}
 				}
 			}
-			if(!switchButton_trangThaiLoc.isSelected()) {
+			if(cbx_trangThai_danhSach.getSelectedItem().toString().equals("Khong Hoat Dong")) {
 				for (KhoModel khoModel : listKhoModel) {
 					if(khoModel.getTrangThai().equals("Khong Hoat Dong")) {
 						model.addRow(new Object[] {stt,khoModel.getMaKho(),khoModel.getTenKho(),khoModel.getTrangThai()});
@@ -311,48 +322,50 @@ public class Kho_view extends JFrame {
 	}
 	
 	public void timKiem() {
-//		DefaultTableModel model = new DefaultTableModel();
-//		model.addColumn("Stt");
-//		model.addColumn("MÃ KHO");
-//		model.addColumn("TÊN KHO");
-//		model.addColumn("TRẠNG THÁI");
-//		List<KhoModel> listKhoModel = _khoService.getListKhoModel();
-//		int stt = 1;
-//			if(switchButton_trangThaiLoc.isSelected()) {
-//				for (KhoModel khoModel : listKhoModel) {
-//					if(khoModel.getTrangThai().equals("Hoat Dong")) {
-//						if(txt_timKiem.getText().equals("Nhập tên để tìm kiếm")) {
-//							model.addRow(new Object[] {stt,khoModel.getMaKho(),khoModel.getTenKho(),khoModel.getTrangThai()});
-//							stt++;
-//						}else {
-//							String keySearch = txt_timKiem.getText().trim();
-//							if(khoModel.toString().contains(keySearch));{
-//								model.addRow(new Object[] {stt,khoModel.getMaKho(),khoModel.getTenKho(),khoModel.getTrangThai()});
-//								stt++;
-//							}
-//						}
-//						
-//					}
-//				}
-//			}
-//			if(!switchButton_trangThaiLoc.isSelected()) {
-//				for (KhoModel khoModel : listKhoModel) {
-//					if(khoModel.getTrangThai().equals("Khong Hoat Dong")) {
-//						if(txt_timKiem.getText().equals("Nhập tên để tìm kiếm")) {
-//							model.addRow(new Object[] {stt,khoModel.getMaKho(),khoModel.getTenKho(),khoModel.getTrangThai()});
-//							stt++;
-//						}else {
-//							String keySearch = txt_timKiem.getText().trim();
-//							if(khoModel.toString().contains(keySearch));{
-//								model.addRow(new Object[] {stt,khoModel.getMaKho(),khoModel.getTenKho(),khoModel.getTrangThai()});
-//								stt++;
-//							}
-//						}
-//					}
-//				}
-//			}
-//		
-//		table.setModel(model);
+		DefaultTableModel model = new DefaultTableModel();
+		model.addColumn("Stt");
+		model.addColumn("MÃ KHO");
+		model.addColumn("TÊN KHO");
+		model.addColumn("TRẠNG THÁI");
+		List<KhoModel> listKhoModel = _khoService.getListKhoModel();
+		int stt = 1;
+		
+		
+			if(cbx_trangThai_danhSach.getSelectedItem().toString().equals("Hoat Dong")) {
+				for (KhoModel khoModel : listKhoModel) {
+					if(khoModel.getTrangThai().equals("Hoat Dong")) {
+						if(txt_timKiem.getText().equals("Nhập tên để tìm kiếm") || txt_timKiem.getText().equals("")) {
+							model.addRow(new Object[] {stt,khoModel.getMaKho(),khoModel.getTenKho(),khoModel.getTrangThai()});
+							stt++;
+						}else {
+							String keySearch = txt_timKiem.getText().trim();
+							if(khoModel.toString().contains(keySearch));{
+								model.addRow(new Object[] {stt,khoModel.getMaKho(),khoModel.getTenKho(),khoModel.getTrangThai()});
+								stt++;
+							}
+						}
+						
+					}
+				}
+			}
+			if(cbx_trangThai_danhSach.getSelectedItem().toString().equals("Khong Hoat Dong")) {
+				for (KhoModel khoModel : listKhoModel) {
+					if(khoModel.getTrangThai().equals("Khong Hoat Dong")) {
+						if(txt_timKiem.getText().equals("Nhập tên để tìm kiếm")) {
+							model.addRow(new Object[] {stt,khoModel.getMaKho(),khoModel.getTenKho(),khoModel.getTrangThai()});
+							stt++;
+						}else {
+							String keySearch = txt_timKiem.getText().trim();
+							if(khoModel.toString().contains(keySearch));{
+								model.addRow(new Object[] {stt,khoModel.getMaKho(),khoModel.getTenKho(),khoModel.getTrangThai()});
+								stt++;
+							}
+						}
+					}
+				}
+			}
+		
+		table.setModel(model);
 	}
 	
 	public KhoModel getInforFromFormIntoKhoModel() {
@@ -362,12 +375,7 @@ public class Kho_view extends JFrame {
 		}else {
 			maKho = Integer.parseInt(txt_maKho.getText());
 		}
-		String trangThai = "";
-		if(switchButton_trangThaiNhap.isSelected()) {
-			trangThai = "Hoat Dong";
-		}else {
-			trangThai = "Khong Hoat Dong";
-		}
+		String trangThai = cbx_trangThai.getSelectedItem().toString();
 		String tenKho = txt_tenKho.getText().trim();
 		List<PhieuKiemKhoModel> listPhieuKiemKhoModel = new ArrayList<PhieuKiemKhoModel>();
 		List<SanPhamVaDichVuModel> listSanPhamVaDichVuModel = new ArrayList<SanPhamVaDichVuModel>();

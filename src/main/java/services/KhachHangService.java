@@ -8,7 +8,7 @@ import entities.KhachHang;
 import models.KhachHangModel;
 import utils.IoCContainer;
 
-public class KhachHangService implements IKhachHangService{
+public class KhachHangService{
 	private IoCContainer ioCContainer = new IoCContainer();
 	private List<KhachHangModel> _listKhachHangModels = new ArrayList<KhachHangModel>();
 	private KhachHangDao _KhachHangDao = (KhachHangDao) ioCContainer.getBean(KhachHangDao.class.toString());
@@ -24,7 +24,6 @@ public class KhachHangService implements IKhachHangService{
 		KhachHang.setNgaySinh(KhachHangModel.getNgaySinh());
 		KhachHang.setGioiTinh(KhachHangModel.getGioiTinh());
 		KhachHang.setDiaChi(KhachHangModel.getDiaChi());
-		KhachHang.setListKhachTrongPhong(KhachTrongPhongService.updateListKhachTrongPhongDependOnListKhachTrongPhongModel(KhachHangModel.getListKhachTrongPhongModel()));
 		return KhachHang;
 	}
 	
@@ -38,7 +37,6 @@ public class KhachHangService implements IKhachHangService{
 		KhachHangModel.setNgaySinh(KhachHang.getNgaySinh());
 		KhachHangModel.setGioiTinh(KhachHang.getGioiTinh());
 		KhachHangModel.setDiaChi(KhachHang.getDiaChi());
-		KhachHangModel.setListKhachTrongPhongModel(KhachTrongPhongService.updateListKhachTrongPhongModelDependOnListKhachTrongPhong(KhachHang.getListKhachTrongPhong())); 
 		return KhachHangModel;
 	}
 	

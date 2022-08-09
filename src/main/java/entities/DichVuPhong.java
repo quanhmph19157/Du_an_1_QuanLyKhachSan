@@ -15,18 +15,19 @@ import javax.persistence.Table;
 @Entity
 public class DichVuPhong {
 	@Id
+	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	private int maDichVuPhong;
 	@ManyToOne
-	private DonViChiTiet donViChiTiet;
+	private SanPhamVaDichVu sanPhamVaDichVu;
 	@ManyToOne
 	private KhachTrongPhong khachTrongPhong;
 	private double giaBan;
 	private int soLuong;
 	
-	public DichVuPhong(int maDichVuPhong, DonViChiTiet donViChiTiet, KhachTrongPhong khachTrongPhong, double giaBan,
+	public DichVuPhong(int maDichVuPhong, SanPhamVaDichVu sanPhamVaDichVu, KhachTrongPhong khachTrongPhong, double giaBan,
 			int soLuong) {
 		this.maDichVuPhong = maDichVuPhong;
-		this.donViChiTiet = donViChiTiet;
+		this.sanPhamVaDichVu = sanPhamVaDichVu;
 		this.khachTrongPhong = khachTrongPhong;
 		this.giaBan = giaBan;
 		this.soLuong = soLuong;
@@ -40,11 +41,11 @@ public class DichVuPhong {
 	public void setMaDichVuPhong(int maDichVuPhong) {
 		this.maDichVuPhong = maDichVuPhong;
 	}
-	public DonViChiTiet getDonViChiTiet() {
-		return donViChiTiet;
+	public SanPhamVaDichVu getSanPhamVaDichVu() {
+		return sanPhamVaDichVu;
 	}
-	public void setDonViChiTiet(DonViChiTiet donViChiTiet) {
-		this.donViChiTiet = donViChiTiet;
+	public void setSanPhamVaDichVu(SanPhamVaDichVu sanPhamVaDichVu) {
+		this.sanPhamVaDichVu = sanPhamVaDichVu;
 	}
 	public KhachTrongPhong getKhachTrongPhong() {
 		return khachTrongPhong;
@@ -66,7 +67,7 @@ public class DichVuPhong {
 	}
 	@Override
 	public String toString() {
-		return "DichVuPhong [maDichVuPhong=" + maDichVuPhong + ", donViChiTiet=" + donViChiTiet + ", khachTrongPhong="
+		return "DichVuPhong [maDichVuPhong=" + maDichVuPhong + ", sanPhamVaDichVu=" + sanPhamVaDichVu + ", khachTrongPhong="
 				+ khachTrongPhong + ", giaBan=" + giaBan + ", soLuong=" + soLuong + "]";
 	}
 	

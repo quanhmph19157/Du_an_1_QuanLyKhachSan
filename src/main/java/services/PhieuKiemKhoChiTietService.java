@@ -8,7 +8,7 @@ import entities.PhieuKiemKhoChiTiet;
 import models.PhieuKiemKhoChiTietModel;
 import utils.IoCContainer;
 
-public class PhieuKiemKhoChiTietService implements IPhieuKiemKhoChiTietService{
+public class PhieuKiemKhoChiTietService {
 	private IoCContainer ioCContainer = new IoCContainer();
 	private List<PhieuKiemKhoChiTietModel> _listPhieuKiemKhoChiTietModels = new ArrayList<PhieuKiemKhoChiTietModel>();
 	private PhieuKiemKhoChiTietDao _PhieuKiemKhoChiTietDao = (PhieuKiemKhoChiTietDao) ioCContainer.getBean(PhieuKiemKhoChiTietDao.class.toString());

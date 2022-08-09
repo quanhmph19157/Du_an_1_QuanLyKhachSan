@@ -8,7 +8,7 @@ import entities.HoaDon;
 import models.HoaDonModel;
 import utils.IoCContainer;
 
-public class HoaDonService implements IHoaDonService{
+public class HoaDonService{
 	private IoCContainer ioCContainer = new IoCContainer();
 	private List<HoaDonModel> _listHoaDonModels = new ArrayList<HoaDonModel>();
 	private HoaDonDao _HoaDonDao = (HoaDonDao) ioCContainer.getBean(HoaDonDao.class.toString());
@@ -24,7 +24,6 @@ public class HoaDonService implements IHoaDonService{
 		HoaDon.setVat(HoaDonModel.getVat());
 		HoaDon.setGiamGia(HoaDonModel.getGiamGia());
 		HoaDon.setTienCoc(HoaDonModel.getTienCoc());
-		HoaDon.setListKhachTrongPhong(KhachTrongPhongService.updateListKhachTrongPhongDependOnListKhachTrongPhongModel(HoaDonModel.getListKhachTrongPhongModel()));
 		return HoaDon;
 	}
 	
@@ -38,7 +37,6 @@ public class HoaDonService implements IHoaDonService{
 		HoaDonModel.setVat(HoaDon.getVat());
 		HoaDonModel.setGiamGia(HoaDon.getGiamGia());
 		HoaDonModel.setTienCoc(HoaDon.getTienCoc());
-		HoaDonModel.setListKhachTrongPhongModel(KhachTrongPhongService.updateListKhachTrongPhongModelDependOnListKhachTrongPhong(HoaDon.getListKhachTrongPhong()));
 		return HoaDonModel;
 	}
 	

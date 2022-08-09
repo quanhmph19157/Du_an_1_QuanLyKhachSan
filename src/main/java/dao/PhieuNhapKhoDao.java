@@ -10,7 +10,7 @@ import entities.PhieuNhapKho;
 import entities.SanPhamVaDichVu;
 import utils.DB_Connection;
 
-public class PhieuNhapKhoDao implements IPhieuNhapKhoDao{
+public class PhieuNhapKhoDao{
 private static ArrayList<PhieuNhapKho> _listPhieuNhapKhos = new ArrayList<PhieuNhapKho>();
 	private int maxID;
 	

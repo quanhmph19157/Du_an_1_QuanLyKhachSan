@@ -17,7 +17,7 @@ import entities.PhieuNhapKho;
 import entities.SanPhamVaDichVu;
 import utils.DB_Connection;
 
-public class KhoDao implements IKhoDao{
+public class KhoDao{
 	private List<Kho> _listKhos = new ArrayList<Kho>();
 	private List<Kho> _listKhos_active = new ArrayList<Kho>();
 	private List<Kho> _listKhos_inactive = new ArrayList<Kho>();

@@ -8,7 +8,7 @@ import org.hibernate.Session;
 import entities.HoaDon;
 import utils.DB_Connection;
 
-public class HoaDonDao implements IHoaDonDao{
+public class HoaDonDao{
 private ArrayList<HoaDon> _listHoaDons = new ArrayList<HoaDon>();
 	
 	public void them_sua(HoaDon HoaDon) {

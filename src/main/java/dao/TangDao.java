@@ -8,7 +8,7 @@ import org.hibernate.Session;
 import entities.Tang;
 import utils.DB_Connection;
 
-public class TangDao implements ITangDao{
+public class TangDao{
 	private ArrayList<Tang> _listTangs = new ArrayList<Tang>();
 	
 	public void them_sua(Tang Tang) {

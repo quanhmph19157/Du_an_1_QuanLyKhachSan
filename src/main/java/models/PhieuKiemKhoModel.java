@@ -77,6 +77,12 @@ public class PhieuKiemKhoModel {
 		this.ghiChu = ghiChu;
 	}
 
+	@Override
+	public String toString() {
+		return "PhieuKiemKhoModel [maKiemKho=" + maKiemKho + ", ngayKiemKho=" + ngayKiemKho + ", nhanVienModel="
+				+ nhanVienModel + ", khoModel=" + khoModel + ", ghiChu=" + ghiChu + "]";
+	}
+
 	
 	
 	

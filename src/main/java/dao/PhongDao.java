@@ -8,7 +8,7 @@ import org.hibernate.Session;
 import entities.Phong;
 import utils.DB_Connection;
 
-public class PhongDao implements IPhongDao {
+public class PhongDao {
 	private ArrayList<Phong> _listPhongs = new ArrayList<Phong>();
 
 	public void them_sua(Phong Phong) {

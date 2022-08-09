@@ -9,7 +9,7 @@ import models.PhieuKiemKhoChiTietModel;
 import models.PhieuKiemKhoModel;
 import utils.IoCContainer;
 
-public class PhieuKiemKhoService implements IPhieuKiemKhoService{
+public class PhieuKiemKhoService {
 	private IoCContainer ioCContainer = new IoCContainer();
 	private List<PhieuKiemKho> _listPhieuKiemKhos = new ArrayList<PhieuKiemKho>();
 	private List<PhieuKiemKhoModel> _listPhieuKiemKhoModels = new ArrayList<PhieuKiemKhoModel>();

@@ -8,7 +8,7 @@ import org.hibernate.Session;
 import entities.LoaiPhong;
 import utils.DB_Connection;
 
-public class LoaiPhongDao implements ILoaiPhongDao{
+public class LoaiPhongDao{
 private ArrayList<LoaiPhong> _listLoaiPhongs = new ArrayList<LoaiPhong>();
 	
 	public void them_sua(LoaiPhong LoaiPhong) {
