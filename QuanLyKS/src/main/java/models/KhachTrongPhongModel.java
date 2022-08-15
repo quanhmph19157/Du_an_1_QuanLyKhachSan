@@ -3,6 +3,8 @@ package models;
 import java.sql.Date;
 import java.util.List;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -11,53 +13,46 @@ import Entities.DichVuPhong;
 import Entities.HoaDon;
 import Entities.KhachHang;
 import Entities.Phong;
+import Entities.PhuPhi;
 
 public class KhachTrongPhongModel {
-	private int maKhachTrongPhong;
-	private KhachHangModel khachHangModel;
+	private int id;
 	private HoaDonModel hoaDonModel;
 	private PhongModel phongModel;
-	private Date ngayCheckOut;
-	private double giaPhong;
-	private double phuPhi;
-	private String ghiChu;
-	private List<DichVuPhongModel> listDichVuPhongModel;
+	private float GiaPhong;
+	private float PhuTroi;
+	private float PhuPhi;
+	private String GhiChu;
 	
-	public KhachTrongPhongModel(int maKhachTrongPhong, KhachHangModel khachHangModel, HoaDonModel hoaDonModel,
-			PhongModel phongModel, Date ngayCheckOut, double giaPhong, double phuPhi, String ghiChu,
-			List<DichVuPhongModel> listDichVuPhongModel) {
-		this.maKhachTrongPhong = maKhachTrongPhong;
-		this.khachHangModel = khachHangModel;
+	public KhachTrongPhongModel(int id, HoaDonModel hoaDonModel, PhongModel phongModel, float giaPhong, float phuTroi, float phuPhi,
+			String ghiChu) {
+		this.id = id;
 		this.hoaDonModel = hoaDonModel;
 		this.phongModel = phongModel;
-		this.ngayCheckOut = ngayCheckOut;
-		this.giaPhong = giaPhong;
-		this.phuPhi = phuPhi;
-		this.ghiChu = ghiChu;
-		this.listDichVuPhongModel = listDichVuPhongModel;
+		GiaPhong = giaPhong;
+		PhuTroi = phuTroi;
+		PhuPhi = phuPhi;
+		GhiChu = ghiChu;
 	}
-	
-	
-	public KhachTrongPhongModel(int maKhachTrongPhong) {
-		super();
-		this.maKhachTrongPhong = maKhachTrongPhong;
-	}
-
-
 	public KhachTrongPhongModel() {
 	}
-	public int getMaKhachTrongPhong() {
-		return maKhachTrongPhong;
+	public int getId() {
+		return id;
 	}
-	public void setMaKhachTrongPhong(int maKhachTrongPhong) {
-		this.maKhachTrongPhong = maKhachTrongPhong;
+	public void setId(int id) {
+		this.id = id;
 	}
-	public KhachHangModel getKhachHangModel() {
-		return khachHangModel;
+	
+	public float getGiaPhong() {
+		return GiaPhong;
 	}
-	public void setKhachHangModel(KhachHangModel khachHangModel) {
-		this.khachHangModel = khachHangModel;
+	public void setGiaPhong(float giaPhong) {
+		GiaPhong = giaPhong;
 	}
+	public float getPhuTroi() {
+		return PhuTroi;
+	}
+	
 	public HoaDonModel getHoaDonModel() {
 		return hoaDonModel;
 	}
@@ -70,44 +65,25 @@ public class KhachTrongPhongModel {
 	public void setPhongModel(PhongModel phongModel) {
 		this.phongModel = phongModel;
 	}
-	public Date getNgayCheckOut() {
-		return ngayCheckOut;
+	public void setPhuTroi(float phuTroi) {
+		PhuTroi = phuTroi;
 	}
-	public void setNgayCheckOut(Date ngayCheckOut) {
-		this.ngayCheckOut = ngayCheckOut;
+	public float getPhuPhi() {
+		return PhuPhi;
 	}
-	public double getGiaPhong() {
-		return giaPhong;
-	}
-	public void setGiaPhong(double giaPhong) {
-		this.giaPhong = giaPhong;
-	}
-	public double getPhuPhi() {
-		return phuPhi;
-	}
-	public void setPhuPhi(double phuPhi) {
-		this.phuPhi = phuPhi;
+	public void setPhuPhi(float phuPhi) {
+		PhuPhi = phuPhi;
 	}
 	public String getGhiChu() {
-		return ghiChu;
+		return GhiChu;
 	}
 	public void setGhiChu(String ghiChu) {
-		this.ghiChu = ghiChu;
-	}
-	public List<DichVuPhongModel> getListDichVuPhongModel() {
-		return listDichVuPhongModel;
-	}
-	public void setListDichVuPhongModel(List<DichVuPhongModel> listDichVuPhongModel) {
-		this.listDichVuPhongModel = listDichVuPhongModel;
+		GhiChu = ghiChu;
 	}
 	
-	@Override
-	public String toString() {
-		return "KhachTrongPhongModel [maKhachTrongPhong=" + maKhachTrongPhong + ", khachHangModel=" + khachHangModel
-				+ ", hoaDonModel=" + hoaDonModel + ", phongModel=" + phongModel + ", ngayCheckOut=" + ngayCheckOut
-				+ ", giaPhong=" + giaPhong + ", phuPhi=" + phuPhi + ", ghiChu=" + ghiChu + ", listDichVuPhongModel="
-				+ listDichVuPhongModel + "]";
-	}
+	
+	
+	
 	
 	
 }

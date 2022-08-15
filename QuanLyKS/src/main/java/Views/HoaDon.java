@@ -244,4 +244,5 @@ public class HoaDon extends JFrame {
 		textArea_4_1_4.setBounds(1059, 75, 195, 28);
 		panel.add(textArea_4_1_4);
 	}
+	
 }

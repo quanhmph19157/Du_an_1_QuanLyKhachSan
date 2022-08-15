@@ -2,6 +2,7 @@ package Views;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionListener;
@@ -11,6 +12,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -36,26 +38,32 @@ import models.KhachSanModel;
 import models.KhachTrongPhongModel;
 import models.LoaiPhongModel;
 import models.NhanVienModel;
+import models.NhomSPVaDichVuModel;
 import models.PhongModel;
 import models.SanPhamVaDichVuModel;
 import models.TangModel;
 import Services.DichVuPhongService;
 import Services.DonViChiTietService;
 import Services.DonViTinhService;
+import Services.KhachTrongPhongService;
+import Services.NhomSPVaDichVuService;
 //import Services.LoaiPhongService;
 import Services.SanPhamVaDichVuService;
 import utils.IoCContainer;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
+import javax.swing.JComboBox;
 
-public class HoaDonMinibar extends JFrame {
+public class HoaDonSanPham_view extends JFrame {
 	private IoCContainer _ioCContainer = new IoCContainer();
-	private SanPhamVaDichVuService _sanPhamVaDichVuService = (SanPhamVaDichVuService) _ioCContainer.getBean(SanPhamVaDichVuService.class+"");
+	private NhomSPVaDichVuService _nhomSPVaDichVuService = new NhomSPVaDichVuService();
+	private List<NhomSPVaDichVuModel> _listNhomSPVaDichVuModels_active = new ArrayList<NhomSPVaDichVuModel>();
+	private SanPhamVaDichVuService _sanPhamVaDichVuService = new SanPhamVaDichVuService();
 	private List<SanPhamVaDichVuModel> _listSanPhamVaDichVuModels = new ArrayList<SanPhamVaDichVuModel>();
 	private List<DichVuPhongModel> _listCart = new ArrayList<DichVuPhongModel>();
-	private DichVuPhongService _dichVuPhongService = (DichVuPhongService) _ioCContainer.getBean(DichVuPhongService.class+"");
-	private DonViChiTietService _donViChiTietService = (DonViChiTietService) _ioCContainer.getBean(DonViChiTietService.class+"");
+	private DichVuPhongService _dichVuPhongService = new DichVuPhongService();
+	private DonViChiTietService _donViChiTietService = new DonViChiTietService();
 	private List<DonViChiTietModel> _listDonViChiTietModels = new ArrayList<DonViChiTietModel>();
 	private KhachTrongPhongModel _ktpm;
 	
@@ -63,42 +71,20 @@ public class HoaDonMinibar extends JFrame {
 	private JTable table_product;
 	private javax.swing.JOptionPane JOptionPane;
 	private JTable table_cart;
+	private JComboBox cbx_nhomDichVu;
+	private JLabel lbl_tongCong;
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				try {
-					KhachTrongPhongModel ktpm = new KhachTrongPhongModel();
-					ktpm.setMaKhachTrongPhong(1);
-					PhongModel pm = new PhongModel();
-					pm.setMaPhong(1);
-					TangModel tm = new TangModel();
-					tm.setMaTang(1);
-					KhachSanModel ksm = new KhachSanModel();
-					ksm.setMaKhachSan(1);
-					tm.setKhachSanModel(ksm);
-					pm.setTangModel(tm);
+				try {					
+					KhachTrongPhongService ktps = new KhachTrongPhongService();
+					ktps.updateListKhachTrongPhongModel();
+					List<KhachTrongPhongModel> listKhachTrongPhongModels = ktps.getListKhachTrongPhongModel();
 					
-					LoaiPhongModel lpm = new LoaiPhongModel();
-					lpm.setMaLoaiPhong(1);
-					pm.setLoaiPhongModel(lpm);
-					
-					ktpm.setPhongModel(pm);
-					KhachHangModel khm = new KhachHangModel();
-					//khm.setMaKhachHang(1);
-					//ktpm.setKhachHangModel(khm);
-					HoaDonModel hdm = new HoaDonModel();
-					hdm.setMaHoaDon(1);
-					NhanVienModel nvm = new NhanVienModel();
-					nvm.setMaNV(1+"");
-					ChucVuModel cvm = new ChucVuModel();
-					cvm.setMaChucVu(1+"");
-					nvm.setChucVuModel(cvm);
-					hdm.setNhanVienModel(nvm);
-					ktpm.setHoaDonModel(hdm);
-					HoaDonMinibar frame = new HoaDonMinibar(ktpm);
+					HoaDonSanPham_view frame = new HoaDonSanPham_view(listKhachTrongPhongModels.get(0));
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -110,15 +96,14 @@ public class HoaDonMinibar extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public HoaDonMinibar(KhachTrongPhongModel ktpm) {
+	public HoaDonSanPham_view(KhachTrongPhongModel ktpm) {
 		_ktpm = ktpm;
-		_dichVuPhongService.updateListDichVuPhongModel();
-//		_listCart = _dichVuPhongService.getListDichVuPhongModel();
 		updateListCart();
 		_sanPhamVaDichVuService.updateListSanPhamVaDichVuModel("Hoat Dong");
 		_donViChiTietService.updateListDonViChiTietModel();
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 634, 811);
+		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -151,6 +136,15 @@ public class HoaDonMinibar extends JFrame {
 		panel.add(textField);
 		textField.setColumns(10);
 		
+		cbx_nhomDichVu = new JComboBox();
+		cbx_nhomDichVu.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				updateTableProduct(false);
+			}
+		});
+		cbx_nhomDichVu.setBounds(340, 22, 248, 30);
+		panel.add(cbx_nhomDichVu);
+		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new TitledBorder(null, "Gi\u1ECF h\u00E0ng", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel_1.setBounds(10, 465, 598, 178);
@@ -168,7 +162,7 @@ public class HoaDonMinibar extends JFrame {
 		
 		
 		
-		JLabel lblNewLabel = new JLabel("Th\u00EAm H\u00F3a \u0110\u01A1n MiniBar");
+		JLabel lblNewLabel = new JLabel("Hóa Đơn Sản Phẩm");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 25));
 		lblNewLabel.setBounds(70, 11, 473, 43);
@@ -191,17 +185,48 @@ public class HoaDonMinibar extends JFrame {
 		btnHy.setBounds(364, 698, 244, 54);
 		contentPane.add(btnHy);
 		
-		JLabel lblNewLabel_1 = new JLabel("Tổng tiền:");
-		lblNewLabel_1.setBounds(344, 640, 264, 35);
+		JLabel lblNewLabel_1 = new JLabel("Tổng cộng:");
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblNewLabel_1.setBounds(364, 641, 67, 35);
 		contentPane.add(lblNewLabel_1);
-		this.setVisible(false);
-		this.setVisible(true);
+		
+		lbl_tongCong = new JLabel("0");
+		lbl_tongCong.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lbl_tongCong.setForeground(Color.RED);
+		lbl_tongCong.setBounds(441, 640, 167, 35);
+		contentPane.add(lbl_tongCong);
+		updateCbx_nhomDichVu();
 		updateTableProduct(true);
 		updateTableCart();
 	}
 
+	public void updateCbx_nhomDichVu() {
+		_nhomSPVaDichVuService.updateListNhomSPVaDichVuModel("Hoat Dong");
+		
+		List<NhomSPVaDichVuModel> nspvdvm = _nhomSPVaDichVuService.getListNhomSPVaDichVuModelActive();
+		
+		for (NhomSPVaDichVuModel nhomSPVaDichVuModel : nspvdvm) {
+			if(nhomSPVaDichVuModel.getNhomHangHoa().equals("San pham")) {
+				_listNhomSPVaDichVuModels_active.add(nhomSPVaDichVuModel);
+			}
+		}
+		
+		String arrayNhomSPVaDichVu[] = new String[_listNhomSPVaDichVuModels_active.size()+1];
+		arrayNhomSPVaDichVu[0] = "Tất cả";
+		int index =1;
+		for (NhomSPVaDichVuModel nhomSPVaDichVuModel : _listNhomSPVaDichVuModels_active) {
+			arrayNhomSPVaDichVu[index] = nhomSPVaDichVuModel.getTenNhomSP();
+			index++;
+		}
+		
+		cbx_nhomDichVu.setModel(new DefaultComboBoxModel(arrayNhomSPVaDichVu));
+		
+	}
+	
 	public void updateListCart() {
+		_dichVuPhongService.updateListDichVuPhongModel();
 		 List<DichVuPhongModel> listDVPM = _dichVuPhongService.getListDichVuPhongModel();
+		 _listCart = new ArrayList<DichVuPhongModel>();
 		 for (DichVuPhongModel dichVuPhongModel : listDVPM) {
 			if(dichVuPhongModel.getSanPhamVaDichVuModel().getNhomSPVaDichVuModel().getNhomHangHoa().equals("San pham")) {
 				_listCart.add(dichVuPhongModel);
@@ -219,23 +244,37 @@ public class HoaDonMinibar extends JFrame {
 		
 		if(updateDependOnListService) {
 			_listSanPhamVaDichVuModels  = new ArrayList<SanPhamVaDichVuModel>();
+			_sanPhamVaDichVuService.updateListSanPhamVaDichVuModel("Hoat Dong");
 			List<SanPhamVaDichVuModel> listProduct = _sanPhamVaDichVuService.getListSanPhamVaDichVuModel_active();
 			for (SanPhamVaDichVuModel spvdvm : listProduct) {
 				if(spvdvm.getNhomSPVaDichVuModel().getNhomHangHoa().equals("San pham")) {
 					_listSanPhamVaDichVuModels.add(spvdvm);
 				}
 			}
-//			_listSanPhamVaDichVuModels = _sanPhamVaDichVuService.getListSanPhamVaDichVuModel_active();
 		}
 		
 		int stt =1;
+
 		for (SanPhamVaDichVuModel spvdvm : _listSanPhamVaDichVuModels) {
+			String nhomSanPham = cbx_nhomDichVu.getSelectedItem().toString();
+			if(nhomSanPham.equals("Tất cả")) {
 				DonViChiTietModel dvctm = _sanPhamVaDichVuService.getDonViMacDinh(spvdvm);
 				DonViTinhModel dvtm = dvctm.getDonViTinhModel();
 				String tenDonVi = dvtm.getTenDonVi();
 				String giaBan = dvctm.getGiaBan() +"/"+tenDonVi;
 				model.addRow(new Object[] {stt , spvdvm.getMaDichVu() , spvdvm.getTenHangHoa() , spvdvm.getSoLuongTon(),giaBan});
 				stt++;
+			}else {
+				if(spvdvm.getNhomSPVaDichVuModel().getTenNhomSP().equals(nhomSanPham)) {
+					DonViChiTietModel dvctm = _sanPhamVaDichVuService.getDonViMacDinh(spvdvm);
+					DonViTinhModel dvtm = dvctm.getDonViTinhModel();
+					String tenDonVi = dvtm.getTenDonVi();
+					String giaBan = dvctm.getGiaBan() +"/"+tenDonVi;
+					model.addRow(new Object[] {stt , spvdvm.getMaDichVu() , spvdvm.getTenHangHoa() , spvdvm.getSoLuongTon(),giaBan});
+					stt++;
+				}
+			}
+				
 		}
 		table_product.setModel(model);
 	}
@@ -308,17 +347,18 @@ public class HoaDonMinibar extends JFrame {
 	public void taoHoaDon() {
 		DichVuPhongService dvps = new DichVuPhongService();
 		dvps.updateListDichVuPhongModel();
-//		List<DichVuPhongModel> listDVPM = dvps.getListDichVuPhongModel();
 		
 		for(int i=0; i<_listCart.size();i++) {
 			
 			dvps.them_sua(_listCart.get(i));
 			
 			SanPhamVaDichVuModel spvdvm = _listCart.get(i).getSanPhamVaDichVuModel();
-			_sanPhamVaDichVuService.them_sua(spvdvm , "Hoat Dong");
+			_sanPhamVaDichVuService.them_sua_noUpdate(spvdvm);
 		}
 		
 		updateTableProduct(true);
+		updateListCart();
+		updateTableCart();
 	}
 	
 	public void updateTableCart() {
@@ -329,17 +369,19 @@ public class HoaDonMinibar extends JFrame {
 		model1.addColumn("Giá");
 		model1.addColumn("Số Lượng");
 		model1.addColumn("Tổng Tiền");
+		double tongCong =0;
 		
 		int stt =1;
 		for (DichVuPhongModel dvpm : _listCart) {
-			if(dvpm.getKhachTrongPhongModel().getMaKhachTrongPhong() == _ktpm.getMaKhachTrongPhong()) {
+			if(dvpm.getKhachTrongPhongModel().getId() == _ktpm.getId()) {
 				SanPhamVaDichVuModel spvdvm = dvpm.getSanPhamVaDichVuModel();
 				double tongTien = dvpm.getGiaBan() * dvpm.getSoLuong();
+				tongCong += tongTien;
 				model1.addRow(new Object[] {stt ,spvdvm.getMaDichVu(), spvdvm.getTenHangHoa() , dvpm.getGiaBan() , dvpm.getSoLuong() , tongTien});
 				stt++;
 			}
 		}
+		lbl_tongCong.setText(tongCong+"");
 		table_cart.setModel(model1);
 	}
-	
 }

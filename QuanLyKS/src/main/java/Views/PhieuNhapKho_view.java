@@ -54,7 +54,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 
-public class Nhap_view extends JFrame {
+public class PhieuNhapKho_view extends JFrame {
 	private SanPhamVaDichVuService _sanPhamVaDichVuService = new SanPhamVaDichVuService();
 	private PhieuNhapKhoService _phieuNhapKhoService = new PhieuNhapKhoService();
 	private List<PhieuNhapKhoModel> _listPhieuNhapKhoModel ;
@@ -105,7 +105,7 @@ public class Nhap_view extends JFrame {
 			public void run() {
 				try {
 					
-					Nhap_view frame = new Nhap_view(_userAreUsing);
+					PhieuNhapKho_view frame = new PhieuNhapKho_view(_userAreUsing);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -117,7 +117,7 @@ public class Nhap_view extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Nhap_view(NhanVienModel userAreUsing) {
+	public PhieuNhapKho_view(NhanVienModel userAreUsing) {
 		_userAreUsing = userAreUsing;
 		_phieuNhapKhoService.updateListPhieuNhapKhoModel();
 		maxID = _phieuNhapKhoService.getMaxID();
@@ -125,6 +125,7 @@ public class Nhap_view extends JFrame {
 		_sanPhamVaDichVuService.updateListSanPhamVaDichVuModel("Hoat Dong");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 1280, 720);
+		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -986,7 +987,7 @@ public class Nhap_view extends JFrame {
 		
 		int soLuong = Integer.parseInt(txt_soLuong.getText().trim());
 		
-		if(Utilities.regexCheckSoNguyenDuong(txt_giaNhap.getText().trim()).equals("false")) {
+		if(Utilities.regexCheckDouble(txt_giaNhap.getText().trim()).equals("false")) {
 			JOptionPane.showMessageDialog(null, "Giá nhập phải là số và không được < 0");
 			return null;
 		}

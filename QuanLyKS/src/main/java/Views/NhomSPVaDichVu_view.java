@@ -87,8 +87,8 @@ public class NhomSPVaDichVu_view extends JFrame {
 	public NhomSPVaDichVu_view() {
 		_nhomSPVaDichVuService.updateListNhomSPVaDichVuModel();
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setLocationRelativeTo(null);
 		setBounds(100, 100, 1280, 720);
+		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);

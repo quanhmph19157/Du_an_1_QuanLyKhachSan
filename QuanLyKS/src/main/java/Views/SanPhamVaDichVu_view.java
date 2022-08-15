@@ -129,6 +129,7 @@ public class SanPhamVaDichVu_view extends JFrame {
 		_khoService.updateListKhoModel("Hoat Dong");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 1280, 720);
+		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -619,6 +620,7 @@ public class SanPhamVaDichVu_view extends JFrame {
 	public void updateTxt_maSanPham() {
 		txt_maSanPham.setText(maxID_sanSPVaDichVu+"");
 	}
+	
 	public void updateCbx_nhomSanPham(String tenCbxNhomSanPham) {
 		_listNhomSPVaDichVuModels_active = _nhomSPVaDichVuService.getListNhomSPVaDichVuModelActive();
 		String arrayNhomSPVaDichVu[] = new String[_listNhomSPVaDichVuModels_active.size()+1];
@@ -634,7 +636,7 @@ public class SanPhamVaDichVu_view extends JFrame {
 		}
 		if(tenCbxNhomSanPham.equals("cbx_nhomSanPham_danhSach")) {
 			arrayNhomSPVaDichVu[0] = "Tất cả";
-			cbx_nhomSanPham_danhSach.setModel(new DefaultComboBoxModel(arrayNhomSPVaDichVu));
+			
 		}
 		
 	}
