@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="Entities.NhanVien"/>
+    <fullyQualifiedTypeName name="javax.persistence.OneToMany"/>
+    <fullyQualifiedTypeName name="Entities.Quyen_cv"/>
+    <fullyQualifiedTypeName name="javax.persistence.Id"/>
+    <fullyQualifiedTypeName name="javax.persistence.ManyToOne"/>
+    <fullyQualifiedTypeName name="java.sql.Date"/>
+    <fullyQualifiedTypeName name="javax.persistence.Entity"/>
+    <fullyQualifiedTypeName name="Entities.PhuPhi"/>
+    <fullyQualifiedTypeName name="models.HoaDonModel"/>
+    <fullyQualifiedTypeName name="dao.DichVuPhongDao"/>
+    <fullyQualifiedTypeName name="models.DichVuPhongModel"/>
+    <fullyQualifiedTypeName name="Services.KhachTrongPhong_services"/>
+    <fullyQualifiedTypeName name="dao.KhachTrongPhongDao"/>
+    <fullyQualifiedTypeName name="Entities.Phong"/>
+    <fullyQualifiedTypeName name="models.PhongModel"/>
+    <fullyQualifiedTypeName name="dao.HistoryDao"/>
+    <fullyQualifiedTypeName name="Services.KhachTrongPhongService"/>
+    <fullyQualifiedTypeName name="models.KhachTrongPhongModel"/>
+    <fullyQualifiedTypeName name="Entities.KhachTrongPhong"/>
+    <fullyQualifiedTypeName name="Services.SanPhamVaDichVuService"/>
+    <fullyQualifiedTypeName name="Services.DichVuPhongService"/>
+    <fullyQualifiedTypeName name="Services.DonViChiTietService"/>
+    <fullyQualifiedTypeName name="java.util.ArrayList"/>
+    <fullyQualifiedTypeName name="java.util.List"/>
+    <fullyQualifiedTypeName name="Services.NhomSPVaDichVuService"/>
+    <fullyQualifiedTypeName name="models.NhomSPVaDichVuModel"/>
+    <fullyQualifiedTypeName name="javax.swing.JComboBox"/>
+</qualifiedTypeNameHistroy>
