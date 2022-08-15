@@ -34,7 +34,6 @@ public class SanPhamVaDichVu {
 	private List<DonViChiTiet> listDonViChiTiet;
 	@OneToMany (mappedBy = "sanPhamVaDichVu")
 	private List<DichVuPhong> listDichVuPhong;
-	///////////////////////////////////////////////////
 	
 	public SanPhamVaDichVu(int maDichVu, String tenHangHoa, NhomSPVaDichVu nhomSPVaDichVu, int soLuongTon,
 			double giaVon, Kho kho, String moTa, String trangThai, List<PhieuKiemKhoChiTiet> listPhieuKiemKhoChiTiet,

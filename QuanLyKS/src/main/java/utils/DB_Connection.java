@@ -42,7 +42,8 @@ public class DB_Connection {
 				.addAnnotatedClass(NhomSPVaDichVu.class)
 				.addAnnotatedClass(DonViTinh.class)
 				.addAnnotatedClass(DonViChiTiet.class)
-				.addAnnotatedClass(DichVuPhong.class);
+				.addAnnotatedClass(DichVuPhong.class)
+				.addAnnotatedClass(PhuPhi.class);
 		ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(configuration.getProperties())
 				.buildServiceRegistry();
 		SessionFactory sessionFactory = configuration.buildSessionFactory(serviceRegistry);

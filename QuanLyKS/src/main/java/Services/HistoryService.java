@@ -12,10 +12,10 @@ import utils.IoCContainer;
 public class HistoryService{
 	private IoCContainer ioCContainer = new IoCContainer();
 	private List<HistoryModel> _listHistoryModels = new ArrayList<HistoryModel>();
-	private HistoryDao _HistoryDao = (HistoryDao) ioCContainer.getBean(HistoryDao.class.toString());
+	private HistoryDao _HistoryDao = new HistoryDao();
 	private History _History;
 
-	public static History updateDataHistoryDependOnHistoryModel(HistoryModel HistoryModel) {
+	public static History modelToEntity (HistoryModel HistoryModel) {
 		History History = new History();
 		History.setId(HistoryModel.getId());
 		History.setNhanVien(NhanVienService.modelToEntity(HistoryModel.getNhanVienModel()));
@@ -25,7 +25,7 @@ public class HistoryService{
 		return History;
 	}
 	
-	public static HistoryModel updateDataHistoryModelDependOnHistory(History History) {
+	public static HistoryModel entityToModel (History History) {
 		HistoryModel HistoryModel = new HistoryModel();
 		HistoryModel.setId(History.getId());
 		HistoryModel.setNhanVienModel(NhanVienService.entityToModel(History.getNhanVien()));
@@ -35,26 +35,26 @@ public class HistoryService{
 		return HistoryModel;
 	}
 	
-	public static List<History> updateListHistoryDependOnListHistoryModel(List<HistoryModel> listHistoryModel) {
+	public static List<History> listModelToListEntity (List<HistoryModel> listHistoryModel) {
 		List<History> listHistory = new ArrayList<History>();
 		for (HistoryModel HistoryModel2 : listHistoryModel) {
-			History History = updateDataHistoryDependOnHistoryModel(HistoryModel2);
+			History History = modelToEntity(HistoryModel2);
 			listHistory.add(History);
 		}
 		return listHistory;
 	}
 	
-	public static List<HistoryModel> updateListHistoryModelDependOnListHistory(List<History> listHistory) {
+	public static List<HistoryModel> listEntityToListModel (List<History> listHistory) {
 		List<HistoryModel> listHistoryModel = new ArrayList<HistoryModel>();
 		for (History History : listHistory) {
-			HistoryModel HistoryModel = updateDataHistoryModelDependOnHistory(History);
+			HistoryModel HistoryModel = entityToModel(History);
 			listHistoryModel.add(HistoryModel);
 		}
 		return listHistoryModel;
 	}
 
 	public void them_sua(HistoryModel HistoryModel) {
-		_History = updateDataHistoryDependOnHistoryModel(HistoryModel);
+		_History = modelToEntity(HistoryModel);
 		_HistoryDao.them_sua(_History);
 		_listHistoryModels.add(HistoryModel);// check lại
 	}
@@ -62,7 +62,7 @@ public class HistoryService{
 	public void updateListHistoryModel() {
 		_HistoryDao.updateListHistory();
 		List<History> listHistory = _HistoryDao.getListHistory();
-		_listHistoryModels = updateListHistoryModelDependOnListHistory(listHistory);
+		_listHistoryModels = listEntityToListModel(listHistory);
 
 	}
 

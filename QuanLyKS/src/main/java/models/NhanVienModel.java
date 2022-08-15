@@ -49,6 +49,7 @@ public class NhanVienModel implements Serializable{
 		this.password = password;
 		this.ngaySinh = ngaySinh;
 	}
+	
 	public NhanVienModel() {
 	
 	}

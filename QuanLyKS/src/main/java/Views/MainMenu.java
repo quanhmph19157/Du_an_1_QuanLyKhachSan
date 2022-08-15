@@ -101,6 +101,7 @@ public class MainMenu extends JFrame {
 		_userAreUsing = nhanVienModel;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1366, 834);
+		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -268,7 +269,7 @@ public class MainMenu extends JFrame {
 		JMenuItem mntmNewMenuItem_4 = new JMenuItem("Thêm phiếu nhập hàng");
 		mntmNewMenuItem_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Nhap_view nv = new Nhap_view(_userAreUsing);
+				PhieuNhapKho_view nv = new PhieuNhapKho_view(_userAreUsing);
 				nv.setVisible(true);
 			}
 		});

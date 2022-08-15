@@ -6,11 +6,12 @@ import java.util.List;
 import dao.ChucVuDao;
 import Entities.ChucVu;
 import models.ChucVuModel;
-public class ChucVuService implements IChucVuService{
+public class ChucVuService {
 	private List<ChucVuModel> _listChucVuModels = new ArrayList<ChucVuModel>();
 	private ChucVuDao _chucVuDao = new ChucVuDao();
 	private ChucVu _chucVu;
 	private ChucVuModel _chucModel;
+	
 	public static ChucVu modelToEntity(ChucVuModel chucVuModel) {
 		ChucVu chucVu = new ChucVu();
 		chucVu.setMaChucVu(chucVuModel.getMaChucVu());
