@@ -1,0 +1,95 @@
+package Views;
+
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+import java.awt.Font;
+import javax.swing.SwingConstants;
+import javax.swing.border.TitledBorder;
+import javax.swing.JTextField;
+import javax.swing.JTextArea;
+import javax.swing.JButton;
+import java.awt.Color;
+
+public class HoaDonPhuPhi extends JFrame {
+
+	private JPanel contentPane;
+	private JTextField textField;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					HoaDonPhuPhi frame = new HoaDonPhuPhi();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public HoaDonPhuPhi() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 802, 542);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("Hóa Đơn Phụ Phí");
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 23));
+		lblNewLabel.setBounds(10, 0, 766, 51);
+		contentPane.add(lblNewLabel);
+		
+		JPanel panel = new JPanel();
+		panel.setBorder(new TitledBorder(null, "Danh s\u00E1ch", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel.setBounds(10, 225, 766, 267);
+		contentPane.add(panel);
+		
+		textField = new JTextField();
+		textField.setBounds(109, 62, 353, 36);
+		contentPane.add(textField);
+		textField.setColumns(10);
+		
+		JLabel lblNewLabel_1 = new JLabel("Số tiền:");
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_1.setBounds(20, 62, 79, 36);
+		contentPane.add(lblNewLabel_1);
+		
+		JLabel lblNewLabel_1_1 = new JLabel("Ghi chú:");
+		lblNewLabel_1_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_1_1.setBounds(20, 109, 79, 36);
+		contentPane.add(lblNewLabel_1_1);
+		
+		JTextArea textArea = new JTextArea();
+		textArea.setBounds(109, 112, 353, 102);
+		contentPane.add(textArea);
+		
+		JButton btnNewButton = new JButton("Thêm");
+		btnNewButton.setBackground(Color.WHITE);
+		btnNewButton.setBounds(647, 62, 118, 36);
+		contentPane.add(btnNewButton);
+		
+		JButton btnSa = new JButton("Sửa");
+		btnSa.setBackground(Color.WHITE);
+		btnSa.setBounds(647, 109, 118, 36);
+		contentPane.add(btnSa);
+		
+		JButton btnClear = new JButton("Clear");
+		btnClear.setBackground(Color.WHITE);
+		btnClear.setBounds(647, 156, 118, 36);
+		contentPane.add(btnClear);
+	}
+}

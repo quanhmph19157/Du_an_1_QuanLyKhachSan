@@ -1,0 +1,22 @@
+package models;
+
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
+import Entities.KhachTrongPhong;
+
+public class PhuPhiModel {
+	private int maPhuPhi;
+	private KhachTrongPhongModel khachTrongPhongModel;
+	private double soTien;
+	private String ghiChu;
+	
+	public PhuPhiModel(int maPhuPhi, KhachTrongPhongModel khachTrongPhongModel, double soTien, String ghiChu) {
+		this.maPhuPhi = maPhuPhi;
+		this.khachTrongPhongModel = khachTrongPhongModel;
+		this.soTien = soTien;
+		this.ghiChu = ghiChu;
+	}
+	
+	
+}

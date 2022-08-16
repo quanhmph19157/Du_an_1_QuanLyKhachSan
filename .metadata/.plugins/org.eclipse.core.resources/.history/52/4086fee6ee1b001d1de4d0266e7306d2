@@ -1,0 +1,33 @@
+package Entities;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+	@Entity 
+	public class ChucVu {
+		@Id
+		private String maChucVu;
+		private String tenChucVu;
+		private String trangThai;
+		@OneToMany
+		List<Quyen_cv> listQuyen_cv;
+		@OneToMany
+		List<NhanVien> listNhanVien;
+		
+		public ChucVu(String maChucVu, String tenChucVu, String trangThai, List<Quyen_cv> listQuyen_cv,
+				List<NhanVien> listNhanVien) {
+			this.maChucVu = maChucVu;
+			this.tenChucVu = tenChucVu;
+			this.trangThai = trangThai;
+			this.listQuyen_cv = listQuyen_cv;
+			this.listNhanVien = listNhanVien;
+		}
+	
+		
+	}

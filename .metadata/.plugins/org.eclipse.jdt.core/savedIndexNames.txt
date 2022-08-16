@@ -1,0 +1,2 @@
+INDEX VERSION 1.131+C:\Users\yenbo\OneDrive\Máy tính\Du_an_1_QuanLyKhachSan\.metadata\.plugins\org.eclipse.jdt.core
+3675561233.index
