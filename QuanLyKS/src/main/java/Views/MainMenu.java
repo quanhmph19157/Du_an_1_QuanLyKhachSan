@@ -110,7 +110,7 @@ public class MainMenu extends JFrame {
 		panel_tong = new JPanel();
 		panel_tong.setBounds(33, 46, 1280, 750);
 		contentPane.add(panel_tong);
-		panel_tong.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		panel_tong.setLayout(null);
 		
 		
 		JMenuBar menuBar = new JMenuBar();
@@ -291,11 +291,10 @@ public class MainMenu extends JFrame {
 		menu.setBounds(172, 11, 115, 26);
 		contentPane.add(menu);
 
-		
 	}
 	
 	public void quanLyTaiKhoan(NhanVienModel nhanVienModel) {
-		panel_tong.removeAll();
+
 		JPanel contentPane_1 = new JPanel();
 		contentPane_1.setLayout(null);
 		contentPane_1.setBorder(new EmptyBorder(5, 5, 5, 5));
