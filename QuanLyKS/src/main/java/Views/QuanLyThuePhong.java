@@ -655,7 +655,13 @@ public class QuanLyThuePhong extends JFrame {
 												// TODO Auto-generated method stub
 												if (k.getHoadon().getTrangThai().equals("datphong")) {
 													System.out.println("Phong "+k.getPhong().getMaPhong());
-													List<Double> list = new ArrayList<Double>();
+													Double[]g;
+													ModelHoaDon hoadonmau=hd;
+													String lo=hd.getLoai();
+													LocalDateTime ldt = LocalDateTime.now();
+													java.util.Date homnayy = new java.util.Date(
+															ldt.getYear() - 1900, ldt.getMonthValue() - 1,
+															ldt.getDayOfMonth(), ldt.getHour(), ldt.getMinute());
 													for (ModelLoaiPhong mlp : List_lp) {
 														if (mlp.getMaLoaiPhong() == k.getPhong().getLoaiphong()
 																.getMaLoaiPhong()) {
@@ -664,16 +670,39 @@ public class QuanLyThuePhong extends JFrame {
 																if (b.getHoadon().getMaHoaDon() == hd.getMaHoaDon()) {
 																	gia += b.getGiaPhong();
 																	gia += b.getPhuTroi();
+																	gia += b.getPhutroi2();
 																}
 															}
-															LocalDateTime ldt = LocalDateTime.now();
-															java.util.Date homnayy = new java.util.Date(
-																	ldt.getYear() - 1900, ldt.getMonthValue() - 1,
-																	ldt.getDayOfMonth(), ldt.getHour(), ldt.getMinute());
 															java.util.Date checkin = hd.getNgayCheckIn();
-															list = gia(mlp, ks, hd.getLoai(), hd);
+												
 															if (checkin.getTime() > homnayy.getTime()) {
-																hd.setNgayCheckIn(homnayy);
+																hoadonmau.setNgayCheckIn(homnayy);
+																if(hoadonmau.getLoai().equals("dem")) {
+																	int cis=0;
+																	for(PhuTroi x:mlp.getDsphutroi()) {
+																		if(x.getLoai().equals("checkindem")) {
+																			cis++;
+																		}
+																	}
+																	Date ci=new Date(homnayy.getYear(), homnayy.getMonth(), homnayy.getDate(), ks.getGioCheckIn()+cis, 0);
+																	if(homnayy.getTime()<ci.getTime()) {
+																		int c=JOptionPane.showConfirmDialog(pnl_main, "Check in sớm trước quy định của khung đêm, đổi sang khung ngày ?");
+																		if(c!=0)return;
+																		hoadonmau.setLoai("ngay");
+																		lo="ngay";
+																	}
+																}
+																if(hoadonmau.getLoai().equals("gio")) {
+																	boolean check=false;
+																	long MAX=(hd.getNgayCheckOut().getTime()-homnayy.getTime())/(1000*60*60);
+																	if(MAX>ks.getGio()) {
+																		int c=JOptionPane.showConfirmDialog(pnl_main, "Check in sớm trước quy định của khung giờ, đổi sang khung ngày ?");
+																		if(c!=0)return;
+																		hoadonmau.setLoai("ngay");
+																		lo="ngay";
+																	}
+																}
+																g = gia(mlp, hoadonmau.getLoai(), hoadonmau);
 																long msec = checkin.getTime() - homnayy.getTime();
 																int hours = 0, minutes = 0, days = 0;
 																days = (int) (msec / (1000 * 60 * 60 * 24));
@@ -684,7 +713,7 @@ public class QuanLyThuePhong extends JFrame {
 																JOptionPane.showMessageDialog(pnl_main,
 																		"Check in sớm " + days + " ngày " + hours + " giờ "
 																				+ minutes + " phút phát sinh thêm "
-																				+ (list.get(0) - gia));
+																				+ (g[0]+g[1]+g[2] - gia));
 															}
 															break;
 														}
@@ -694,7 +723,9 @@ public class QuanLyThuePhong extends JFrame {
 															"Check in cho hóa đơn này ?") != 0) {
 														return;
 													}
+													hd.setNgayCheckIn(homnayy);
 													hd.setTrangThai("checkin");
+													hd.setLoai(lo);
 													ser_hd.save(hd, false);
 													list_ktp = ser_ktp.getList();
 													pnl_chinh_autoGen();
@@ -711,6 +742,13 @@ public class QuanLyThuePhong extends JFrame {
 											public void actionPerformed(ActionEvent e) {
 												// TODO Auto-generated method stub
 												pnl_main.removeAll();
+												for(ModelHoaDon mhd:list_hd) {
+													if(k.getHoadon().getMaHoaDon()==mhd.getMaHoaDon()) {
+														hd=mhd;
+														break;
+													}
+												}
+												System.out.println("Ma hoa don: "+hd.getMaHoaDon() );
 												pnl_main.add(new Booking(hd));
 												revalidate();
 												repaint();
@@ -927,7 +965,9 @@ public class QuanLyThuePhong extends JFrame {
 		pnl_chinh.setPreferredSize(new Dimension(rong, pnl_chinh.getComponentCount() * 30));
 	}
 
-	List<Double> gia(ModelLoaiPhong p, ModelKhachSan ks, String loai, ModelHoaDon hd) {
+	
+	
+	Double[] gia(ModelLoaiPhong p,String loai,ModelHoaDon hd) {
 		java.util.Date in, out;
 		in = hd.getNgayCheckIn();
 		out = hd.getNgayCheckOut();
@@ -935,14 +975,20 @@ public class QuanLyThuePhong extends JFrame {
 		if (((double) (out.getTime() - in.getTime()) / 3600000) > hours) {
 			hours++;
 		}
-		int gio = in.getHours();
 		int gin;
 		if (loai.equals("ngay"))
 			gin = (int) ks.getGioCheckIn() / 100;
 		else
-			gin = (int) ks.getGioCheckIn() / 100;
-		double gia = 0, CIS = 0, COS = 0;
-		boolean checkInSom = true;
+			gin = (int) ks.getGioCheckInDem() / 100;
+		double gia = 0, CIS = 0,COM=0;
+		if(loai.equals("gio")) {
+			long gio=hd.getNgayCheckOut().getTime()-hd.getNgayCheckIn().getTime();
+			gio=gio/(1000*60*60);
+			gia+=p.getGiaTheoGio()*gio;
+			return new Double[] {gia,CIS,COM};
+		}
+		boolean checkInSom = true,dugio=true;
+		int gio = hd.getNgayCheckIn().getHours();
 		List<PhuTroi> dspt = p.getDsphutroi();
 		if (dspt == null)
 			dspt = new ArrayList<PhuTroi>();
@@ -955,33 +1001,36 @@ public class QuanLyThuePhong extends JFrame {
 				dsngay.add(x);
 			} else if (x.getLoai().equals("checkindem"))
 				dsdem.add(x);
-			else if (x.getLoai().equals("checkout"))
+			else if (x.getLoai().equals("checkout")) {
 				dsngayout.add(x);
+				System.out.println(x.getPhuTroi());
+			}
 			else
 				dsdemout.add(x);
 		}
 		int x = 0;
 		for (int i = 0; i < hours; i++) {
+			System.out.println(i);
 			if (gio == gin && checkInSom) {
 				checkInSom = false;
 				int cis = 0;
+				System.out.println("checkin som +"+i);
 				if (loai.equals("ngay")) {
 					cis = dsngay.size();
 					try {
-						CIS += dsngay.get(i - 1).getPhuTroi();
-						gia += CIS;
+						CIS=CIS+ dsngay.get(i - 1).getPhuTroi();
+						System.out.println("cis "+CIS);
 					} catch (Exception e) {
 						if (i != 0)
 							gia += p.getGiaPhong();
 					}
 				}
-				if (loai.equals("dem")) {
+				else if (loai.equals("dem")) {
 					cis = dsdem.size();
 					try {
 						CIS += dsdem.get(i - 1).getPhuTroi();
-						gia += CIS + p.getGiaQuaDem();
 					} catch (Exception e) {
-						gia += CIS + p.getGiaQuaDem();
+						if(i!=0)gia += p.getGiaQuaDem();
 					}
 				}
 			}
@@ -991,24 +1040,33 @@ public class QuanLyThuePhong extends JFrame {
 			if (!checkInSom) {
 				x++;
 				if (gio == (int) (ks.getGioCheckout() / 100) && loai.equals("ngay")) {
+					dugio=!dugio;
 					gia += p.getGiaPhong();
+					x = 0;
+				}
+				if (gio == (int) (ks.getGioCheckOutDem() / 100) && loai.equals("dem")) {
+					dugio=!dugio;
+					gia += p.getGiaQuaDem();
 					x = 0;
 				}
 			}
 			if (i == hours - 1) {
-				if (loai.equals("dem")) {
+				if(dugio) {
+					if(loai.equals("dem"))gia+=p.getGiaQuaDem();
+					else if(loai.equals("ngay"))gia+=p.getGiaPhong();
+				}
+				else if (loai.equals("dem")) {
 					try {
-						COS += dsdemout.get(x - 1).getPhuTroi();
-						gia += dsdemout.get(x - 1).getPhuTroi();
+						COM=COM+dsdemout.get(x - 1).getPhuTroi();
 					} catch (Exception e) {
 						if (x != 0)
 							gia += p.getGiaQuaDem();
 					}
 				}
-				if (loai.equals("ngay")) {
+				else if (loai.equals("ngay")) {
 					try {
-						COS += dsdemout.get(x - 1).getPhuTroi();
-						gia += dsngayout.get(x - 1).getPhuTroi();
+						System.out.println("tinh gia"+CIS);
+						COM=COM+dsngayout.get(x - 1).getPhuTroi();
 					} catch (Exception e) {
 						if (x != 0)
 							gia += p.getGiaPhong();
@@ -1016,14 +1074,9 @@ public class QuanLyThuePhong extends JFrame {
 				}
 			}
 		}
-		List<Double> list = new ArrayList<Double>();
-		list.add(gia);
-		System.out.println(gia);
-		list.add(CIS);
-		System.out.println(CIS);
-		list.add(COS);
-		System.out.println(COS);
-		return list;
+		Double[]a=new Double[] {gia,CIS,COM};
+		System.out.println("Phu troi "+CIS);
+		return a;
 	}
 
 	public static void main(String[] args) {
