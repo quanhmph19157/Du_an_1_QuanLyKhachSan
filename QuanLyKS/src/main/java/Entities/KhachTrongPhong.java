@@ -50,7 +50,18 @@ public class KhachTrongPhong implements Serializable{
 		this.phong = phong;
 	}
 
-
+	public KhachTrongPhong(int id, HoaDon hoadon, Phong phong, List<DichVuPhong> dsdichvu, float giaPhong,
+			float phuTroi, float phuPhi, String ghiChu) {
+		super();
+		this.id = id;
+		this.hoadon = hoadon;
+		this.phong = phong;
+		this.dsdichvu = dsdichvu;
+		GiaPhong = giaPhong;
+		PhuTroi = phuTroi;
+		PhuPhi = phuPhi;
+		GhiChu = ghiChu;
+	}
 
 	public KhachTrongPhong(HoaDon hoadon, Phong phong, float giaPhong,float PhuTroi,float phutroi2, float phuPhi, String ghiChu) {
 		super();
@@ -70,17 +81,12 @@ public class KhachTrongPhong implements Serializable{
 		this.id = id;
 	}
 
-	
-
 	public KhachTrongPhong() {
 	}
-
 
 	public List<DichVuPhong> getDsdichvu() {
 		return dsdichvu;
 	}
-
-
 
 	public void setDsdichvu(List<DichVuPhong> dsdichvu) {
 		this.dsdichvu = dsdichvu;
@@ -92,13 +98,9 @@ public class KhachTrongPhong implements Serializable{
 		return phutroi2;
 	}
 
-
-
 	public void setPhutroi2(float phutroi2) {
 		this.phutroi2 = phutroi2;
 	}
-
-
 
 	public int getId() {
 		return id;
@@ -137,13 +139,9 @@ public class KhachTrongPhong implements Serializable{
 		GhiChu = ghiChu;
 	}
 
-
-
 	public float getPhuTroi() {
 		return PhuTroi;
 	}
-
-
 
 	public void setPhuTroi(float phuTroi) {
 		PhuTroi = phuTroi;
