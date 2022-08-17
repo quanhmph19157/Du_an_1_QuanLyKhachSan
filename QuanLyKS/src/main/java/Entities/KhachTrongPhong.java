@@ -25,9 +25,37 @@ public class KhachTrongPhong implements Serializable{
 	private List<DichVuPhong> dsdichvu;
 	private float GiaPhong;
 	private float PhuTroi;
-	private float phutroi2;
+	private float PhuTroi2;
+	@OneToMany (mappedBy = "khachTrongPhong")
+	private List<PhuPhi> dsPhuPhi;
 	private float PhuPhi;
 	private String GhiChu;
+	
+	public KhachTrongPhong(int id, HoaDon hoadon, Phong phong, List<DichVuPhong> dsdichvu, float giaPhong,
+			float phuTroi, List<Entities.PhuPhi> dsPhuPhi, float phuPhi, String ghiChu) {
+		this.id = id;
+		this.hoadon = hoadon;
+		this.phong = phong;
+		this.dsdichvu = dsdichvu;
+		GiaPhong = giaPhong;
+		PhuTroi = phuTroi;
+		this.dsPhuPhi = dsPhuPhi;
+		PhuPhi = phuPhi;
+		GhiChu = ghiChu;
+	}
+
+	public KhachTrongPhong(int id, HoaDon hoadon, Phong phong, float giaPhong,float PhuTroi, float phuPhi,
+			String ghiChu) {
+		super();
+		this.id = id;
+		this.hoadon = hoadon;
+		this.phong = phong;
+		GiaPhong = giaPhong;
+		PhuPhi = phuPhi;
+		GhiChu = ghiChu;
+		this.PhuTroi=PhuTroi;
+	}
+	
 	public KhachTrongPhong(int id, HoaDon hoadon, Phong phong, float giaPhong,float PhuTroi,float phutroi2, float phuPhi,
 			String ghiChu) {
 		super();
@@ -38,7 +66,7 @@ public class KhachTrongPhong implements Serializable{
 		PhuPhi = phuPhi;
 		GhiChu = ghiChu;
 		this.PhuTroi=PhuTroi;
-		this.phutroi2=phutroi2;
+		this.PhuTroi2=phutroi2;
 	}
 	
 	
@@ -50,19 +78,18 @@ public class KhachTrongPhong implements Serializable{
 		this.phong = phong;
 	}
 
-	public KhachTrongPhong(int id, HoaDon hoadon, Phong phong, List<DichVuPhong> dsdichvu, float giaPhong,
-			float phuTroi, float phuPhi, String ghiChu) {
+
+
+	public KhachTrongPhong(HoaDon hoadon, Phong phong, float giaPhong,float PhuTroi, float phuPhi, String ghiChu) {
 		super();
-		this.id = id;
 		this.hoadon = hoadon;
 		this.phong = phong;
-		this.dsdichvu = dsdichvu;
 		GiaPhong = giaPhong;
-		PhuTroi = phuTroi;
 		PhuPhi = phuPhi;
 		GhiChu = ghiChu;
+		this.PhuTroi=PhuTroi;
 	}
-
+	
 	public KhachTrongPhong(HoaDon hoadon, Phong phong, float giaPhong,float PhuTroi,float phutroi2, float phuPhi, String ghiChu) {
 		super();
 		this.hoadon = hoadon;
@@ -71,7 +98,7 @@ public class KhachTrongPhong implements Serializable{
 		PhuPhi = phuPhi;
 		GhiChu = ghiChu;
 		this.PhuTroi=PhuTroi;
-		this.phutroi2=phutroi2;
+		this.PhuTroi2=phutroi2;
 	}
 
 
@@ -81,26 +108,11 @@ public class KhachTrongPhong implements Serializable{
 		this.id = id;
 	}
 
+	
+
 	public KhachTrongPhong() {
 	}
 
-	public List<DichVuPhong> getDsdichvu() {
-		return dsdichvu;
-	}
-
-	public void setDsdichvu(List<DichVuPhong> dsdichvu) {
-		this.dsdichvu = dsdichvu;
-	}
-
-
-
-	public float getPhutroi2() {
-		return phutroi2;
-	}
-
-	public void setPhutroi2(float phutroi2) {
-		this.phutroi2 = phutroi2;
-	}
 
 	public int getId() {
 		return id;
@@ -111,6 +123,23 @@ public class KhachTrongPhong implements Serializable{
 	public HoaDon getHoadon() {
 		return hoadon;
 	}
+	
+	public List<DichVuPhong> getDsdichvu() {
+		return dsdichvu;
+	}
+
+	public void setDsdichvu(List<DichVuPhong> dsdichvu) {
+		this.dsdichvu = dsdichvu;
+	}
+
+	public List<PhuPhi> getDsPhuPhi() {
+		return dsPhuPhi;
+	}
+
+	public void setDsPhuPhi(List<PhuPhi> dsPhuPhi) {
+		this.dsPhuPhi = dsPhuPhi;
+	}
+
 	public void setHoadon(HoaDon hoadon) {
 		this.hoadon = hoadon;
 	}
@@ -139,12 +168,24 @@ public class KhachTrongPhong implements Serializable{
 		GhiChu = ghiChu;
 	}
 
+
+
 	public float getPhuTroi() {
 		return PhuTroi;
 	}
 
+
+
 	public void setPhuTroi(float phuTroi) {
 		PhuTroi = phuTroi;
+	}
+
+	public float getPhuTroi2() {
+		return PhuTroi2;
+	}
+
+	public void setPhuTroi2(float phuTroi2) {
+		PhuTroi2 = phuTroi2;
 	}
 	
 	
