@@ -25,9 +25,10 @@ public class KhachTrongPhong implements Serializable{
 	private List<DichVuPhong> dsdichvu;
 	private float GiaPhong;
 	private float PhuTroi;
+	private float phutroi2;
 	private float PhuPhi;
 	private String GhiChu;
-	public KhachTrongPhong(int id, HoaDon hoadon, Phong phong, float giaPhong,float PhuTroi, float phuPhi,
+	public KhachTrongPhong(int id, HoaDon hoadon, Phong phong, float giaPhong,float PhuTroi,float phutroi2, float phuPhi,
 			String ghiChu) {
 		super();
 		this.id = id;
@@ -37,6 +38,7 @@ public class KhachTrongPhong implements Serializable{
 		PhuPhi = phuPhi;
 		GhiChu = ghiChu;
 		this.PhuTroi=PhuTroi;
+		this.phutroi2=phutroi2;
 	}
 	
 	
@@ -50,7 +52,7 @@ public class KhachTrongPhong implements Serializable{
 
 
 
-	public KhachTrongPhong(HoaDon hoadon, Phong phong, float giaPhong,float PhuTroi, float phuPhi, String ghiChu) {
+	public KhachTrongPhong(HoaDon hoadon, Phong phong, float giaPhong,float PhuTroi,float phutroi2, float phuPhi, String ghiChu) {
 		super();
 		this.hoadon = hoadon;
 		this.phong = phong;
@@ -58,6 +60,7 @@ public class KhachTrongPhong implements Serializable{
 		PhuPhi = phuPhi;
 		GhiChu = ghiChu;
 		this.PhuTroi=PhuTroi;
+		this.phutroi2=phutroi2;
 	}
 
 
@@ -71,6 +74,30 @@ public class KhachTrongPhong implements Serializable{
 
 	public KhachTrongPhong() {
 	}
+
+
+	public List<DichVuPhong> getDsdichvu() {
+		return dsdichvu;
+	}
+
+
+
+	public void setDsdichvu(List<DichVuPhong> dsdichvu) {
+		this.dsdichvu = dsdichvu;
+	}
+
+
+
+	public float getPhutroi2() {
+		return phutroi2;
+	}
+
+
+
+	public void setPhutroi2(float phutroi2) {
+		this.phutroi2 = phutroi2;
+	}
+
 
 
 	public int getId() {

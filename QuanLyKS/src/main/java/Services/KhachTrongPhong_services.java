@@ -29,7 +29,7 @@ public class KhachTrongPhong_services {
 			for(KhachHang kh:ktp.getHoadon().getDskhachhang()) {
 				dskh.add(new ModelKhachHang(kh.getMaKhachHang(),kh.getTenKhachHang(),kh.getCmnd(),kh.getSdt(),kh.getEmail(),kh.getNgaySinh(),kh.getGioiTinh(),kh.getDiaChi()));
 			}
-			List_model.add(new ModelKhachTrongPhong(ktp.getId(), new ModelHoaDon(ktp.getHoadon().getMaHoaDon(),ktp.getHoadon().getTrangThai(),ktp.getHoadon().getNgayCheckIn(),ktp.getHoadon().getNgayCheckOut(),ktp.getHoadon().getNgayTao(),ktp.getHoadon().getTenDoan(),dskh,ktp.getHoadon().getLoai()), new ModelPhong(ktp.getPhong().getMaPhong(),new ModelLoaiPhong(ktp.getPhong().getLoaiphong().getMaLoaiPhong(),ktp.getPhong().getLoaiphong().getTenLoai() )), ktp.getGiaPhong(),ktp.getPhuTroi(), ktp.getPhuPhi(), ktp.getGhiChu()));
+			List_model.add(new ModelKhachTrongPhong(ktp.getId(), new ModelHoaDon(ktp.getHoadon().getMaHoaDon(),ktp.getHoadon().getTrangThai(),ktp.getHoadon().getNgayCheckIn(),ktp.getHoadon().getNgayCheckOut(),ktp.getHoadon().getNgayTao(),ktp.getHoadon().getTenDoan(),dskh,ktp.getHoadon().getLoai()), new ModelPhong(ktp.getPhong().getMaPhong(),new ModelLoaiPhong(ktp.getPhong().getLoaiphong().getMaLoaiPhong(),ktp.getPhong().getLoaiphong().getTenLoai() )), ktp.getGiaPhong(),ktp.getPhuTroi(),ktp.getPhutroi2(), ktp.getPhuPhi(), ktp.getGhiChu()));
 		}
 		return List_model;
 	}
