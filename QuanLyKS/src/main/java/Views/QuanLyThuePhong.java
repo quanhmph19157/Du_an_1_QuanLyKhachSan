@@ -271,7 +271,7 @@ public class QuanLyThuePhong extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				pnl_main.removeAll();
-				pnl_main.add(new Booking("ngay"));
+				pnl_main.add(new Booking());
 				revalidate();
 				repaint();
 			}
@@ -662,6 +662,35 @@ public class QuanLyThuePhong extends JFrame {
 											public void actionPerformed(ActionEvent e) {
 												// TODO Auto-generated method stub
 												if (k.getHoadon().getTrangThai().equals("datphong")) {
+													for (ModelHoaDon mhd : list_hd) {
+														if (k.getHoadon().getMaHoaDon() == mhd.getMaHoaDon()) {
+															hd = mhd;
+															break;
+														}
+													}
+													double gia = 0, giasau = 0;
+													LocalDateTime ldt = LocalDateTime.now();
+													
+													for (ModelKhachTrongPhong mktp : list_ktp) {
+														for(ModelKhachTrongPhong MK:hd.getDskhactrongphong()) {
+															if (mktp.getPhong().getMaPhong() == MK.getPhong().getMaPhong()) {
+																if((hd.getMaHoaDon()==mktp.getHoadon().getMaHoaDon()))continue;
+																long limitin = mktp.getHoadon().getNgayCheckIn().getTime();
+																long limitout = mktp.getHoadon().getNgayCheckOut().getTime();
+																long extime = new java.util.Date(ldt.getYear() - 1900,
+																		ldt.getMonthValue() - 1, ldt.getDayOfMonth(), ldt.getHour(),
+																		ldt.getMinute()).getTime();
+																long timein=k.getHoadon().getNgayCheckOut().getTime();
+																System.out.println("MA HOA DON " +mktp.getHoadon().getMaHoaDon());
+																if ((extime < limitout&&extime>limitin)||(extime<limitin&&timein>limitout)) {
+																	JOptionPane.showMessageDialog(pnl_main,
+																			"Không thể check in cho phòng vào thời gian này");
+																	return;
+																}
+																//hd.setNgayCheckOut(new Date(extime));
+															}
+														}
+													}
 													System.out.println("Phong " + k.getPhong().getMaPhong());
 													Double[] g;
 													for (ModelHoaDon mhd : list_hd) {
@@ -670,24 +699,22 @@ public class QuanLyThuePhong extends JFrame {
 															break;
 														}
 													}
-													ModelHoaDon hoadonmau=new ModelHoaDon();
+													ModelHoaDon hoadonmau = new ModelHoaDon();
 													for (ModelHoaDon mhd : list_hd) {
 														if (k.getHoadon().getMaHoaDon() == mhd.getMaHoaDon()) {
 															hoadonmau = mhd;
 															break;
 														}
 													}
-													Date begin=hd.getNgayCheckIn();
+													Date begin = hd.getNgayCheckIn();
 													String lo = hd.getLoai();
-													LocalDateTime ldt = LocalDateTime.now();
 													java.util.Date homnayy = new java.util.Date(ldt.getYear() - 1900,
 															ldt.getMonthValue() - 1, ldt.getDayOfMonth(), ldt.getHour(),
 															ldt.getMinute());
-													double gia = 0, giasau = 0;
 													List<ModelKhachTrongPhong> list_thaydoi = new ArrayList<>();
 													hoadonmau.setNgayCheckIn(homnayy);
 													for (ModelKhachTrongPhong K : list_ktp) {
-														System.out.println("phu troi k"+K.getPhutroi2());
+														System.out.println("phu troi k" + K.getPhutroi2());
 														if (K.getHoadon().getMaHoaDon() == hd.getMaHoaDon()) {
 															list_thaydoi.add(K);
 															for (ModelLoaiPhong mlp : List_lp) {
@@ -722,7 +749,8 @@ public class QuanLyThuePhong extends JFrame {
 														}
 													}
 													for (ModelLoaiPhong mlp : List_lp) {
-														if (mlp.getMaLoaiPhong() == k.getPhong().getLoaiphong().getMaLoaiPhong()) {
+														if (mlp.getMaLoaiPhong() == k.getPhong().getLoaiphong()
+																.getMaLoaiPhong()) {
 															java.util.Date checkin = hd.getNgayCheckIn();
 															if (checkin.getTime() > homnayy.getTime()) {
 																hoadonmau.setNgayCheckIn(homnayy);
@@ -758,7 +786,7 @@ public class QuanLyThuePhong extends JFrame {
 																		lo = "ngay";
 																	}
 																}
-
+																System.out.println("giasau "+giasau+"   "+gia);
 																long msec = checkin.getTime() - homnayy.getTime();
 																int hours = 0, minutes = 0, days = 0;
 																days = (int) (msec / (1000 * 60 * 60 * 24));
@@ -766,11 +794,9 @@ public class QuanLyThuePhong extends JFrame {
 																		/ (1000 * 60 * 60));
 																minutes = (int) ((msec - (days * (1000 * 60 * 60 * 24)
 																		+ (hours * (1000 * 60 * 60)))) / (1000 * 60));
-																JOptionPane.showMessageDialog(pnl_main,
-																		"Check in sớm " + days + " ngày " + hours
-																				+ " giờ " + minutes
-																				+ " phút phát sinh thêm "
-																				+ (giasau - gia));
+																JOptionPane.showMessageDialog(pnl_main, "Check in sớm "
+																		+ days + " ngày " + hours + " giờ " + minutes
+																		+ " phút phát sinh thêm " + (giasau - gia));
 															}
 														}
 													}
@@ -778,14 +804,16 @@ public class QuanLyThuePhong extends JFrame {
 															"Check in cho hóa đơn này ?") != 0) {
 														return;
 													}
-													begin=homnayy;
+													if(begin.getTime()>homnayy.getTime()) {
+														begin = homnayy;
+													}
 													dao_khachTrongPhong d = new dao_khachTrongPhong();
 													for (ModelKhachTrongPhong X : list_thaydoi) {
 														d.save(new KhachTrongPhong(X.getId(),
 																new HoaDon(hd.getMaHoaDon()),
 																new Phong(X.getPhong().getMaPhong()), X.getGiaPhong(),
 																X.getPhuTroi(), X.getPhutroi2(), 0, ""));
-														System.out.println("PhuTroi: "+X.getPhutroi2());
+														System.out.println("PhuTroi: " + X.getPhutroi2());
 													}
 													hd.setNgayCheckIn(begin);
 													hd.setTrangThai("checkin");
@@ -862,8 +890,14 @@ public class QuanLyThuePhong extends JFrame {
 											@Override
 											public void actionPerformed(ActionEvent e) {
 												// TODO Auto-generated method stub
+												for (ModelHoaDon mhd : list_hd) {
+													if (k.getHoadon().getMaHoaDon() == mhd.getMaHoaDon()) {
+														hd = mhd;
+														break;
+													}
+												}
 												pnl_main.removeAll();
-												new view_hoadon(hd).setVisible(true);
+												pnl_main.add(new view_hoadon(hd));
 												revalidate();
 												repaint();
 											}
@@ -877,41 +911,145 @@ public class QuanLyThuePhong extends JFrame {
 
 										@Override
 										public void actionPerformed(ActionEvent e) {
+											for (ModelHoaDon mhd : list_hd) {
+												if (k.getHoadon().getMaHoaDon() == mhd.getMaHoaDon()) {
+													hd = mhd;
+													break;
+												}
+											}
 											// TODO Auto-generated method stub
 											String soGio = JOptionPane.showInputDialog("nhập số giờ muốn gia hạn");
 											if (!soGio.matches("\\d+")) {
 												JOptionPane.showMessageDialog(pnl_main, "Số giờ không đúng");
 												return;
 											}
+											long extime=0;
 											for (ModelKhachTrongPhong mktp : list_ktp) {
-												if (hd.getDskhachhang().size() == 1) {
-													if (mktp.getPhong().getMaPhong() == k.getPhong().getMaPhong()) {
+												for(ModelKhachTrongPhong MK:hd.getDskhactrongphong()) {
+													if (mktp.getPhong().getMaPhong() == MK.getPhong().getMaPhong()) {
+														if((hd.getMaHoaDon()==mktp.getHoadon().getMaHoaDon()))continue;
 														long limitin = mktp.getHoadon().getNgayCheckIn().getTime();
 														long limitout = mktp.getHoadon().getNgayCheckOut().getTime();
-														long extime = k.getHoadon().getNgayCheckOut().getTime()
+														extime = k.getHoadon().getNgayCheckOut().getTime()
 																+ (Long) (Long.parseLong(soGio) * 60 * 60 * 1000);
-														System.out.println("soGio " + extime);
-														if (extime > limitin && extime < limitout) {
+														long timein=k.getHoadon().getNgayCheckIn().getTime();
+														System.out.println("MA HOA DON " +mktp.getHoadon().getMaHoaDon());
+														if ((extime < limitout&&extime>limitin)||(timein<limitin&&extime>limitout)) {
 															JOptionPane.showMessageDialog(pnl_main,
-																	"Không thể gian hạn cho phòng theo khoảng thời gian này");
+																	"Không thể gia hạn cho phòng vào thời gian này");
 															return;
 														}
-														hd.setNgayCheckOut(new Date(extime));
-														System.out.println("ngay out moi: " + hd.getNgayCheckOut());
-														ser_hd.save(hd, false);
-														JOptionPane.showMessageDialog(pnl_main, "Gia hạn thành công");
-														List_lp = ser_lp.getLp();
-														list_hd = ser_hd.getList();
-														ks = ser.getKs();
-														ListTang = ks.getDSTang();
-														list_ktp = ser_ktp.getList();
-														pnl_chinh_autoGen();
-														revalidate();
-														repaint();
-														return;
+														//hd.setNgayCheckOut(new Date(extime));
 													}
 												}
 											}
+											
+											//
+											Date outB=hd.getNgayCheckOut();
+											Date timeout=new Date(extime);
+											String lo=hd.getLoai(),loB=hd.getLoai();
+											ModelHoaDon hoadonmau=hd;
+											A:
+											for(ModelLoaiPhong mlp:List_lp) {
+												for(ModelKhachTrongPhong mktp:list_ktp) {
+													if(mktp.getPhong().getLoaiphong().getMaLoaiPhong()==mlp.getMaLoaiPhong()) {
+														if (hoadonmau.getLoai().equals("dem")) {
+															int cis = 0,cos=0;
+															for (PhuTroi x : mlp.getDsphutroi()) {
+																if (x.getLoai().equals("checkindem")) {
+																	cis++;
+																}
+																if (x.getLoai().equals("checkoutdem")) {
+																	cos++;
+																}
+															}
+															long gap=0;
+															if(hd.getNgayCheckIn().getDate()!=timeout.getDate()) {
+																
+																gap=24-(ks.getGioCheckInDem()/100-cis);
+																gap+=ks.getGioCheckout()/100+cos;
+																gap-=(24-hd.getNgayCheckIn().getHours());
+															}else {
+																gap+=ks.getGioCheckout()/100+cos;
+																gap-=hd.getNgayCheckIn().getHours();
+															}
+															long MAX=new Date(hd.getNgayCheckIn().getYear(), hd.getNgayCheckIn().getMonth(), hd.getNgayCheckIn().getDate(), hd.getNgayCheckIn().getHours()+(int)gap-1, 0).getTime();
+															if(MAX<timeout.getTime()) {
+																int c = JOptionPane.showConfirmDialog(pnl_main,
+																		"quá giới hạn khung đêm, đổi sang khung ngày ?");
+																if (c != 0) {
+																	return;
+																}
+																lo="ngay";
+																hoadonmau.setLoai(lo);
+																break A;
+															}
+														}
+														if (hoadonmau.getLoai().equals("gio")) {
+															boolean check = false;
+															long MAX = (timeout.getTime()
+																	- hd.getNgayCheckIn().getTime()) / (1000 * 60 * 60);
+															if (MAX > ks.getGio()) {
+																int c = JOptionPane.showConfirmDialog(pnl_main,
+																		"Check in sớm trước quy định của khung giờ, đổi sang khung ngày ?");
+																if (c != 0)
+																	return;
+																lo = "ngay";
+																hoadonmau.setLoai(lo);
+																break A;
+															}
+														}
+													}
+												}
+											}
+											//
+											hd.setNgayCheckOut(new Date(extime));
+											List<ModelKhachTrongPhong> list_thaydoi=new ArrayList<>();
+											float gia=0,giaSau=0;
+											for (ModelKhachTrongPhong mktp : list_ktp) {
+												if(hd.getMaHoaDon()==mktp.getHoadon().getMaHoaDon()) {
+													list_thaydoi.add(mktp);
+													gia+=(mktp.getGiaPhong()+mktp.getPhuTroi()+mktp.getPhutroi2());
+													for(ModelLoaiPhong lp:List_lp) {
+														if(mktp.getPhong().getLoaiphong().getMaLoaiPhong()==lp.getMaLoaiPhong()) {
+															giaSau+=Float.parseFloat(gia(lp, hd.getLoai(), hd)[0]+"");
+															list_thaydoi.get(list_thaydoi.size()-1).setGiaPhong(Float.parseFloat(gia(lp, hd.getLoai(), hd)[0]+""));
+															giaSau+=Float.parseFloat(gia(lp, hd.getLoai(), hd)[1]+"");
+															list_thaydoi.get(list_thaydoi.size()-1).setPhuTroi(Float.parseFloat(gia(lp, hd.getLoai(), hd)[1]+""));
+															giaSau+=Float.parseFloat(gia(lp, hd.getLoai(), hd)[2]+"");
+															list_thaydoi.get(list_thaydoi.size()-1).setPhutroi2(Float.parseFloat(gia(lp, hd.getLoai(), hd)[2]+""));
+														}
+													}
+												}
+											}
+											hd.setNgayCheckOut(outB);
+											hd.setLoai(loB);
+											JOptionPane.showMessageDialog(pnl_main, "Phát sinh thêm "+(giaSau-gia)+"VND cho khoảng thời gian gia hạn!!");
+											if(JOptionPane.showConfirmDialog(pnl_main, "gia hạn cho hóa đơn này ?")!=0) {
+												return;
+											}
+											dao_khachTrongPhong d=new dao_khachTrongPhong();
+											for (ModelKhachTrongPhong X : list_thaydoi) {
+												d.save(new KhachTrongPhong(X.getId(),
+														new HoaDon(hd.getMaHoaDon()),
+														new Phong(X.getPhong().getMaPhong()), X.getGiaPhong(),
+														X.getPhuTroi(), X.getPhutroi2(), 0, ""));
+												System.out.println("PhuTroi: " + X.getPhutroi2());
+											}
+											hd.setNgayCheckOut(timeout);
+											hd.setLoai(lo);
+											System.out.println("ngay out moi: " + hd.getNgayCheckOut());
+											ser_hd.save(hd, false);
+											JOptionPane.showMessageDialog(pnl_main, "Gia hạn thành công");
+											List_lp = ser_lp.getLp();
+											list_hd = ser_hd.getList();
+											ks = ser.getKs();
+											ListTang = ks.getDSTang();
+											list_ktp = ser_ktp.getList();
+											pnl_chinh_autoGen();
+											revalidate();
+											repaint();
+											return;
 										}
 									});
 									if (!hd.getTrangThai().equals("checkout")) {
