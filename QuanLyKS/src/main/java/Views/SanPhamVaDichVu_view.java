@@ -50,8 +50,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JRadioButton;
 import javax.swing.JCheckBox;
-import javax.swing.event.CaretListener;
-import javax.swing.event.CaretEvent;
 
 public class SanPhamVaDichVu_view extends JFrame {
 	private SanPhamVaDichVuService _sanPhamVaDichVuService = new SanPhamVaDichVuService();
@@ -178,19 +176,8 @@ public class SanPhamVaDichVu_view extends JFrame {
 		panel_2_1.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(192, 192, 192)), "T\u00ECm ki\u1EBFm Theo t\u00EAn", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		
 		txt_search = new JTextField();
-		txt_search.addFocusListener(new FocusAdapter() {
-			@Override
-			public void focusGained(FocusEvent e) {
-				Utilities.setTextFocusGained(txt_search, "Nhập tên sản phẩm muốn tìm");
-			}
-			@Override
-			public void focusLost(FocusEvent e) {
-				Utilities.setTextFocusLost(txt_search, "Nhập tên sản phẩm muốn tìm");
-			}
-		});
-		txt_search.setText("Nhập tên sản phẩm muốn tìm");
 		txt_search.setBackground(Color.WHITE);
-		txt_search.setBounds(10, 18, 590, 29);
+		txt_search.setBounds(10, 18, 543, 29);
 		panel_2_1.add(txt_search);
 		txt_search.setBorder(null);
 		txt_search.setColumns(10);
@@ -624,11 +611,6 @@ public class SanPhamVaDichVu_view extends JFrame {
 		cbx_trangThai_sanPham.setBackground(Color.WHITE);
 		cbx_trangThai_sanPham.setBounds(10, 18, 113, 28);
 		panel_2_2_1_1_1.add(cbx_trangThai_sanPham);
-		txt_search.addCaretListener(new CaretListener() {
-			public void caretUpdate(CaretEvent e) {
-				updateTable_danhSachSanPhamVaDichVu();
-			}
-		});
 		updateTxt_maSanPham();
 		updateCbx_kho("cbx_kho");
 		updateCbx_kho("cbx_kho_danhSach");
@@ -654,7 +636,7 @@ public class SanPhamVaDichVu_view extends JFrame {
 		}
 		if(tenCbxNhomSanPham.equals("cbx_nhomSanPham_danhSach")) {
 			arrayNhomSPVaDichVu[0] = "Tất cả";
-			cbx_nhomSanPham_danhSach.setModel(new DefaultComboBoxModel(arrayNhomSPVaDichVu));
+			
 		}
 		
 	}
@@ -738,11 +720,19 @@ public class SanPhamVaDichVu_view extends JFrame {
 				txt_maSanPham.setText(sanPhamVaDichVuModel.getMaDichVu()+"");
 				txt_tenHangHoa.setText(sanPhamVaDichVuModel.getTenHangHoa());
 				cbx_nhomSanPham.setSelectedItem(sanPhamVaDichVuModel.getNhomSPVaDichVuModel().getTenNhomSP());
+//				if(.equals("Hoat Dong")) {
+//					switchButton_nhap.setSelected(true);
+//				}else {
+//					switchButton_nhap.setSelected(false);
+//				}
+				
 				cbx_trangThai_sanPham.setSelectedItem(sanPhamVaDichVuModel.getTrangThai());
+				
 				cbx_kho.setSelectedItem(sanPhamVaDichVuModel.getKhoModel().getTenKho());
 				txt_soLuongTon.setText(sanPhamVaDichVuModel.getSoLuongTon()+"");
 				txt_giaVon.setText(sanPhamVaDichVuModel.getGiaVon()+"");
 				txt_moTa.setText(sanPhamVaDichVuModel.getMoTa());
+				
 				_listDonViChiTietModels = _sanPhamVaDichVuService.getListDVCTM(sanPhamVaDichVuModel);
 				updateTable_danhSachDonViTinhActive(_listDonViChiTietModels);
 				updateTable_danhSachDonViTinhInactive(_listDonViChiTietModels);
@@ -750,6 +740,8 @@ public class SanPhamVaDichVu_view extends JFrame {
 			btn_suaSanPham.setEnabled(true);
 			btn_themSanPham.setEnabled(false);
 			clearFormDonViTinh();
+//			checkDonViCoBan();
+//			stt_SPSelected++;
 		}
 	}
 	
@@ -773,6 +765,12 @@ public class SanPhamVaDichVu_view extends JFrame {
 			trangThai =tableDonViTinh.getModel().getValueAt(tableDonViTinh.getSelectedRow(), 5)+"";
 			ckb_donViCoBan.setSelected(false);
 		}
+		
+//		if(trangThai.equals("Hoat Dong")) {
+//			switchButton_nhapDonViTinh.setSelected(true);
+//		}else {
+//			switchButton_nhapDonViTinh.setSelected(false);
+//		}
 		cbx_trangThai_donVi.setSelectedItem(trangThai);
 		
 		if(maDonVi>=maxID_donViChiTiet) {
@@ -972,18 +970,10 @@ public class SanPhamVaDichVu_view extends JFrame {
 				}
 			}
 			
-			String keySearch = txt_search.getText().trim();
-			
 			for (SanPhamVaDichVuModel spvdvm : listSPVDVM) {
-				if(keySearch.equals("") || keySearch.equals("Nhập tên sản phẩm muốn tìm")) {
-					model.addRow(new Object[] {stt, spvdvm.getMaDichVu(), spvdvm.getTenHangHoa() , spvdvm.getNhomSPVaDichVuModel().getTenNhomSP(), spvdvm.getSoLuongTon(), spvdvm.getGiaVon(), spvdvm.getKhoModel().getTenKho() , spvdvm.getTrangThai()});
-				}else {
-					if(spvdvm.getTenHangHoa().toLowerCase().indexOf(keySearch.toLowerCase())>=0) {
-						model.addRow(new Object[] {stt, spvdvm.getMaDichVu(), spvdvm.getTenHangHoa() , spvdvm.getNhomSPVaDichVuModel().getTenNhomSP(), spvdvm.getSoLuongTon(), spvdvm.getGiaVon(), spvdvm.getKhoModel().getTenKho() , spvdvm.getTrangThai()});
-					}
-				}
-				
-				stt++;
+				String sapXep = cbx_sapXep.getSelectedItem().toString();
+				model.addRow(new Object[] {stt, spvdvm.getMaDichVu(), spvdvm.getTenHangHoa() , spvdvm.getNhomSPVaDichVuModel().getTenNhomSP(), spvdvm.getSoLuongTon(), spvdvm.getGiaVon(), spvdvm.getKhoModel().getTenKho() , spvdvm.getTrangThai()});
+			
 			}
 			
 		table_danhSachSanPhamVaDichVu.setModel(model);

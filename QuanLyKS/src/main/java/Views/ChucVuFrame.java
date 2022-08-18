@@ -1,4 +1,4 @@
-package view;
+package Views;
 
 import java.awt.EventQueue;
 
@@ -14,15 +14,15 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
 
-import Dao.ChucVuDao;
-import entities.ChucVu;
+import dao.ChucVuDao;
+import Entities.ChucVu;
 
 import javax.swing.JTable;
 import javax.swing.JButton;
 import java.util.ArrayList;
 import java.util.List;
 import models.ChucVuModel;
-import services.ChucVuService;
+import Services.ChucVuService;
 import utils.IoCContainer;
 
 import javax.swing.JScrollPane;
@@ -37,8 +37,7 @@ public class ChucVuFrame extends JFrame {
 	
 	private List<ChucVuModel> _listChucVuModels = new ArrayList<ChucVuModel>();
 	private JPanel contentPane;
-	private IoCContainer _ioCContainer  = new IoCContainer();
-	private ChucVuService _chucVuService = (ChucVuService) _ioCContainer.getBean(ChucVuService.class+"");
+	private ChucVuService _chucVuService = new ChucVuService();
 	/**
 	 * Launch the application.
 	 */

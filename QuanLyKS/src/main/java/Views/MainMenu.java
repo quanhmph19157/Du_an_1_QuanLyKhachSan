@@ -16,9 +16,7 @@ import javax.swing.border.EmptyBorder;
 
 import models.ChucVuModel;
 import models.NhanVienModel;
-import models.Quyen_cvModel;
 import Services.NhanVienService;
-import Services.Quyen_CVService;
 import utils.IoCContainer;
 import utils.Utilities;
 
@@ -36,9 +34,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Enumeration;
-import java.util.List;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 import java.awt.HeadlessException;
@@ -46,8 +42,6 @@ import java.awt.HeadlessException;
 import javax.swing.JTabbedPane;
 import javax.swing.JRadioButton;
 import com.toedter.calendar.JDateChooser;
-
-import Entities.Quyen_cv;
 
 import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
@@ -60,10 +54,6 @@ public class MainMenu extends JFrame {
 	private IoCContainer _ioCContainer  = new IoCContainer();
 	private NhanVienService _nhanVienService = new NhanVienService();
 	private NhanVienModel _userAreUsing;
-	
-	private Quyen_CVService _quyen_CVService = new Quyen_CVService();
-	private List<Quyen_cvModel> _listQuyen_cvModels = new ArrayList<Quyen_cvModel>();
-	
 	private JPanel contentPane;
 	private JPanel panel_tong;
 	private JTextField txt_maNhanVien;
@@ -80,16 +70,6 @@ public class MainMenu extends JFrame {
 	private JPasswordField txt_matKhauCu;
 	private JTextField txt_matKhauMoi;
 	private JPasswordField txt_xacNhanMatKhauMoi;
-	private JMenu menu_taiKhoan;
-	private JMenu menu_khachSan;
-	private JMenu menu_thuePhong;
-	private JMenu menu_nhanVien;
-	private JMenu menu_khachHang;
-	private JMenu menu_sanPhamVaDichVu;
-	private JMenu menu_quanLyKho;
-	private JMenu menu_thongKe;
-	private JMenu menu_loaiPhong;
-	private JMenu menu_chucVu;
 
 	/**
 	 * Launch the application.
@@ -119,8 +99,6 @@ public class MainMenu extends JFrame {
 	 */
 	public MainMenu(NhanVienModel nhanVienModel) {
 		_userAreUsing = nhanVienModel;
-		_quyen_CVService.updateListQuyen_CVModel();
-		_listQuyen_cvModels = _quyen_CVService.getListQuyen_CVModel();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1366, 834);
 		setLocationRelativeTo(null);
@@ -128,7 +106,6 @@ public class MainMenu extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
 		
 		panel_tong = new JPanel();
 		panel_tong.setBounds(33, 46, 1280, 750);
@@ -140,8 +117,8 @@ public class MainMenu extends JFrame {
 		menuBar.setBounds(0, 10, 1362, 26);
 		contentPane.add(menuBar);
 		
-		menu_taiKhoan = new JMenu("Tài Khoản");
-		menuBar.add(menu_taiKhoan);
+		JMenu mnNewMenu = new JMenu("Tài Khoản");
+		menuBar.add(mnNewMenu);
 		
 		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Thông tin tài khoản");
 		mntmNewMenuItem_1.addActionListener(new ActionListener() {
@@ -150,7 +127,7 @@ public class MainMenu extends JFrame {
 			}
 		});
 		mntmNewMenuItem_1.setHorizontalAlignment(SwingConstants.CENTER);
-		menu_taiKhoan.add(mntmNewMenuItem_1);
+		mnNewMenu.add(mntmNewMenuItem_1);
 		
 		JMenuItem mntmNewMenuItem_1_1 = new JMenuItem("Đổi mật khẩu");
 		mntmNewMenuItem_1_1.addActionListener(new ActionListener() {
@@ -159,17 +136,17 @@ public class MainMenu extends JFrame {
 			}
 		});
 		mntmNewMenuItem_1_1.setHorizontalAlignment(SwingConstants.CENTER);
-		menu_taiKhoan.add(mntmNewMenuItem_1_1);
+		mnNewMenu.add(mntmNewMenuItem_1_1);
 		
 		JMenuItem mntmNewMenuItem_1_1_1 = new JMenuItem("Đăng xuất");
 		mntmNewMenuItem_1_1_1.setHorizontalAlignment(SwingConstants.CENTER);
-		menu_taiKhoan.add(mntmNewMenuItem_1_1_1);
+		mnNewMenu.add(mntmNewMenuItem_1_1_1);
 		
-		menu_khachSan = new JMenu("Khách Sạn");
-		menuBar.add(menu_khachSan);
+		JMenu mnNewMenu_1 = new JMenu("Khách Sạn");
+		menuBar.add(mnNewMenu_1);
 		
 		JMenuItem mntmNewMenuItem = new JMenuItem("Khách sạn");
-		menu_khachSan.add(mntmNewMenuItem);
+		mnNewMenu_1.add(mntmNewMenuItem);
 		mntmNewMenuItem.addActionListener(new ActionListener() {
 			
 			@Override
@@ -192,10 +169,10 @@ public class MainMenu extends JFrame {
 				
 			}
 		});
-		menu_khachSan.add(mntmLoiPhng);
+		mnNewMenu_1.add(mntmLoiPhng);
 		
-		menu_thuePhong = new JMenu("Thuê Phòng");
-		menu_thuePhong.addActionListener(new ActionListener() {
+		JMenu mnNewMenu_2 = new JMenu("Thuê Phòng");
+		mnNewMenu_2.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -208,7 +185,7 @@ public class MainMenu extends JFrame {
 		
 		
 		
-		menuBar.add(menu_thuePhong);
+		menuBar.add(mnNewMenu_2);
 		
 		JMenuItem mntmNewMenuItem_6 = new JMenuItem("Thue Phong");
 		mntmNewMenuItem_6.addActionListener(new ActionListener() {
@@ -218,10 +195,10 @@ public class MainMenu extends JFrame {
 				new QuanLyThuePhong().setVisible(true);
 			}
 		});
-		menu_thuePhong.add(mntmNewMenuItem_6);
+		mnNewMenu_2.add(mntmNewMenuItem_6);
 		
-		menu_nhanVien = new JMenu("Nhân Viên");
-		menuBar.add(menu_nhanVien);
+		JMenu mnNewMenu_3 = new JMenu("Nhân Viên");
+		menuBar.add(mnNewMenu_3);
 		
 		JMenuItem mntmNewMenuItem_2 = new JMenuItem("Quản lý nhân viên");
 		mntmNewMenuItem_2.addActionListener(new ActionListener() {
@@ -230,10 +207,13 @@ public class MainMenu extends JFrame {
 				nvv.setVisible(true);
 			}
 		});
-		menu_nhanVien.add(mntmNewMenuItem_2);
+		mnNewMenu_3.add(mntmNewMenuItem_2);
 		
-		menu_khachHang = new JMenu("Khách Hàng");
-		menuBar.add(menu_khachHang);
+		JMenuItem mntmNewMenuItem_2_1 = new JMenuItem("New menu item");
+		mnNewMenu_3.add(mntmNewMenuItem_2_1);
+		
+		JMenu mnNewMenu_3_2 = new JMenu("Khách Hàng");
+		menuBar.add(mnNewMenu_3_2);
 		
 		JMenuItem mntmNewMenuItem_5 = new JMenuItem("Quản lý khách hàng");
 		mntmNewMenuItem_5.addActionListener(new ActionListener() {
@@ -242,10 +222,10 @@ public class MainMenu extends JFrame {
 				khv.setVisible(true);
 			}
 		});
-		menu_khachHang.add(mntmNewMenuItem_5);
+		mnNewMenu_3_2.add(mntmNewMenuItem_5);
 		
-		menu_sanPhamVaDichVu = new JMenu("Sản Phẩm Và Dịch Vụ");
-		menuBar.add(menu_sanPhamVaDichVu);
+		JMenu mnNewMenu_3_4 = new JMenu("Sản Phẩm Và Dịch Vụ");
+		menuBar.add(mnNewMenu_3_4);
 		
 		JMenuItem mntmNewMenuItem_3 = new JMenuItem("Quản lý sản phẩm và dịch vụ");
 		mntmNewMenuItem_3.addActionListener(new ActionListener() {
@@ -254,7 +234,7 @@ public class MainMenu extends JFrame {
 				spvdvv.setVisible(true);
 			}
 		});
-		menu_sanPhamVaDichVu.add(mntmNewMenuItem_3);
+		mnNewMenu_3_4.add(mntmNewMenuItem_3);
 		
 		JMenuItem mntmNewMenuItem_3_1 = new JMenuItem("Quản lý nhóm sản phẩm");
 		mntmNewMenuItem_3_1.addActionListener(new ActionListener() {
@@ -263,7 +243,7 @@ public class MainMenu extends JFrame {
 				nspvdvv.setVisible(true);
 			}
 		});
-		menu_sanPhamVaDichVu.add(mntmNewMenuItem_3_1);
+		mnNewMenu_3_4.add(mntmNewMenuItem_3_1);
 		
 		JMenuItem mntmNewMenuItem_3_1_1 = new JMenuItem("Quản lý đơn vị tính");
 		mntmNewMenuItem_3_1_1.addActionListener(new ActionListener() {
@@ -272,10 +252,10 @@ public class MainMenu extends JFrame {
 				dvtv.setVisible(true);
 			}
 		});
-		menu_sanPhamVaDichVu.add(mntmNewMenuItem_3_1_1);
+		mnNewMenu_3_4.add(mntmNewMenuItem_3_1_1);
 		
-		menu_quanLyKho = new JMenu("Quản lý kho");
-		menuBar.add(menu_quanLyKho);
+		JMenu mnNewMenu_4 = new JMenu("Quản lý kho");
+		menuBar.add(mnNewMenu_4);
 		
 		JMenuItem mntmNewMenuItem_4_1_1 = new JMenuItem("Quản lý kho");
 		mntmNewMenuItem_4_1_1.addActionListener(new ActionListener() {
@@ -284,7 +264,7 @@ public class MainMenu extends JFrame {
 				kv.setVisible(true);
 			}
 		});
-		menu_quanLyKho.add(mntmNewMenuItem_4_1_1);
+		mnNewMenu_4.add(mntmNewMenuItem_4_1_1);
 		
 		JMenuItem mntmNewMenuItem_4 = new JMenuItem("Thêm phiếu nhập hàng");
 		mntmNewMenuItem_4.addActionListener(new ActionListener() {
@@ -293,7 +273,7 @@ public class MainMenu extends JFrame {
 				nv.setVisible(true);
 			}
 		});
-		menu_quanLyKho.add(mntmNewMenuItem_4);
+		mnNewMenu_4.add(mntmNewMenuItem_4);
 		
 		JMenuItem mntmNewMenuItem_4_1 = new JMenuItem("Thêm phiếu kiểm kho");
 		mntmNewMenuItem_4_1.addActionListener(new ActionListener() {
@@ -302,66 +282,17 @@ public class MainMenu extends JFrame {
 				kkv.setVisible(true);
 			}
 		});
-		menu_quanLyKho.add(mntmNewMenuItem_4_1);
+		mnNewMenu_4.add(mntmNewMenuItem_4_1);
 		
-		menu_thongKe = new JMenu("Thống Kê");
-		menuBar.add(menu_thongKe);
+		JMenu mnNewMenu_3_4_1 = new JMenu("Thống Kê");
+		menuBar.add(mnNewMenu_3_4_1);
 		
-		menu_loaiPhong = new JMenu("Loại phòng");
-		menuBar.add(menu_loaiPhong);
-		
-		menu_chucVu = new JMenu("Chức vụ");
-		menuBar.add(menu_chucVu);
-		
-		
-		checkQuyen();
+		JMenu menu = new JMenu("New menu");
+		menu.setBounds(172, 11, 115, 26);
+		contentPane.add(menu);
+
 	}
 	
-	public void checkQuyen() {
-		menu_thuePhong.setEnabled(false);
-		menu_khachSan.setEnabled(false);
-		menu_khachHang.setEnabled(false);
-		menu_nhanVien.setEnabled(false);
-		menu_chucVu.setEnabled(false);
-		menu_loaiPhong.setEnabled(false);
-		menu_thongKe.setEnabled(false);
-		menu_sanPhamVaDichVu.setEnabled(false);
-		menu_quanLyKho.setEnabled(false);
-		ChucVuModel cvm = _userAreUsing.getChucVuModel();
-		for (Quyen_cvModel quyen_cvModel : _listQuyen_cvModels) {
-			if(quyen_cvModel.getChucVuModel().getMaChucVu() == cvm.getMaChucVu()) {
-				String tenQuyen = quyen_cvModel.getQuyenModel().getTenQuyen();
-				if(tenQuyen.equals("Quan li thue phong")) {
-					menu_thuePhong.setEnabled(true);
-				}
-				if(tenQuyen.equals("Quan li khach san")) {
-					menu_khachSan.setEnabled(true);
-				}
-				if(tenQuyen.equals("Quan li khach hang")) {
-					menu_khachHang.setEnabled(true);
-				}
-				if(tenQuyen.equals("Quyen li nhan vien")) {
-					menu_nhanVien.setEnabled(true);
-				}
-				if(tenQuyen.equals("Quan li chuc vu")) {
-					menu_chucVu.setEnabled(true);
-				}
-				if(tenQuyen.equals("Quan li phong")) {
-					menu_loaiPhong.setEnabled(true);
-				}
-				if(tenQuyen.equals("Quan li thong ke")) {
-					menu_thongKe.setEnabled(true);
-				}
-				if(tenQuyen.equals("Quan li dich vu")) {
-					menu_sanPhamVaDichVu.setEnabled(true);
-				}
-				if(tenQuyen.equals("Quan li kho")) {
-					menu_quanLyKho.setEnabled(true);
-				}
-			}
-		}
-	}
- 	
 	public void quanLyTaiKhoan(NhanVienModel nhanVienModel) {
 
 		JPanel contentPane_1 = new JPanel();

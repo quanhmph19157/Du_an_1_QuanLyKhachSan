@@ -56,6 +56,9 @@ import ViewModels.ModelKhachTrongPhong;
 import ViewModels.ModelLoaiPhong;
 import ViewModels.ModelPhong;
 import ViewModels.ModelTang;
+import models.HoaDonModel;
+import models.KhachTrongPhongModel;
+import models.PhongModel;
 import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
 import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
 import net.sourceforge.jdatepicker.impl.UtilDateModel;
@@ -76,7 +79,7 @@ import Entities.PhuTroi;
 import Repositories.dao_khachTrongPhong;
 
 public class QuanLyThuePhong extends JFrame {
-
+	JFrame framepp;
 	JPanel pnl_main = new JPanel();
 	JPanel pnl_chinh = new JPanel();
 	JPanel pnl_aside = new JPanel();
@@ -674,7 +677,7 @@ public class QuanLyThuePhong extends JFrame {
 													for (ModelKhachTrongPhong mktp : list_ktp) {
 														for(ModelKhachTrongPhong MK:hd.getDskhactrongphong()) {
 															if (mktp.getPhong().getMaPhong() == MK.getPhong().getMaPhong()) {
-																if((hd.getMaHoaDon()==mktp.getHoadon().getMaHoaDon()))continue;
+																if((hd.getMaHoaDon()==mktp.getHoadon().getMaHoaDon())||mktp.getHoadon().getTrangThai().equals("checkout")||mktp.getHoadon().getTrangThai().equals("huy"))continue;
 																long limitin = mktp.getHoadon().getNgayCheckIn().getTime();
 																long limitout = mktp.getHoadon().getNgayCheckOut().getTime();
 																long extime = new java.util.Date(ldt.getYear() - 1900,
@@ -856,6 +859,20 @@ public class QuanLyThuePhong extends JFrame {
 										JMenuItem menu_1 = new JMenuItem("checkout");
 										JMenuItem menu_2 = new JMenuItem("chuyển phòng");
 										JMenuItem menu_3 = new JMenuItem("đặt dịch vụ");
+										JMenuItem menu_4 = new JMenuItem("thêm phụ phí");
+										menu_4.addActionListener(new ActionListener() {
+											
+											@Override
+											public void actionPerformed(ActionEvent e) {
+												// TODO Auto-generated method stub
+												HoaDonModel hdmd=new HoaDonModel();
+												hdmd.setMaHoaDon(k.getHoadon().getMaHoaDon());
+												PhongModel pm=new PhongModel();
+												pm.setMaPhong(k.getPhong().getMaPhong());
+												if(framepp==null)framepp= new HoaDonPhuPhi(new KhachTrongPhongModel(k.getId(), hdmd, pm, k.getGiaPhong(), k.getPhuTroi(), k.getPhuPhi(), ""));
+												framepp.setVisible(true);
+											}
+										});
 										menu_2.addActionListener(new ActionListener() {
 
 											public void actionPerformed(ActionEvent e) {
@@ -896,6 +913,10 @@ public class QuanLyThuePhong extends JFrame {
 														break;
 													}
 												}
+												LocalDateTime ldt = LocalDateTime.now();
+												hd.setNgayCheckOut(new java.util.Date(ldt.getYear() - 1900,
+														ldt.getMonthValue() - 1, ldt.getDayOfMonth(), ldt.getHour(),
+														ldt.getMinute()));
 												pnl_main.removeAll();
 												pnl_main.add(new view_hoadon(hd));
 												revalidate();
@@ -905,6 +926,7 @@ public class QuanLyThuePhong extends JFrame {
 										menuCI.add(menu_1);
 										menuCI.add(menu_2);
 										menuCI.add(menu_3);
+										menuCI.add(menu_4);
 									}
 									JMenuItem itemRahan = new JMenuItem("Gia hạn");
 									itemRahan.addActionListener(new ActionListener() {
@@ -1082,6 +1104,7 @@ public class QuanLyThuePhong extends JFrame {
 						System.out.println(in);
 						long Z = (long) ((out.getTime() - in.getTime()) / (360000));
 						System.out.println(out);
+						if(Z<2)Z=2;
 						lbl_ph.setBounds((int) (X) + 80, 1, (int) Z, 28);
 						if (ktp.getHoadon().getTrangThai().equals("datphong")) {
 							lbl_ph.setBackground(Color.cyan);
