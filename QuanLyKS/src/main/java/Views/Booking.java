@@ -283,7 +283,7 @@ public class Booking extends JPanel {
 			for (ModelPhong p : list_p_chon) {
 				if (checkFix)
 					d.save(new KhachTrongPhong(hd.getDskhactrongphong().get(id).getId(),
-							new HoaDon(dsmhd.get(dsmhd.size() - 1).getMaHoaDon()), new Phong(p.getMaPhong()),
+							new HoaDon(hd.getMaHoaDon()), new Phong(p.getMaPhong()),
 							(float) (gia), (float)phutroi,(float)phutroi2, 0, ""));
 				else
 					d.save(new KhachTrongPhong(new HoaDon(dsmhd.get(dsmhd.size() - 1).getMaHoaDon()),
@@ -329,7 +329,7 @@ public class Booking extends JPanel {
 						model_in = new DefaultComboBoxModel<Integer>(a);
 						cbx_gioIn.setModel(model_in);
 					}
-					if(loai.equals("gio")) {
+					else if(loai.equals("gio")) {
 						if((24-Integer.parseInt(cbx_gioIn.getSelectedItem()+"")<ks.getGio())){
 							dcs_checkout.setMaxSelectableDate(new Date(dcs_checkin.getDate().getYear(),dcs_checkin.getDate().getMonth(),dcs_checkin.getDate().getDate()+1));
 						}else {
@@ -1888,7 +1888,7 @@ public class Booking extends JPanel {
 										phutroi2+=gia(list_lp.get(x))[2];
 										System.out.println("Phu troi "+phutroi);
 										txt_phutroi.setText(
-												String.valueOf(new BigDecimal((phutroi))));
+												String.valueOf(new BigDecimal((phutroi+phutroi2))));
 										txt_giaphong.setText(
 												String.valueOf(new BigDecimal(gia )));
 										txt_conlai.setText(String.valueOf(new BigDecimal(gia + Double.parseDouble(txt_phutroi.getText())
@@ -1935,12 +1935,14 @@ public class Booking extends JPanel {
 	}
 
 	void tinhtien() {
+		gia=0;phutroi=0;phutroi2=0;
 		for (int i = 0; i < list_lp.size(); i++) {
 			for (ModelPhong ph : list_lp.get(i).getDSPhong()) {
 				for (ModelPhong p : list_p_chon) {
 					if (ph.getMaPhong() == p.getMaPhong()) {
 						gia += gia(list_lp.get(i))[0];
 						phutroi+=gia(list_lp.get(i))[1];
+						phutroi2+=gia(list_lp.get(i))[2];
 						txt_phutroi.setText(
 								String.valueOf(new BigDecimal((phutroi+phutroi2))));
 						txt_giaphong.setText(
@@ -1992,7 +1994,6 @@ public class Booking extends JPanel {
 				dsdem.add(x);
 			else if (x.getLoai().equals("checkout")) {
 				dsngayout.add(x);
-				System.out.println(x.getPhuTroi());
 			}
 			else
 				dsdemout.add(x);
@@ -2010,8 +2011,11 @@ public class Booking extends JPanel {
 						CIS=CIS+ dsngay.get(i - 1).getPhuTroi();
 						System.out.println("cis "+CIS);
 					} catch (Exception e) {
-						if (i != 0)
+						if (i != 0) {
 							gia += p.getGiaPhong();
+							System.out.println("cong");
+						}
+						
 					}
 				}
 				else if (loai.equals("dem")) {
@@ -2031,6 +2035,7 @@ public class Booking extends JPanel {
 				if (gio == (int) (ks.getGioCheckout() / 100) && loai.equals("ngay")) {
 					dugio=!dugio;
 					gia += p.getGiaPhong();
+					System.out.println("cong gia "+p.getGiaPhong());
 					x = 0;
 				}
 				if (gio == (int) (ks.getGioCheckOutDem() / 100) && loai.equals("dem")) {
@@ -2039,6 +2044,7 @@ public class Booking extends JPanel {
 					x = 0;
 				}
 			}
+			System.out.println("Gia mid"+gia);
 			if (i == hours - 1) {
 				if(dugio) {
 					if(loai.equals("dem"))gia+=p.getGiaQuaDem();
@@ -2064,7 +2070,7 @@ public class Booking extends JPanel {
 			}
 		}
 		Double[]a=new Double[] {gia,CIS,COM};
-		System.out.println("Phu troi "+CIS);
+		System.out.println("Gia "+gia);
 		return a;
 	}
 }
