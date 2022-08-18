@@ -1,7 +1,7 @@
 package models;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -22,7 +22,6 @@ import Entities.PhieuKiemKho;
 import Entities.PhieuNhapKho;
 
 public class NhanVienModel implements Serializable{
-	private static final long serialVersionUID = 737570641788684682L;
 	private String maNV;
 	private String tenNV;
 	private String sdt;
@@ -122,9 +121,7 @@ public class NhanVienModel implements Serializable{
 	}
 	@Override
 	public String toString() {
-		return "NhanVienModel [maNV=" + maNV + ", tenNV=" + tenNV + ", sdt=" + sdt + ", gioiTinh=" + gioiTinh
-				+ ", email=" + email + ", chucVuModel=" + chucVuModel + ", trangThai=" + trangThai + ", cmnd=" + cmnd
-				+ ", userName=" + userName + ", password=" + password + ", ngaySinh=" + ngaySinh + "]";
+		return maNV + "/" + tenNV + "/" + sdt + "/" + gioiTinh+ "/" + email + "/" + chucVuModel + "/" + trangThai + "/"  + cmnd	+ "/" + userName + "/" + password + "/" + ngaySinh ;
 	}
 	
 	
