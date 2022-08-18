@@ -43,4 +43,14 @@ public class Phong_services {
 		}
 		dao.xoa(comp, arr_p);
 	}
+	
+	public List<ModelPhong> SelectAll() {
+		List<ModelPhong> listPhongs = new ArrayList<>();
+		List<Phong> lst = dao.selectAll();
+		System.out.println(lst.size());
+		for (Phong x : lst) {
+			listPhongs.add(new ModelPhong(x.getMaPhong()));
+		}
+		return listPhongs;
+	}
 }

@@ -33,10 +33,10 @@ public class QuyenChucVu_services{
 	   
 	    public List<ModelQuyenChucVu> SelectAll() {
 	        _listModelQuyenChucVus = new ArrayList<>();
-	        List<ModelQuyenChucVu> list = _iquIRepository.SelectAll();
-	        for (ModelQuyenChucVu q : list) {
-	            _listModelQuyenChucVus.add(new ModelQuyenChucVu(new ModelQuyen(q.getQuyenModel().getMaQuyen(), q.getQuyenModel().getTenQuyen()), 
-	                   new ModelChucVu(q.getChucVuModel().getMaChucVu(), q.getChucVuModel().getTenChucVu())));
+	        List<Quyen_cv> list = _iquIRepository.SelectAll();
+	        for (Quyen_cv q : list) {
+	            _listModelQuyenChucVus.add(new ModelQuyenChucVu(new ModelQuyen(q.getQuyen().getMaQUyen(), q.getQuyen().getTenQuyen()), 
+	                   new ModelChucVu(q.getChucVu().getMaChucVu(), q.getChucVu().getTenChucVu())));
 	        }
 	        return _listModelQuyenChucVus;
 	    }
