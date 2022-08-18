@@ -80,7 +80,7 @@ public class KiemKho_view extends JFrame {
 	private JTable table_sanPham;
 	private JTextField txt_timKiem_sp;
 	private JTable table_danhSachSPKK;
-	private JTextField txt_timKiemSP_inserted;
+	private JTextField textField_7;
 	private JTextField txt_soLuongCL;
 	private JTextField txt_soLuongTK;
 	private JTextField txt_tenSp;
@@ -548,28 +548,12 @@ public class KiemKho_view extends JFrame {
 		panel_2_1_1_4.setBounds(10, 22, 579, 51);
 		panel_2_1_1_3.add(panel_2_1_1_4);
 
-		txt_timKiemSP_inserted = new JTextField();
-		txt_timKiemSP_inserted.addFocusListener(new FocusAdapter() {
-			@Override
-			public void focusGained(FocusEvent e) {
-				Utilities.setTextFocusGained(txt_timKiemSP_inserted, "Nhập tên sản phẩm muốn tìm");
-			}
-			@Override
-			public void focusLost(FocusEvent e) {
-				Utilities.setTextFocusLost(txt_timKiemSP_inserted, "Nhập tên sản phẩm muốn tìm");
-			}
-		});
-		txt_timKiemSP_inserted.setText("Nhập tên sản phẩm muốn tìm");
-		txt_timKiemSP_inserted.addCaretListener(new CaretListener() {
-			public void caretUpdate(CaretEvent e) {
-				updateTable_danhSachSPKK();
-			}
-		});
-		txt_timKiemSP_inserted.setColumns(10);
-		txt_timKiemSP_inserted.setBorder(null);
-		txt_timKiemSP_inserted.setBackground(Color.WHITE);
-		txt_timKiemSP_inserted.setBounds(10, 18, 559, 29);
-		panel_2_1_1_4.add(txt_timKiemSP_inserted);
+		textField_7 = new JTextField();
+		textField_7.setColumns(10);
+		textField_7.setBorder(null);
+		textField_7.setBackground(Color.WHITE);
+		textField_7.setBounds(10, 18, 559, 29);
+		panel_2_1_1_4.add(textField_7);
 
 		JScrollPane scrollPane_1 = new JScrollPane();
 		scrollPane_1.setBounds(10, 84, 579, 261);
@@ -617,7 +601,7 @@ public class KiemKho_view extends JFrame {
 		txt_timKiem_sp.setColumns(10);
 		txt_timKiem_sp.setBorder(null);
 		txt_timKiem_sp.setBackground(Color.WHITE);
-		txt_timKiem_sp.setBounds(10, 11, 559, 29);
+		txt_timKiem_sp.setBounds(10, 18, 559, 29);
 		panel_2_1_1_4_1.add(txt_timKiem_sp);
 
 		JScrollPane scrollPane_1_1 = new JScrollPane();
@@ -830,15 +814,8 @@ public class KiemKho_view extends JFrame {
 		model.addColumn("S.LG THỰC TẾ");
 		model.addColumn("S.LG CHÊNH LỆCH");
 		int stt =1;
-		String keySearch = txt_timKiemSP_inserted.getText().trim();
 		for (PhieuKiemKhoChiTietModel pkkctm : _listPhieuKiemKhoChiTietModels) {
-			if(keySearch.equals("")|| keySearch.equals("Nhập tên sản phẩm muốn tìm")) {
-				model.addRow(new Object[] {stt,pkkctm.getSanPhamVaDichVuModel().getMaDichVu(), pkkctm.getSanPhamVaDichVuModel().getTenHangHoa(), pkkctm.getSoLuongTruocKhiKiem(), pkkctm.getSoLuongThucTe() , pkkctm.getSoLuongChenhLech()});
-			}else {
-				if(pkkctm.getSanPhamVaDichVuModel().getTenHangHoa().toLowerCase().indexOf(keySearch.toLowerCase())>=0) {
-					model.addRow(new Object[] {stt,pkkctm.getSanPhamVaDichVuModel().getMaDichVu(), pkkctm.getSanPhamVaDichVuModel().getTenHangHoa(), pkkctm.getSoLuongTruocKhiKiem(), pkkctm.getSoLuongThucTe() , pkkctm.getSoLuongChenhLech()});
-				}
-			}
+			model.addRow(new Object[] {stt,pkkctm.getSanPhamVaDichVuModel().getMaDichVu(), pkkctm.getSanPhamVaDichVuModel().getTenHangHoa(), pkkctm.getSoLuongTruocKhiKiem(), pkkctm.getSoLuongThucTe() , pkkctm.getSoLuongChenhLech()});
 			stt++;
 		}
 		table_danhSachSPKK.setModel(model);
@@ -918,15 +895,11 @@ public class KiemKho_view extends JFrame {
 			return;
 		}
 		int giaTriQuyDoi = _listDonViChiTietModels.get(index).getGiaTriQuyDoi();
-		if(Utilities.regexCheckSoNguyenDuong(txt_soLuongTheoDV.getText().trim()).equals("false")) {
-			JOptionPane.showMessageDialog(null, "Số lượng phải là số nguyên và >=0");
+		int soLuong = Integer.parseInt(txt_soLuongTheoDV.getText().trim());
+		if(soLuong <0) {
+			JOptionPane.showMessageDialog(null, "Số lượng phải >=0");
 			return;
 		}
-		
-		int soLuong = Integer.parseInt(txt_soLuongTheoDV.getText().trim());
-//		if(soLuong <0) {
-//			
-//		}
 		int soLuongTTTDV = giaTriQuyDoi*soLuong;
 		int soLuongTT = Integer.parseInt(txt_soLuongTT.getText().trim());
 		soLuongTT += soLuongTTTDV;
@@ -981,12 +954,6 @@ public class KiemKho_view extends JFrame {
 		PhieuKiemKhoChiTietModel pkkctm = formToPKKCTM();
 		if(pkkctm == null) {
 			return;
-		}
-		for (PhieuKiemKhoChiTietModel pkkctm1 : _listPhieuKiemKhoChiTietModels) {
-			if(pkkctm.getSanPhamVaDichVuModel().getMaDichVu() == pkkctm1.getSanPhamVaDichVuModel().getMaDichVu()) {
-				JOptionPane.showMessageDialog(null, "Sản phẩm bạn nhập đã có trong danh sách");
-				return;
-			}
 		}
 		_listPhieuKiemKhoChiTietModels.add(pkkctm);
 		clearFormTTSP();

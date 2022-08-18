@@ -18,6 +18,14 @@ public class Quyen {
 		TenQuyen = tenQuyen;
 		this.listQuyen_cv = listQuyen_cv;
 	}
+	
+	
+	public Quyen(int maQUyen, String tenQuyen) {
+		MaQUyen = maQUyen;
+		TenQuyen = tenQuyen;
+	}
+
+
 	public Quyen() {
 		
 	}

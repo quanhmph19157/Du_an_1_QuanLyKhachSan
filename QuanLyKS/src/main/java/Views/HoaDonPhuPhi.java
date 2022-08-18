@@ -128,6 +128,6 @@ public class HoaDonPhuPhi extends JFrame {
 		PhuPhiModel ppm = new PhuPhiModel(0, _ktpm, soTien, ghiChu);
 		_pps.them_sua(ppm);
 		JOptionPane.showMessageDialog(null, "Thêm thành công");
-		System.exit(0);
+		this.dispose();
 	}
 }
