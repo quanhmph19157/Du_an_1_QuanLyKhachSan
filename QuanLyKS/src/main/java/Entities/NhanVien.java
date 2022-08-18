@@ -1,7 +1,7 @@
 package Entities;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.sql.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -32,9 +32,6 @@ public class NhanVien{
 	private String email;
 	@ManyToOne
 	private ChucVu chucVu;
-	
-	
-	
 	private String trangThai;
 	private String cmnd;
 	private String userName;

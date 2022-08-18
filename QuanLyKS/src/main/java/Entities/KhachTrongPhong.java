@@ -152,36 +152,6 @@ public class KhachTrongPhong implements Serializable{
 	public void setPhuTroi(float phuTroi) {
 		PhuTroi = phuTroi;
 	}
-
-	public float getPhuTroi2() {
-		return PhuTroi2;
-	}
-
-	public void setPhuTroi2(float phuTroi2) {
-		PhuTroi2 = phuTroi2;
-	}
 	
-	private float PhuTroi2;
-	public KhachTrongPhong(int id, HoaDon hoadon, Phong phong, float giaPhong,float PhuTroi,float phutroi2, float phuPhi,
-			String ghiChu) {
-		super();
-		this.id = id;
-		this.hoadon = hoadon;
-		this.phong = phong;
-		GiaPhong = giaPhong;
-		PhuPhi = phuPhi;
-		GhiChu = ghiChu;
-		this.PhuTroi=PhuTroi;
-		this.PhuTroi2=phutroi2;
-	}
-	public KhachTrongPhong(HoaDon hoadon, Phong phong, float giaPhong,float PhuTroi,float phutroi2, float phuPhi, String ghiChu) {
-		super();
-		this.hoadon = hoadon;
-		this.phong = phong;
-		GiaPhong = giaPhong;
-		PhuPhi = phuPhi;
-		GhiChu = ghiChu;
-		this.PhuTroi=PhuTroi;
-		this.PhuTroi2=phutroi2;
-	}
+	
 }

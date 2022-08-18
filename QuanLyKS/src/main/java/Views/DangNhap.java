@@ -47,13 +47,13 @@ public class DangNhap extends JFrame {
 	private NhanVienModel _userAreUsing;
 	private static String _passwordStatus = "hide";
 	private static ArrayList<NhanVienModel> _listAccount;
+	
 	private JPanel contentPane;
 	private JPasswordField txt_matKhau;
 	private static DangNhap frame;
 	private Timer _timer;
 	int k=1;
 	private JLabel lbl_hotelImage;
-	private JFrame quenmk;
 	
 	/**
 	 * Launch the application.
@@ -359,16 +359,6 @@ public class DangNhap extends JFrame {
 		contentPane_1.add(comboBox_selectLanguage);
 		
 		JButton btn_forgetPassword = new JButton("Quên mật khẩu?");
-		btn_forgetPassword.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if (quenmk == null) {
-					quenmk = new viewQuenMatKhau();
-				}
-				quenmk.setVisible(true);
-			}
-		});
 		btn_forgetPassword.setOpaque(false);
 		btn_forgetPassword.setHorizontalAlignment(SwingConstants.LEFT);
 		btn_forgetPassword.setBorderPainted(false);

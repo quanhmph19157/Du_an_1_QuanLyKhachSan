@@ -26,6 +26,6 @@ public class KhachHang_services {
 	}
 	
 	public void themsua(ModelKhachHang kh) {
-		dao.saveUpdate(new KhachHang(kh.getCMND(), kh.getTenKhachHang(), kh.getSDT(), kh.getEmail(), kh.getCMND(), kh.getNgaySinh(), kh.getGioiTinh(), kh.getDiaChi()));
+		dao.saveUpdate(new KhachHang(kh.getMaKhachHang(),kh.getTenKhachHang(),kh.getCMND(),kh.getSDT(),kh.getEmail(),kh.getNgaySinh(),kh.getGioiTinh(),kh.getDiaChi()));
 	}
 }
