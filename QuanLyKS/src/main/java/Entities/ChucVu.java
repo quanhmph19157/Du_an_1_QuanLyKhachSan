@@ -28,7 +28,12 @@ import javax.persistence.OneToMany;
 			this.listQuyen_cv = listQuyen_cv;
 			this.listNhanVien = listNhanVien;
 		}
-		
+	
+		public ChucVu(String maChucVu, String tenChucVu) {
+			this.maChucVu = maChucVu;
+			this.tenChucVu = tenChucVu;
+		}
+
 		public ChucVu() {
 			
 		}
