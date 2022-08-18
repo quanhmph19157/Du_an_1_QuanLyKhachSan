@@ -38,7 +38,7 @@ public class HoaDon_services {
 		for(HoaDon x:dshd) {
 			List<ModelKhachHang>list_kh=new ArrayList<ModelKhachHang>();
 			for(KhachHang kh:x.getDskhachhang()){
-				list_kh.add(new ModelKhachHang(kh.getMaKhachHang()));
+				list_kh.add(new ModelKhachHang(kh.getMaKhachHang(),kh.getTenKhachHang(),kh.getCmnd(),kh.getSdt(),kh.getEmail(),kh.getNgaySinh(),kh.getGioiTinh(),kh.getDiaChi()));
 			}
 			List<ModelKhachTrongPhong> dsktp=new ArrayList<ModelKhachTrongPhong>();
 			if(x.getDskhactrongphong()!=null) {
