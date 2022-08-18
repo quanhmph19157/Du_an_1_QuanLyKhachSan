@@ -57,7 +57,7 @@ public class KhachSan_services {
 			for(Phong p:t.getDSPhong()) {
 				List<ModelKhachTrongPhong> dsktp=new ArrayList<ModelKhachTrongPhong>();
 				for(KhachTrongPhong ktp:p.getDSKhachTrongPhong()) {
-					dsktp.add(new ModelKhachTrongPhong( ktp.getGiaPhong(), ktp.getPhuTroi(),ktp.getPhutroi2(),ktp.getPhuPhi(), ktp.getGhiChu()));
+					dsktp.add(new ModelKhachTrongPhong( ktp.getGiaPhong(), ktp.getPhuTroi(),ktp.getPhuTroi2(),ktp.getPhuPhi(), ktp.getGhiChu()));
 				}
 				if(p.getLoaiphong()==null)tang.getDSPhong().add(new ModelPhong(p.getMaPhong(),tang,dsktp));
 				else if(p.getDSKhachTrongPhong()==null) tang.getDSPhong().add(new ModelPhong(p.getMaPhong(),tang,new ModelLoaiPhong(p.getLoaiphong().getMaLoaiPhong(),p.getLoaiphong().getTenLoai())));

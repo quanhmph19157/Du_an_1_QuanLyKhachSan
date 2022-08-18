@@ -8,6 +8,7 @@ import javax.swing.border.EtchedBorder;
 import java.awt.Color;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.swing.JScrollPane;
@@ -15,13 +16,19 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import Entities.PhuTroi;
+import Services.DichVuPhongService;
 import Services.KhachTrongPhong_services;
+import Services.PhuPhiService;
 import Services.ThanhToan_services;
 import Services.loaiPhong_services;
 import ViewModels.ModelHoaDon;
 import ViewModels.ModelKhachTrongPhong;
 import ViewModels.ModelLoaiPhong;
 import ViewModels.ModelThanhToan;
+import models.DichVuPhongModel;
+import models.PhuPhiModel;
+import javax.swing.JCheckBox;
+import javax.swing.JButton;
 
 public class view_hoadon extends JFrame {
 	private JTable tbl_phong;
@@ -29,22 +36,35 @@ public class view_hoadon extends JFrame {
 	private JTable tbl_phutroi;
 	private JTable tbl_phuphi;
 	private JTable tbl_thanhtoan;
+	JLabel thanhtoan = new JLabel("0");
+	JLabel conlai = new JLabel("0");
+	JLabel tongcong = new JLabel("0");
+	JLabel phuphi = new JLabel("0");
+	JLabel dichvu = new JLabel("0");
+	JLabel checkoutmuon = new JLabel("0");
+	JLabel checkinsom = new JLabel("0");
+	JLabel tienphong = new JLabel("0");
 	DefaultTableModel model_p = new DefaultTableModel(new String[] { "STT", "Phòng", "Loại phòng", "tiền phòng" }, 0);
 	DefaultTableModel model_dv = new DefaultTableModel(new String[] { "STT", "Dịch vụ", "số lượng", "giá" }, 0);
 	DefaultTableModel model_pt = new DefaultTableModel(
-			new String[] { "STT", "Phòng", "Phòng", "Loại phụ trội", "tiền phụ trội" }, 0);
-	DefaultTableModel model_pht = new DefaultTableModel(new String[] { "STT", "Tiền phụ phí", "ngày phát sinh" }, 0);
+			new String[] { "STT", "Phòng", "Loại phụ trội", "tiền phụ trội" }, 0);
+	DefaultTableModel model_pht = new DefaultTableModel(new String[] { "STT", "Tiền phụ phí", "Lý do" }, 0);
 	DefaultTableModel model_tt = new DefaultTableModel(new String[] { "STT", "số tiền", "ngày thanh toán" }, 0);
 
 	KhachTrongPhong_services ser_ktp = new KhachTrongPhong_services();
+	PhuPhiService ser_phu=new PhuPhiService();
 	ThanhToan_services ser_tt = new ThanhToan_services();
+	DichVuPhongService ser_dvp=new DichVuPhongService();
 
 	List<ModelKhachTrongPhong> list_ktp = ser_ktp.getList();
 	List<ModelThanhToan> list_tt;
+	List<PhuPhiModel> list_pp=ser_phu.getListPhuPhiModel();
+	List<DichVuPhongModel> list_dv=ser_dvp.getListDichVuPhongModel();
 
 	ModelHoaDon hd;
 
 	public view_hoadon(ModelHoaDon hd) {
+		getContentPane().setBackground(Color.WHITE);
 		this.hd = hd;
 		list_tt = ser_tt.getList(hd.getMaHoaDon());
 		setDefaultCloseOperation(2);
@@ -52,6 +72,7 @@ public class view_hoadon extends JFrame {
 		getContentPane().setLayout(null);
 
 		JPanel panel = new JPanel();
+		panel.setBackground(Color.WHITE);
 		panel.setBorder(new TitledBorder(
 				new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)),
 				"H\u00F3a \u0111\u01A1n", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
@@ -112,19 +133,106 @@ public class view_hoadon extends JFrame {
 		scrollPane_3.setViewportView(tbl_phuphi);
 
 		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(Color.WHITE);
 		panel_1.setBorder(
 				new TitledBorder(null, "Thanh to\u00E1n", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel_1.setBounds(830, 10, 426, 526);
+		panel_1.setBounds(830, 10, 426, 317);
 		getContentPane().add(panel_1);
 		panel_1.setLayout(null);
 
 		JScrollPane scrollPane_1_1 = new JScrollPane();
-		scrollPane_1_1.setBounds(10, 25, 406, 491);
+		scrollPane_1_1.setBounds(10, 25, 406, 270);
 		panel_1.add(scrollPane_1_1);
 
 		tbl_thanhtoan = new JTable();
 		tbl_thanhtoan.setModel(model_tt);
 		scrollPane_1_1.setViewportView(tbl_thanhtoan);
+		
+		JLabel lblNewLabel_1 = new JLabel("Dịch vụ");
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		lblNewLabel_1.setBounds(830, 438, 195, 29);
+		getContentPane().add(lblNewLabel_1);
+		
+		JLabel lblNewLabel_1_1 = new JLabel("Còn lại:");
+		lblNewLabel_1_1.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		lblNewLabel_1_1.setBounds(830, 594, 195, 29);
+		getContentPane().add(lblNewLabel_1_1);
+		
+		JLabel lblNewLabel_1_2 = new JLabel("Thanh Toán: ");
+		lblNewLabel_1_2.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		lblNewLabel_1_2.setBounds(830, 555, 195, 29);
+		getContentPane().add(lblNewLabel_1_2);
+		
+		JLabel lblNewLabel_1_3 = new JLabel("Tổng cộng");
+		lblNewLabel_1_3.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		lblNewLabel_1_3.setBounds(830, 516, 195, 29);
+		getContentPane().add(lblNewLabel_1_3);
+		
+		JLabel lblNewLabel_1_4 = new JLabel("Phụ phí");
+		lblNewLabel_1_4.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		lblNewLabel_1_4.setBounds(830, 477, 195, 29);
+		getContentPane().add(lblNewLabel_1_4);
+		
+		JLabel lblNewLabel_1_5 = new JLabel("Tiền phòng");
+		lblNewLabel_1_5.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		lblNewLabel_1_5.setBounds(830, 337, 195, 29);
+		getContentPane().add(lblNewLabel_1_5);
+		
+		JCheckBox chckbxNewCheckBox = new JCheckBox("Check out muộn");
+		chckbxNewCheckBox.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		chckbxNewCheckBox.setBounds(826, 403, 199, 29);
+		getContentPane().add(chckbxNewCheckBox);
+		
+		JCheckBox chckbxNewCheckBox_1 = new JCheckBox("Check in sớm");
+		chckbxNewCheckBox_1.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		chckbxNewCheckBox_1.setBounds(826, 372, 199, 29);
+		getContentPane().add(chckbxNewCheckBox_1);
+		
+		
+		tienphong.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		tienphong.setBounds(1047, 337, 195, 29);
+		getContentPane().add(tienphong);
+		
+		
+		checkinsom.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		checkinsom.setBounds(1047, 372, 195, 29);
+		getContentPane().add(checkinsom);
+		
+		
+		checkoutmuon.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		checkoutmuon.setBounds(1047, 403, 195, 29);
+		getContentPane().add(checkoutmuon);
+		
+		
+		dichvu.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		dichvu.setBounds(1047, 438, 195, 29);
+		getContentPane().add(dichvu);
+		
+		
+		phuphi.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		phuphi.setBounds(1047, 477, 195, 29);
+		getContentPane().add(phuphi);
+		
+		
+		tongcong.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		tongcong.setBounds(1047, 516, 195, 29);
+		getContentPane().add(tongcong);
+		
+		
+		thanhtoan.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		thanhtoan.setBounds(1047, 555, 195, 29);
+		getContentPane().add(thanhtoan);
+		
+		conlai.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		conlai.setBounds(1047, 594, 195, 29);
+		getContentPane().add(conlai);
+		
+		JButton btn_checkout = new JButton("Trả phòng");
+		btn_checkout.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btn_checkout.setBounds(971, 633, 142, 29);
+		getContentPane().add(btn_checkout);
+		
+		adddata();
 	}
 
 	public void adddata() {
@@ -135,30 +243,70 @@ public class view_hoadon extends JFrame {
 		model_tt.setRowCount(0);
 
 		int stt = 0;
+		Double tien=0.0,pt=0.0,tong=0.0;
 		for (ModelKhachTrongPhong x : list_ktp) {
 			if (x.getHoadon().getMaHoaDon() == hd.getMaHoaDon()) {
 				stt++;
 				model_p.addRow(new Object[] { stt, x.getPhong().getMaPhong(),x.getPhong().getLoaiphong(), x.getGiaPhong() });
+				tien+=x.getGiaPhong();
 			}
 		}
+		tienphong.setText(new BigDecimal(tien)+"");
+		tong+=tien;
+		tien=0.0;
 
 		stt = 0;
 		for (ModelThanhToan x : list_tt) {
 			stt++;
 			model_tt.addRow(new Object[] { stt, x.getTien(), x.getNgayThanhToan() });
+			tien+=x.getTien();
 		}
+		thanhtoan.setText(new BigDecimal(tien)+"");
+		tien=0.0;
 
 		stt=0;
+		
 		for (ModelKhachTrongPhong x : list_ktp) {
 			if (x.getHoadon().getMaHoaDon() == hd.getMaHoaDon()) {
 				stt++;
-				model_p.addRow(new Object[] { stt, x.getPhong().getMaPhong(),"Check in sớm", x.getPhuTroi() });
+				model_pt.addRow(new Object[] { stt, x.getPhong().getMaPhong(),"Check in sớm", x.getPhuTroi() });
+				tien+=x.getPhuTroi();
 				stt++;
-				model_p.addRow(new Object[] { stt, x.getPhong().getMaPhong(),"Check out muộn", x.getPhutroi2() });
+				model_pt.addRow(new Object[] { stt, x.getPhong().getMaPhong(),"Check out muộn", x.getPhutroi2() });
+				pt+=x.getPhutroi2();
 			}
 		}
+		checkinsom.setText(new BigDecimal(tien)+"");
+		tong+=tien;
+		tien=0.0;
+		checkoutmuon.setText(new BigDecimal(pt)+"");
+		tong+=pt;
 		
+		stt=0;
+		for(PhuPhiModel x:list_pp) {
+			if(x.getKhachTrongPhongModel().getHoaDonModel().getMaHoaDon()==hd.getMaHoaDon()) {
+				model_pht.addRow(new Object[] { stt, x.getSoTien(),x.getGhiChu()});
+				stt++;
+				tien+=x.getSoTien();
+			}
+		}
+		phuphi.setText(new BigDecimal(tien)+"");
+		tong+=tien;
+		tien=0.0;
 		
+		stt=0;
+		for(DichVuPhongModel x:list_dv) {
+			if(x.getKhachTrongPhongModel().getHoaDonModel().getMaHoaDon()==hd.getMaHoaDon()) {
+				model_pht.addRow(new Object[] { stt, x.getSanPhamVaDichVuModel().getTenHangHoa(),x.getSoLuong(),x.getGiaBan()});
+				stt++;
+				tien+=x.getGiaBan();
+			}
+		}
+		dichvu.setText(new BigDecimal(tien)+"");
+		tong+=tien;
+		tien=0.0;
+		
+		conlai.setText(new BigDecimal(tong-Double.parseDouble(thanhtoan.getText()))+"");
 	}
 
 	public static void main(String[] args) {
