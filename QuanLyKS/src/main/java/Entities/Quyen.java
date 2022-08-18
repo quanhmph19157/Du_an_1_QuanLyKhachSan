@@ -4,20 +4,30 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 @Entity
 public class Quyen {
 	@Id
 	private int MaQUyen;
 	private String TenQuyen;
-	@ManyToMany
-	private List<ChucVu> dschucvu;
-	public Quyen(int maQUyen, String tenQuyen, List<ChucVu> dschucvu) {
+	@OneToMany (mappedBy = "quyen")
+	List<Quyen_cv> listQuyen_cv;
+	
+	public Quyen(int maQUyen, String tenQuyen, List<Quyen_cv> listQuyen_cv) {
 		MaQUyen = maQUyen;
 		TenQuyen = tenQuyen;
-		this.dschucvu = dschucvu;
+		this.listQuyen_cv = listQuyen_cv;
 	}
+	
+	
+	public Quyen(int maQUyen, String tenQuyen) {
+		MaQUyen = maQUyen;
+		TenQuyen = tenQuyen;
+	}
+
+
 	public Quyen() {
+		
 	}
 	public int getMaQUyen() {
 		return MaQUyen;
@@ -31,12 +41,13 @@ public class Quyen {
 	public void setTenQuyen(String tenQuyen) {
 		TenQuyen = tenQuyen;
 	}
-	public List<ChucVu> getDschucvu() {
-		return dschucvu;
+	public List<Quyen_cv> getListQuyen_cv() {
+		return listQuyen_cv;
 	}
-	public void setDschucvu(List<ChucVu> dschucvu) {
-		this.dschucvu = dschucvu;
+	public void setListQuyen_cv(List<Quyen_cv> listQuyen_cv) {
+		this.listQuyen_cv = listQuyen_cv;
 	}
+	
 	
 	
 }

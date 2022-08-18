@@ -35,9 +35,8 @@ public class hibernate_ultil {
 					.addAnnotatedClass(NhomSPVaDichVu.class)
 					.addAnnotatedClass(DonViTinh.class)
 					.addAnnotatedClass(DonViChiTiet.class)
-					.addAnnotatedClass(DichVuPhong.class);
-					
-			
+					.addAnnotatedClass(DichVuPhong.class)
+					.addAnnotatedClass(PhuPhi.class);
 			
 			ServiceRegistry svr=new ServiceRegistryBuilder().applySettings(conf.getProperties()).buildServiceRegistry();
 			session =conf.buildSessionFactory(svr).openSession();

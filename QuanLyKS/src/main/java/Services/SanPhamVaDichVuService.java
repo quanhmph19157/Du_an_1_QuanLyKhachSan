@@ -76,10 +76,16 @@ public class SanPhamVaDichVuService{
 		_SanPhamVaDichVuDao.them_sua(_SanPhamVaDichVu);
 		updateListSanPhamVaDichVuModel();
 	}
+	
 	public void them_sua(SanPhamVaDichVuModel spvdvm , String trangThai) {
 		_SanPhamVaDichVu = modelToEntity(spvdvm);
 		_SanPhamVaDichVuDao.them_sua(_SanPhamVaDichVu);
 		updateListSanPhamVaDichVuModel(trangThai);
+	}
+	
+	public void them_sua_noUpdate(SanPhamVaDichVuModel spvdvm) {
+		_SanPhamVaDichVu = modelToEntity(spvdvm);
+		_SanPhamVaDichVuDao.them_sua(_SanPhamVaDichVu);
 	}
 	
 	public List<DonViChiTietModel> getListDVCTM(SanPhamVaDichVuModel spvdvm){

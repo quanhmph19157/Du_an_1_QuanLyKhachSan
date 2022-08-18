@@ -49,6 +49,7 @@ import Repositories.dao_khachTrongPhong;
 import Services.HoaDon_services;
 import Services.KhachHang_services;
 import Services.KhachSan_services;
+import Services.KhachTrongPhong_services;
 import Services.ThanhToan_services;
 import Services.loaiPhong_services;
 import ViewModels.ModelHoaDon;
@@ -105,6 +106,9 @@ public class Booking extends JPanel {
 	List<ModelKhachHang> list_new_kh;
 	List<ModelKhachHang> list_choose_kh;
 	List<ModelThanhToan> list_tt;
+	List<Float> list_gia = new ArrayList<>();
+	List<Float> list_pt = new ArrayList<>();
+	List<Float> list_pt2 = new ArrayList<>();
 	List<ModelHoaDon> list_hd;
 	ModelKhachSan ks;
 	ModelHoaDon hd;
@@ -125,19 +129,19 @@ public class Booking extends JPanel {
 	String loai = "";
 	Date in, out;
 	LocalDateTime homnay;
-	double phutroi = 0, thanhtoan = 0, conlai = 0, gia = 0,phutroi2=0;
+	double phutroi = 0, thanhtoan = 0, conlai = 0, gia = 0, phutroi2 = 0;
 	ModelHoaDon hoadon;
 	private JTable table_1;
 
 	/**
 	 * @wbp.parser.constructor
 	 */
-	public Booking(String loai) {
+	public Booking() {
+		loai = "ngay";
 		// TODO Auto-generated constructor stub
 		homnay = LocalDateTime.now();
 		hoadon = new ModelHoaDon("datphong", new Date(homnay.getYear() - 1900, homnay.getMonthValue() - 1,
 				homnay.getDayOfMonth(), homnay.getHour(), homnay.getMinute()));
-		this.loai = loai;
 		ser_kh = new KhachHang_services();
 		ser_lp = new loaiPhong_services();
 		ser_hd = new HoaDon_services();
@@ -194,11 +198,30 @@ public class Booking extends JPanel {
 		events();
 		dcs_checkin.setDate(hd.getNgayCheckIn());
 		dcs_checkout.setDate(hd.getNgayCheckOut());
+//		KhachTrongPhong_services serktp=new KhachTrongPhong_services();
+//		List<ModelKhachTrongPhong> listKpt=serktp.getList();
+//		for(ModelKhachTrongPhong x:listKpt) {
+//			if(hd.getMaHoaDon()==x.getHoadon().getMaHoaDon()) {
+//				list_gia.add(x.getGiaPhong());
+//				list_pt.add(x.getPhuTroi());
+//				list_pt2.add(x.getPhutroi2());
+//			}
+//		}
 		step();
 		ThanhToan();
 		tinhtien();
 		chb_doan.setEnabled(true);
 		chb_le.setEnabled(true);
+		if (hd.getLoai().equals("ngay"))
+			chb_ngay.setSelected(true);
+		else if (hd.getLoai().equals("dem"))
+			chb_dem.setSelected(true);
+		else
+			chb_gio.setSelected(true);
+		if (!hd.getTenDoan().isBlank()) {
+			chb_doan.setSelected(true);
+			txt_doan.setText(hd.getTenDoan());
+		}
 	}
 
 	void step() {
@@ -281,13 +304,19 @@ public class Booking extends JPanel {
 			List<ModelHoaDon> dsmhd = ser_hd.getList();
 			int id = 0;
 			for (ModelPhong p : list_p_chon) {
-				if (checkFix)
-					d.save(new KhachTrongPhong(hd.getDskhactrongphong().get(id).getId(),
-							new HoaDon(hd.getMaHoaDon()), new Phong(p.getMaPhong()),
-							(float) (gia), (float)phutroi,(float)phutroi2, 0, ""));
-				else
+				if (checkFix) {
+					try {
+						d.save(new KhachTrongPhong(hd.getDskhactrongphong().get(id).getId(),
+								new HoaDon(hd.getMaHoaDon()), new Phong(p.getMaPhong()), list_gia.get(id),
+								list_pt.get(id), list_pt2.get(id), 0, ""));
+					} catch (Exception edsadssdfdsf) {
+						d.save(new KhachTrongPhong(new HoaDon(hd.getMaHoaDon()), new Phong(p.getMaPhong()),
+								list_gia.get(id), list_pt.get(id), list_pt2.get(id), 0, ""));
+					}
+				} else {
 					d.save(new KhachTrongPhong(new HoaDon(dsmhd.get(dsmhd.size() - 1).getMaHoaDon()),
-							new Phong(p.getMaPhong()), (float) gia, (float)phutroi, (float)phutroi2, 0, ""));
+							new Phong(p.getMaPhong()), list_gia.get(id), list_pt.get(id), list_pt2.get(id), 0, ""));
+				}
 				id++;
 			}
 			for (ModelThanhToan tt : list_tt) {
@@ -295,7 +324,7 @@ public class Booking extends JPanel {
 				ser_tt.save(tt);
 			}
 			JOptionPane.showMessageDialog(pnl_main, "Đặt phòng thành công");
-			
+
 		}
 	}
 
@@ -328,15 +357,14 @@ public class Booking extends JPanel {
 						a[0] = hd.getNgayCheckIn().getHours();
 						model_in = new DefaultComboBoxModel<Integer>(a);
 						cbx_gioIn.setModel(model_in);
-					}
-					else if(loai.equals("gio")) {
-						if((24-Integer.parseInt(cbx_gioIn.getSelectedItem()+"")<ks.getGio())){
-							dcs_checkout.setMaxSelectableDate(new Date(dcs_checkin.getDate().getYear(),dcs_checkin.getDate().getMonth(),dcs_checkin.getDate().getDate()+1));
-						}else {
+					} else if (loai.equals("gio")) {
+						if ((24 - Integer.parseInt(cbx_gioIn.getSelectedItem() + "") < ks.getGio())) {
+							dcs_checkout.setMaxSelectableDate(new Date(dcs_checkin.getDate().getYear(),
+									dcs_checkin.getDate().getMonth(), dcs_checkin.getDate().getDate() + 1));
+						} else {
 							dcs_checkout.setMinSelectableDate(dcs_checkin.getDate());
 						}
-					}
-					else if (loai.equals("dem")) {
+					} else if (loai.equals("dem")) {
 						int cis = 0, cos = 0;
 						for (int i = 0; i < list_lp.size(); i++) {
 							for (PhuTroi pt : list_lp.get(i).getDsphutroi()) {
@@ -352,27 +380,26 @@ public class Booking extends JPanel {
 						a = new Integer[24 - ks.getGioCheckInDem() / 100 + cis];
 						int I = 0;
 						for (int i = ks.getGioCheckInDem() / 100 - cis; i < 24; i++) {
-							System.out.println(ks.getGioCheckInDem() / 100+"sadasdasdas");
+							System.out.println(ks.getGioCheckInDem() / 100 + "sadasdasdas");
 							a[I] = i;
 							model_out.addElement(a[I]);
 							I++;
 						}
 						Integer b[] = new Integer[ks.getGioCheckOutDem() / 100 + cos];
-						for (int i = 0; i < ks.getGioCheckOutDem() / 100 + cos-1; i++) {
+						for (int i = 0; i < ks.getGioCheckOutDem() / 100 + cos - 1; i++) {
 							b[i] = i;
 							model_out.addElement(b[i]);
 						}
 						cbx_gioIn.setModel(model_out);
-						if(dcs_checkin.getDate().getDate() == homnay.getDayOfMonth()
+						if (dcs_checkin.getDate().getDate() == homnay.getDayOfMonth()
 								&& dcs_checkin.getDate().getMonth() == (homnay.getMonthValue() - 1)
 								&& dcs_checkin.getDate().getYear() + 1900 == homnay.getYear()) {
-							for(int i=0;i<24;i++) 
-								if(i<homnay.getHour()) {
+							for (int i = 0; i < 24; i++)
+								if (i < homnay.getHour()) {
 									model_out.removeElement(i);
 								}
-							}
 						}
-					 else if (dcs_checkin.getDate().getDate() == homnay.getDayOfMonth()
+					} else if (dcs_checkin.getDate().getDate() == homnay.getDayOfMonth()
 							&& dcs_checkin.getDate().getMonth() == (homnay.getMonthValue() - 1)
 							&& dcs_checkin.getDate().getYear() + 1900 == homnay.getYear()) {
 						a = new Integer[24 - homnay.getHour()];
@@ -422,8 +449,8 @@ public class Booking extends JPanel {
 					try {
 						gioIn = Integer.parseInt(String.valueOf(cbx_gioIn.getSelectedItem()));
 						phutIn = Integer.parseInt(String.valueOf(cbx_phutIn.getSelectedItem()));
-					}catch(Exception adfdf) {
-						
+					} catch (Exception adfdf) {
+
 					}
 					in = new Date(dcs_checkin.getDate().getYear(), dcs_checkin.getDate().getMonth(),
 							dcs_checkin.getDate().getDate(), gioIn, phutIn);
@@ -434,7 +461,7 @@ public class Booking extends JPanel {
 					try {
 						cbx_gioIn.setSelectedItem(gioIn);
 						cbx_gioOut.setSelectedItem(gioOut);
-						System.out.println(gioOut+" gio OUT");
+						System.out.println(gioOut + " gio OUT");
 						cbx_phutIn.setSelectedItem(phutIn);
 						cbx_phutOut.setSelectedItem(phutOut);
 						hours = (int) ((out.getTime() - in.getTime()) / 3600000);
@@ -486,7 +513,7 @@ public class Booking extends JPanel {
 				} catch (Exception ex) {
 
 				}
-				if (loai.equals("dem")&&dcs_checkout.getDate()!=null) {
+				if (loai.equals("dem") && dcs_checkout.getDate() != null) {
 					Integer[] a;
 					DefaultComboBoxModel<Integer> model_out;
 					int cis = 0, cos = 0;
@@ -500,34 +527,61 @@ public class Booking extends JPanel {
 							}
 						}
 					}
-					if (in.getDate()-1 == dcs_checkout.getDate().getDate()) {
-						a = new Integer[24  - Integer.parseInt(cbx_gioIn.getSelectedItem()+"")-1];
-						for (int i = Integer.parseInt(cbx_gioIn.getSelectedItem()+"")+1; i < 24; i++) {
-							a[i-Integer.parseInt(cbx_gioIn.getSelectedItem()+"")-1] = i;
+					if (in.getDate() - 1 == dcs_checkout.getDate().getDate()) {
+						a = new Integer[24 - Integer.parseInt(cbx_gioIn.getSelectedItem() + "") - 1];
+						for (int i = Integer.parseInt(cbx_gioIn.getSelectedItem() + "") + 1; i < 24; i++) {
+							a[i - Integer.parseInt(cbx_gioIn.getSelectedItem() + "") - 1] = i;
 						}
 						model_out = new DefaultComboBoxModel<Integer>(a);
 					} else {
 						b = new Integer[ks.getGioCheckOutDem() / 100 + cos];
-						for (int i = 0; i < ks.getGioCheckOutDem()/100 + cos; i++) {
+						for (int i = 0; i < ks.getGioCheckOutDem() / 100 + cos; i++) {
 							System.out.println(i);
 							b[i] = i;
 						}
 						model_out = new DefaultComboBoxModel<Integer>(b);
 					}
 					cbx_gioOut.setModel(model_out);
+					if (in.getDate() - 1 == dcs_checkout.getDate().getDate()) {
+						a = new Integer[24 - Integer.parseInt(cbx_gioIn.getSelectedItem() + "") - 1];
+						for (int i = Integer.parseInt(cbx_gioIn.getSelectedItem() + "") + 1; i < 24; i++) {
+							a[i - Integer.parseInt(cbx_gioIn.getSelectedItem() + "") - 1] = i;
+						}
+						model_out = new DefaultComboBoxModel<Integer>(a);
+					} else {
+						b = new Integer[ks.getGioCheckOutDem() / 100 + cos];
+						for (int i = 0; i < ks.getGioCheckOutDem() / 100 + cos; i++) {
+							System.out.println(i);
+							b[i] = i;
+						}
+						model_out = new DefaultComboBoxModel<Integer>(b);
+					}
+					cbx_gioOut.setModel(model_out);
+					if (dcs_checkin.getDate().getDate() == dcs_checkout.getDate().getDate()
+							&& dcs_checkin.getDate().getMonth() == dcs_checkout.getDate().getMonth()
+							&& dcs_checkin.getDate().getYear() == dcs_checkout.getDate().getYear()) {
+						DefaultComboBoxModel<Integer> model = (DefaultComboBoxModel<Integer>) cbx_gioOut.getModel();
+						for (int i = 0; i < 24; i++) {
+							if (i < Integer.parseInt(cbx_gioIn.getSelectedItem() + "")) {
+								model.removeElement(i);
+							}
+						}
+					}
 				}
-				if(loai.equals("gio")) {
-					Date dateMax=new Date(dcs_checkin.getDate().getYear(),dcs_checkin.getDate().getMonth(),dcs_checkin.getDate().getDate()+1,23,59);
-					if((24-Integer.parseInt(cbx_gioIn.getSelectedItem()+"")<ks.getGio())){
-						dcs_checkout.setMaxSelectableDate(new Date(dcs_checkin.getDate().getYear(),dcs_checkin.getDate().getMonth(),dcs_checkin.getDate().getDate()+1));
-					}else {
+				if (loai.equals("gio")) {
+					Date dateMax = new Date(dcs_checkin.getDate().getYear(), dcs_checkin.getDate().getMonth(),
+							dcs_checkin.getDate().getDate() + 1, 23, 59);
+					if ((24 - Integer.parseInt(cbx_gioIn.getSelectedItem() + "") < ks.getGio())) {
+						dcs_checkout.setMaxSelectableDate(new Date(dcs_checkin.getDate().getYear(),
+								dcs_checkin.getDate().getMonth(), dcs_checkin.getDate().getDate() + 1));
+					} else {
 						dcs_checkout.setMinSelectableDate(dcs_checkin.getDate());
 					}
-					if(dcs_checkout.getDate().getTime()>dateMax.getTime()) {
+					if (dcs_checkout.getDate().getTime() > dateMax.getTime()) {
 						dcs_checkout.setDate(null);
 					}
 				}
-				if(dcs_checkout.getDate()!=null) {
+				if (dcs_checkout.getDate() != null) {
 					int cis = 0, cos = 0;
 					for (int i = 0; i < list_lp.size(); i++) {
 						for (PhuTroi pt : list_lp.get(i).getDsphutroi()) {
@@ -536,33 +590,6 @@ public class Booking extends JPanel {
 							}
 							if (pt.getLoai().equals("checkoutdem")) {
 								cos++;
-							}
-						}
-					}
-					Integer[]a;
-					DefaultComboBoxModel<Integer>model_out;
-					if (in.getDate()-1 == dcs_checkout.getDate().getDate()) {
-						a = new Integer[24  - Integer.parseInt(cbx_gioIn.getSelectedItem()+"")-1];
-						for (int i = Integer.parseInt(cbx_gioIn.getSelectedItem()+"")+1; i < 24; i++) {
-							a[i-Integer.parseInt(cbx_gioIn.getSelectedItem()+"")-1] = i;
-						}
-						model_out = new DefaultComboBoxModel<Integer>(a);
-					} else {
-						b = new Integer[ks.getGioCheckOutDem() / 100 + cos];
-						for (int i = 0; i < ks.getGioCheckOutDem()/100 + cos; i++) {
-							System.out.println(i);
-							b[i] = i;
-						}
-						model_out = new DefaultComboBoxModel<Integer>(b);
-					}
-					cbx_gioOut.setModel(model_out);
-					if(dcs_checkin.getDate().getDate() == dcs_checkout.getDate().getDate()
-							&& dcs_checkin.getDate().getMonth() == dcs_checkout.getDate().getMonth()
-							&& dcs_checkin.getDate().getYear() == dcs_checkout.getDate().getYear()) {
-						DefaultComboBoxModel<Integer> model=(DefaultComboBoxModel<Integer>) cbx_gioOut.getModel();
-						for(int i=0;i<24;i++) {
-							if(i<Integer.parseInt(cbx_gioIn.getSelectedItem()+"")) {
-								model.removeElement(i);
 							}
 						}
 					}
@@ -598,29 +625,29 @@ public class Booking extends JPanel {
 						DefaultComboBoxModel<Integer> model_gout = new DefaultComboBoxModel<Integer>(
 								new Integer[] { hd.getNgayCheckOut().getHours() });
 						cbx_gioOut.setModel(model_gout);
-					}
-					else if(loai.equals("gio")) {
-						Date dateMax=new Date(dcs_checkin.getDate().getYear(),dcs_checkin.getDate().getMonth(),dcs_checkin.getDate().getDate()+1,23,59);
-						if(dcs_checkin.getDate().getDate()==dcs_checkout.getDate().getDate()) {
-							a=new Integer[ks.getGio()];
-							for(int i=Integer.parseInt(cbx_gioIn.getSelectedItem()+"");i<Integer.parseInt(cbx_gioIn.getSelectedItem()+"")+ks.getGio();i++) {
-								a[i-Integer.parseInt(cbx_gioIn.getSelectedItem()+"")]=i+1;
+					} else if (loai.equals("gio")) {
+						Date dateMax = new Date(dcs_checkin.getDate().getYear(), dcs_checkin.getDate().getMonth(),
+								dcs_checkin.getDate().getDate() + 1, 23, 59);
+						if (dcs_checkin.getDate().getDate() == dcs_checkout.getDate().getDate()) {
+							a = new Integer[ks.getGio()];
+							for (int i = Integer.parseInt(cbx_gioIn.getSelectedItem() + ""); i < Integer
+									.parseInt(cbx_gioIn.getSelectedItem() + "") + ks.getGio(); i++) {
+								a[i - Integer.parseInt(cbx_gioIn.getSelectedItem() + "")] = i + 1;
+							}
+							model_out = new DefaultComboBoxModel<Integer>(a);
+							cbx_gioOut.setModel(model_out);
+						} else {
+							int l = ks.getGio() - 23 + Integer.parseInt(cbx_gioIn.getSelectedItem() + "");
+							System.out.println("gia tri cua l=" + l);
+							a = new Integer[l + 1];
+							for (int i = 0; i <= l; i++) {
+								a[i] = i;
 							}
 							model_out = new DefaultComboBoxModel<Integer>(a);
 							cbx_gioOut.setModel(model_out);
 						}
-						else {
-							int l=ks.getGio()-23+Integer.parseInt(cbx_gioIn.getSelectedItem()+"");
-							System.out.println("gia tri cua l="+l);
-							a=new Integer[l+1];
-							for(int i=0;i<=l;i++) {
-								a[i]=i;
-							}
-							model_out = new DefaultComboBoxModel<Integer>(a);
-							cbx_gioOut.setModel(model_out);
-						}
-					}
-					else if (loai.equals("dem")&&dcs_checkout.getDate()!=null) {
+					} else if (loai.equals("dem") && dcs_checkout.getDate() != null) {
+						System.out.println("vao dem sdsadasdasdasdasdasd");
 						int cis = 0, cos = 0;
 						for (int i = 0; i < list_lp.size(); i++) {
 							for (PhuTroi pt : list_lp.get(i).getDsphutroi()) {
@@ -632,15 +659,15 @@ public class Booking extends JPanel {
 								}
 							}
 						}
-						if (in.getDate()-1 == dcs_checkout.getDate().getDate()) {
-							a = new Integer[24  - Integer.parseInt(cbx_gioIn.getSelectedItem()+"")-1];
-							for (int i = Integer.parseInt(cbx_gioIn.getSelectedItem()+"")+1; i < 24; i++) {
-								a[i-Integer.parseInt(cbx_gioIn.getSelectedItem()+"")-1] = i;
+						if (in.getDate() - 1 == dcs_checkout.getDate().getDate()) {
+							a = new Integer[24 - Integer.parseInt(cbx_gioIn.getSelectedItem() + "") - 1];
+							for (int i = Integer.parseInt(cbx_gioIn.getSelectedItem() + "") + 1; i < 24; i++) {
+								a[i - Integer.parseInt(cbx_gioIn.getSelectedItem() + "") - 1] = i;
 							}
 							model_out = new DefaultComboBoxModel<Integer>(a);
 						} else {
 							Integer b[] = new Integer[ks.getGioCheckOutDem() / 100 + cos];
-							for (int i = 0; i < ks.getGioCheckOutDem()/100 + cos; i++) {
+							for (int i = 0; i < ks.getGioCheckOutDem() / 100 + cos; i++) {
 								System.out.println(i);
 								b[i] = i;
 							}
@@ -652,7 +679,7 @@ public class Booking extends JPanel {
 							&& dcs_checkin.getDate().getYear() == dcs_checkout.getDate().getYear()) {
 						a = new Integer[24 - gioIn - 1];
 						int b = in.getHours() + 1;
-						for (int i = 0; b+i<24; i++) {
+						for (int i = 0; b + i < 24; i++) {
 							a[i] = b + i;
 						}
 						model_out = new DefaultComboBoxModel<Integer>(a);
@@ -677,9 +704,9 @@ public class Booking extends JPanel {
 					}
 					DefaultComboBoxModel<Integer> model_outp = new DefaultComboBoxModel<Integer>(b);
 					cbx_phutOut.setModel(model_outp);
-					System.out.println("gio out "+gioOut);
+					System.out.println("gio out " + gioOut);
 					gioOut = Integer.parseInt(String.valueOf(cbx_gioOut.getSelectedItem()));
-					System.out.println("gio out "+gioOut);
+					System.out.println("gio out " + gioOut);
 					phutOut = Integer.parseInt(String.valueOf(cbx_phutOut.getSelectedItem()));
 					out = new Date(dcs_checkout.getDate().getYear(), dcs_checkout.getDate().getMonth(),
 							dcs_checkout.getDate().getDate(), gioOut, phutOut);
@@ -694,7 +721,7 @@ public class Booking extends JPanel {
 				}
 				cbx_gioIn.setSelectedItem(gioIn);
 				cbx_gioOut.setSelectedItem(gioOut);
-				System.out.println(gioOut+" gio OUT OUT");
+				System.out.println(gioOut + " gio OUT OUT");
 				cbx_phutIn.setSelectedItem(phutIn);
 				cbx_phutOut.setSelectedItem(phutOut);
 				return;
@@ -843,6 +870,8 @@ public class Booking extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				txt_doan.setEnabled(true);
+				if (checkFix)
+					txt_doan.setText(hd.getTenDoan());
 			}
 		});
 		chb_doan.setFont(new Font("TAHOMA", Font.PLAIN, 16));
@@ -877,7 +906,7 @@ public class Booking extends JPanel {
 				max = new Date(dcs_checkin.getDate().getYear(), dcs_checkin.getDate().getMonth(),
 						dcs_checkin.getDate().getDate(), gioIn + gap, phutIn);
 				dcs_checkout.setMaxSelectableDate(max);
-				
+
 				if (dcs_checkin.getDate() != null) {
 					System.out.println("chay vao in");
 					if (!checkFix) {
@@ -916,13 +945,13 @@ public class Booking extends JPanel {
 						a = new Integer[24 - ks.getGioCheckInDem() / 100 + cis];
 						int I = 0;
 						for (int i = ks.getGioCheckInDem() / 100 - cis; i < 24; i++) {
-							System.out.println(ks.getGioCheckInDem() / 100+"sadasdasdas");
+							System.out.println(ks.getGioCheckInDem() / 100 + "sadasdasdas");
 							a[I] = i;
 							model_out.addElement(a[I]);
 							I++;
 						}
 						Integer b[] = new Integer[ks.getGioCheckOutDem() / 100 + cos];
-						for (int i = 0; i < ks.getGioCheckOutDem() / 100 + cos-1; i++) {
+						for (int i = 0; i < ks.getGioCheckOutDem() / 100 + cos - 1; i++) {
 							b[i] = i;
 							model_out.addElement(b[i]);
 						}
@@ -998,7 +1027,7 @@ public class Booking extends JPanel {
 						cbx_phutIn.setEnabled(true);
 					}
 				}
-				
+
 				if (dcs_checkout.getDate() != null) {
 					Integer[] a;
 					DefaultComboBoxModel<Integer> model_out;
@@ -1006,7 +1035,8 @@ public class Booking extends JPanel {
 						DefaultComboBoxModel<Integer> model_gout = new DefaultComboBoxModel<Integer>(
 								new Integer[] { hd.getNgayCheckOut().getHours() });
 						cbx_gioOut.setModel(model_gout);
-					} if (loai.equals("dem")&&dcs_checkout.getDate()!=null) {
+					}
+					if (loai.equals("dem") && dcs_checkout.getDate() != null) {
 						int cis = 0, cos = 0;
 						for (int i = 0; i < list_lp.size(); i++) {
 							for (PhuTroi pt : list_lp.get(i).getDsphutroi()) {
@@ -1018,15 +1048,15 @@ public class Booking extends JPanel {
 								}
 							}
 						}
-						if (in.getDate()-1 == dcs_checkout.getDate().getDate()) {
-							a = new Integer[24  - Integer.parseInt(cbx_gioIn.getSelectedItem()+"")-1];
-							for (int i = Integer.parseInt(cbx_gioIn.getSelectedItem()+"")+1; i < 24; i++) {
-								a[i-Integer.parseInt(cbx_gioIn.getSelectedItem()+"")-1] = i;
+						if (in.getDate() - 1 == dcs_checkout.getDate().getDate()) {
+							a = new Integer[24 - Integer.parseInt(cbx_gioIn.getSelectedItem() + "") - 1];
+							for (int i = Integer.parseInt(cbx_gioIn.getSelectedItem() + "") + 1; i < 24; i++) {
+								a[i - Integer.parseInt(cbx_gioIn.getSelectedItem() + "") - 1] = i;
 							}
 							model_out = new DefaultComboBoxModel<Integer>(a);
 						} else {
 							Integer b[] = new Integer[ks.getGioCheckOutDem() / 100 + cos];
-							for (int i = 0; i < ks.getGioCheckOutDem()/100 + cos; i++) {
+							for (int i = 0; i < ks.getGioCheckOutDem() / 100 + cos; i++) {
 								System.out.println(i);
 								b[i] = i;
 							}
@@ -1038,7 +1068,7 @@ public class Booking extends JPanel {
 							&& dcs_checkin.getDate().getYear() == dcs_checkout.getDate().getYear()) {
 						a = new Integer[24 - gioIn - 1];
 						int B = gioIn + 1;
-						for (int i = 0; B+i<24; i++) {
+						for (int i = 0; B + i < 24; i++) {
 							a[i] = B + i;
 						}
 						model_out = new DefaultComboBoxModel<Integer>(a);
@@ -1106,30 +1136,30 @@ public class Booking extends JPanel {
 					dcs_checkout.setDate(null);
 				}
 				DefaultComboBoxModel<Integer> model_out = new DefaultComboBoxModel<Integer>();
-				Integer a[] = new Integer[24 - ks.getGioCheckInDem() / 100 + cis ];
+				Integer a[] = new Integer[24 - ks.getGioCheckInDem() / 100 + cis];
 				int I = 0;
 				for (int i = ks.getGioCheckInDem() / 100 - cis; i < 24; i++) {
-					System.out.println(ks.getGioCheckInDem() / 100+"sadasdasdas");
+					System.out.println(ks.getGioCheckInDem() / 100 + "sadasdasdas");
 					a[I] = i;
 					model_out.addElement(a[I]);
 					I++;
 				}
 				Integer b[] = new Integer[ks.getGioCheckOutDem() / 100 + cos];
-				for (int i = 0; i < ks.getGioCheckOutDem() / 100 + cos-1; i++) {
+				for (int i = 0; i < ks.getGioCheckOutDem() / 100 + cos - 1; i++) {
 					b[i] = i;
 					model_out.addElement(b[i]);
 				}
 				cbx_gioIn.setModel(model_out);
-				if (loai.equals("dem")&&dcs_checkout.getDate()!=null) {
-					if (in.getDate()-1 == dcs_checkout.getDate().getDate()) {
-						a = new Integer[24  - Integer.parseInt(cbx_gioIn.getSelectedItem()+"")-1];
-						for (int i = Integer.parseInt(cbx_gioIn.getSelectedItem()+"")+1; i < 24; i++) {
-							a[i-Integer.parseInt(cbx_gioIn.getSelectedItem()+"")-1] = i;
+				if (loai.equals("dem") && dcs_checkout.getDate() != null) {
+					if (in.getDate() - 1 == dcs_checkout.getDate().getDate()) {
+						a = new Integer[24 - Integer.parseInt(cbx_gioIn.getSelectedItem() + "") - 1];
+						for (int i = Integer.parseInt(cbx_gioIn.getSelectedItem() + "") + 1; i < 24; i++) {
+							a[i - Integer.parseInt(cbx_gioIn.getSelectedItem() + "") - 1] = i;
 						}
 						model_out = new DefaultComboBoxModel<Integer>(a);
 					} else {
 						b = new Integer[ks.getGioCheckOutDem() / 100 + cos];
-						for (int i = 0; i < ks.getGioCheckOutDem()/100 + cos; i++) {
+						for (int i = 0; i < ks.getGioCheckOutDem() / 100 + cos; i++) {
 							System.out.println(i);
 							b[i] = i;
 						}
@@ -1142,18 +1172,19 @@ public class Booking extends JPanel {
 //				}else {
 //					model_out = new DefaultComboBoxModel<Integer>(b);
 //				}
-				if(dcs_checkin.getDate().getDate() == homnay.getDayOfMonth()
+				if (dcs_checkin.getDate().getDate() == homnay.getDayOfMonth()
 						&& dcs_checkin.getDate().getMonth() == (homnay.getMonthValue() - 1)
 						&& dcs_checkin.getDate().getYear() + 1900 == homnay.getYear()) {
-					DefaultComboBoxModel<Integer> modelin=(DefaultComboBoxModel<Integer>) cbx_gioIn.getModel();
-					for(int i=0;i<24;i++) {
-						if(i<homnay.getHour()) {
+					DefaultComboBoxModel<Integer> modelin = (DefaultComboBoxModel<Integer>) cbx_gioIn.getModel();
+					for (int i = 0; i < 24; i++) {
+						if (i < homnay.getHour()) {
 							modelin.removeElement(i);
 						}
 					}
 				}
-				if(dcs_checkout.getDate()!=null) {
-					cis = 0; cos = 0;
+				if (dcs_checkout.getDate() != null) {
+					cis = 0;
+					cos = 0;
 					for (int i = 0; i < list_lp.size(); i++) {
 						for (PhuTroi pt : list_lp.get(i).getDsphutroi()) {
 							if (pt.getLoai().equals("checkindem")) {
@@ -1164,27 +1195,27 @@ public class Booking extends JPanel {
 							}
 						}
 					}
-					if (in.getDate()-1 == dcs_checkout.getDate().getDate()) {
-						a = new Integer[24  - Integer.parseInt(cbx_gioIn.getSelectedItem()+"")-1];
-						for (int i = Integer.parseInt(cbx_gioIn.getSelectedItem()+"")+1; i < 24; i++) {
-							a[i-Integer.parseInt(cbx_gioIn.getSelectedItem()+"")-1] = i;
+					if (in.getDate() - 1 == dcs_checkout.getDate().getDate()) {
+						a = new Integer[24 - Integer.parseInt(cbx_gioIn.getSelectedItem() + "") - 1];
+						for (int i = Integer.parseInt(cbx_gioIn.getSelectedItem() + "") + 1; i < 24; i++) {
+							a[i - Integer.parseInt(cbx_gioIn.getSelectedItem() + "") - 1] = i;
 						}
 						model_out = new DefaultComboBoxModel<Integer>(a);
 					} else {
 						b = new Integer[ks.getGioCheckOutDem() / 100 + cos];
-						for (int i = 0; i < ks.getGioCheckOutDem()/100 + cos; i++) {
+						for (int i = 0; i < ks.getGioCheckOutDem() / 100 + cos; i++) {
 							System.out.println(i);
 							b[i] = i;
 						}
 						model_out = new DefaultComboBoxModel<Integer>(b);
 					}
 					cbx_gioOut.setModel(model_out);
-					if(dcs_checkin.getDate().getDate() == dcs_checkout.getDate().getDate()
+					if (dcs_checkin.getDate().getDate() == dcs_checkout.getDate().getDate()
 							&& dcs_checkin.getDate().getMonth() == dcs_checkout.getDate().getMonth()
 							&& dcs_checkin.getDate().getYear() == dcs_checkout.getDate().getYear()) {
-						DefaultComboBoxModel<Integer> model=(DefaultComboBoxModel<Integer>) cbx_gioOut.getModel();
-						for(int i=0;i<24;i++) {
-							if(i<Integer.parseInt(cbx_gioIn.getSelectedItem()+"")) {
+						DefaultComboBoxModel<Integer> model = (DefaultComboBoxModel<Integer>) cbx_gioOut.getModel();
+						for (int i = 0; i < 24; i++) {
+							if (i < Integer.parseInt(cbx_gioIn.getSelectedItem() + "")) {
 								model.removeElement(i);
 							}
 						}
@@ -1204,7 +1235,7 @@ public class Booking extends JPanel {
 				max = new Date(dcs_checkin.getDate().getYear(), dcs_checkin.getDate().getMonth(),
 						dcs_checkin.getDate().getDate(), gioIn + gap, phutIn);
 				dcs_checkout.setMaxSelectableDate(max);
-				
+
 				if (dcs_checkin.getDate() != null) {
 					System.out.println("chay vao in");
 					if (!checkFix) {
@@ -1243,13 +1274,13 @@ public class Booking extends JPanel {
 						a = new Integer[24 - ks.getGioCheckInDem() / 100 + cis];
 						int I = 0;
 						for (int i = ks.getGioCheckInDem() / 100 - cis; i < 24; i++) {
-							System.out.println(ks.getGioCheckInDem() / 100+"sadasdasdas");
+							System.out.println(ks.getGioCheckInDem() / 100 + "sadasdasdas");
 							a[I] = i;
 							model_out.addElement(a[I]);
 							I++;
 						}
 						Integer b[] = new Integer[ks.getGioCheckOutDem() / 100 + cos];
-						for (int i = 0; i < ks.getGioCheckOutDem() / 100 + cos-1; i++) {
+						for (int i = 0; i < ks.getGioCheckOutDem() / 100 + cos - 1; i++) {
 							b[i] = i;
 							model_out.addElement(b[i]);
 						}
@@ -1325,7 +1356,7 @@ public class Booking extends JPanel {
 						cbx_phutIn.setEnabled(true);
 					}
 				}
-				
+
 				if (dcs_checkout.getDate() != null) {
 					Integer[] a;
 					DefaultComboBoxModel<Integer> model_out;
@@ -1333,7 +1364,8 @@ public class Booking extends JPanel {
 						DefaultComboBoxModel<Integer> model_gout = new DefaultComboBoxModel<Integer>(
 								new Integer[] { hd.getNgayCheckOut().getHours() });
 						cbx_gioOut.setModel(model_gout);
-					} if (loai.equals("dem")&&dcs_checkout.getDate()!=null) {
+					}
+					if (loai.equals("dem") && dcs_checkout.getDate() != null) {
 						int cis = 0, cos = 0;
 						for (int i = 0; i < list_lp.size(); i++) {
 							for (PhuTroi pt : list_lp.get(i).getDsphutroi()) {
@@ -1345,15 +1377,15 @@ public class Booking extends JPanel {
 								}
 							}
 						}
-						if (in.getDate()-1 == dcs_checkout.getDate().getDate()) {
-							a = new Integer[24  - Integer.parseInt(cbx_gioIn.getSelectedItem()+"")-1];
-							for (int i = Integer.parseInt(cbx_gioIn.getSelectedItem()+"")+1; i < 24; i++) {
-								a[i-Integer.parseInt(cbx_gioIn.getSelectedItem()+"")-1] = i;
+						if (in.getDate() - 1 == dcs_checkout.getDate().getDate()) {
+							a = new Integer[24 - Integer.parseInt(cbx_gioIn.getSelectedItem() + "") - 1];
+							for (int i = Integer.parseInt(cbx_gioIn.getSelectedItem() + "") + 1; i < 24; i++) {
+								a[i - Integer.parseInt(cbx_gioIn.getSelectedItem() + "") - 1] = i;
 							}
 							model_out = new DefaultComboBoxModel<Integer>(a);
 						} else {
 							Integer b[] = new Integer[ks.getGioCheckOutDem() / 100 + cos];
-							for (int i = 0; i < ks.getGioCheckOutDem()/100 + cos; i++) {
+							for (int i = 0; i < ks.getGioCheckOutDem() / 100 + cos; i++) {
 								System.out.println(i);
 								b[i] = i;
 							}
@@ -1365,7 +1397,7 @@ public class Booking extends JPanel {
 							&& dcs_checkin.getDate().getYear() == dcs_checkout.getDate().getYear()) {
 						a = new Integer[24 - gioIn - 1];
 						int B = gioIn + 1;
-						for (int i = 0; B+i<24; i++) {
+						for (int i = 0; B + i < 24; i++) {
 							a[i] = B + i;
 						}
 						model_out = new DefaultComboBoxModel<Integer>(a);
@@ -1407,7 +1439,32 @@ public class Booking extends JPanel {
 					dcs_checkout.setDate(null);
 				}
 				loai = "gio";
-				
+				if (loai.equals("gio")) {
+					if (dcs_checkout.getDate() == null)
+						return;
+					Integer[] a;
+					DefaultComboBoxModel<Integer> model_out = (DefaultComboBoxModel<Integer>) cbx_gioOut.getModel();
+					Date dateMax = new Date(dcs_checkin.getDate().getYear(), dcs_checkin.getDate().getMonth(),
+							dcs_checkin.getDate().getDate() + 1, 23, 59);
+					if (dcs_checkin.getDate().getDate() == dcs_checkout.getDate().getDate()) {
+						a = new Integer[ks.getGio()];
+						for (int i = Integer.parseInt(cbx_gioIn.getSelectedItem() + ""); i < Integer
+								.parseInt(cbx_gioIn.getSelectedItem() + "") + ks.getGio(); i++) {
+							a[i - Integer.parseInt(cbx_gioIn.getSelectedItem() + "")] = i + 1;
+						}
+						model_out = new DefaultComboBoxModel<Integer>(a);
+						cbx_gioOut.setModel(model_out);
+					} else {
+						int l = ks.getGio() - 23 + Integer.parseInt(cbx_gioIn.getSelectedItem() + "");
+						System.out.println("gia tri cua l=" + l);
+						a = new Integer[l + 1];
+						for (int i = 0; i <= l; i++) {
+							a[i] = i;
+						}
+						model_out = new DefaultComboBoxModel<Integer>(a);
+						cbx_gioOut.setModel(model_out);
+					}
+				}
 			}
 		});
 		pnl_time.add(chb_gio);
@@ -1478,7 +1535,7 @@ public class Booking extends JPanel {
 		txt_conlai.setColumns(10);
 		txt_conlai.setBounds(165, 110, 232, 29);
 		panel_1.add(txt_conlai);
-		
+
 		JLabel lbl_checkin_2_2_1 = new JLabel("Phụ trội");
 		lbl_checkin_2_2_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lbl_checkin_2_2_1.setBounds(10, 10, 151, 25);
@@ -1650,6 +1707,17 @@ public class Booking extends JPanel {
 							break;
 						}
 					}
+					for (int i = 0; i < list_new_kh.size(); i++) {
+						if (list_new_kh.get(i).getCMND().equals(tbl_khach.getValueAt(tbl_khach.getSelectedRow(), 0))) {
+							list_new_kh.remove(i);
+						}
+					}
+					for (int i = 0; i < list_choose_kh.size(); i++) {
+						if (list_choose_kh.get(i).getCMND()
+								.equals(tbl_khach.getValueAt(tbl_khach.getSelectedRow(), 0))) {
+							list_choose_kh.remove(i);
+						}
+					}
 					model_k.removeRow(tbl_khach.getSelectedRow());
 				}
 			}
@@ -1686,7 +1754,8 @@ public class Booking extends JPanel {
 			public void mouseClicked(MouseEvent e) {
 				if (tbl_ds.getSelectedRow() != -1) {
 					for (int a = 0; a < list_kh.size(); a++) {
-						System.out.println(list_kh.get(a).getMaKhachHang() +"  "+tbl_ds.getValueAt(tbl_ds.getSelectedRow(), 0));
+						System.out.println(
+								list_kh.get(a).getMaKhachHang() + "  " + tbl_ds.getValueAt(tbl_ds.getSelectedRow(), 0));
 						if (list_kh.get(a).getCMND().equals(tbl_ds.getValueAt(tbl_ds.getSelectedRow(), 0))) {
 							list_choose_kh.add(list_kh.get(a));
 							model_ds.removeRow(tbl_ds.getSelectedRow());
@@ -1772,7 +1841,7 @@ public class Booking extends JPanel {
 					JOptionPane.showMessageDialog(pnl_Phong, "Nhập đủ thông tin có dấu *");
 					return;
 				}
-				if (list_new_kh.size()+list_choose_kh.size() == 1 && chb_le.isSelected()) {
+				if (list_new_kh.size() + list_choose_kh.size() == 1 && chb_le.isSelected()) {
 					JOptionPane.showMessageDialog(pnl_Phong, "Vui lòng chọn đặt phòng đoàn để thêm hơn 1 khách");
 					return;
 				}
@@ -1874,45 +1943,60 @@ public class Booking extends JPanel {
 								public void actionPerformed(ActionEvent e) {
 									// TODO Auto-generated method stub
 									if (chb_p.isSelected()) {
-										if (chb_le.isSelected()) {
-											if (list_new_kh.size() + list_choose_kh.size() == list_p_chon.size()) {
-												JOptionPane.showMessageDialog(pnl_main,
-														"Mỗi khách được đặt tối đa 1 phòng");
-												chb_p.setSelected(false);
-												return;
-											}
-										}
+										gia = 0;
+										phutroi = 0;
+										phutroi2 = 0;
 										list_p_chon.add(list_lp.get(x).getDSPhong().get(y));
 										gia += gia(list_lp.get(x))[0];
-										phutroi+=gia(list_lp.get(x))[1];
-										phutroi2+=gia(list_lp.get(x))[2];
-										System.out.println("Phu troi "+phutroi);
-										txt_phutroi.setText(
-												String.valueOf(new BigDecimal((phutroi+phutroi2))));
-										txt_giaphong.setText(
-												String.valueOf(new BigDecimal(gia )));
-										txt_conlai.setText(String.valueOf(new BigDecimal(gia + Double.parseDouble(txt_phutroi.getText())
-												- Double.parseDouble(txt_thanhtoan.getText()))));
+										list_gia.add(Float.parseFloat(gia + ""));
+										phutroi += gia(list_lp.get(x))[1];
+										list_pt.add(Float.parseFloat(phutroi + ""));
+										phutroi2 += gia(list_lp.get(x))[2];
+										list_pt2.add(Float.parseFloat(phutroi2 + ""));
+										gia = 0;
+										phutroi = 0;
+										phutroi2 = 0;
+										for (Float G : list_gia) {
+											gia += G;
+										}
+										for (Float G : list_pt) {
+											phutroi += G;
+										}
+										for (Float G : list_pt2) {
+											phutroi2 += G;
+										}
+										txt_phutroi.setText(String.valueOf(new BigDecimal((phutroi + phutroi2))));
+										txt_giaphong.setText(String.valueOf(new BigDecimal(gia)));
+										txt_conlai.setText(String
+												.valueOf(new BigDecimal(gia + Double.parseDouble(txt_phutroi.getText())
+														- Double.parseDouble(txt_thanhtoan.getText()))));
 									} else {
-										for (int i = 0; i < list_lp.get(x).getDSPhong().size(); i++) {
-											for (int y = 0; y < list_p_chon.size(); y++) {
-												if (list_lp.get(x).getDSPhong().get(i).getMaPhong() == list_p_chon
-														.get(y).getMaPhong()) {
-													list_p_chon.remove(y);
-													System.out.println("xoa");
-												}
+										for (int y = 0; y < list_p_chon.size(); y++) {
+											if (chb_p.getText().equals( list_p_chon.get(y).getMaPhong()+"")) {
+												list_p_chon.remove(y);
+												list_gia.remove(y);
+												list_pt.remove(y);
+												list_pt2.remove(y);
 											}
 										}
 										System.out.println("lsit " + list_p_chon.size());
-										gia -= gia(list_lp.get(x))[0];
-										phutroi-=gia(list_lp.get(x))[1];
-										phutroi2-=gia(list_lp.get(x))[2];
-										txt_phutroi.setText(
-												String.valueOf(new BigDecimal((phutroi+phutroi2))));
-										txt_giaphong.setText(
-												String.valueOf(new BigDecimal(gia )));
-										txt_conlai.setText(String.valueOf(new BigDecimal(gia + Double.parseDouble(txt_phutroi.getText())
-												- Double.parseDouble(txt_thanhtoan.getText()))));
+										gia = 0;
+										phutroi = 0;
+										phutroi2 = 0;
+										for (Float G : list_gia) {
+											gia += G;
+										}
+										for (Float G : list_pt) {
+											phutroi += G;
+										}
+										for (Float G : list_pt2) {
+											phutroi2 += G;
+										}
+										txt_phutroi.setText(String.valueOf(new BigDecimal((phutroi + phutroi2))));
+										txt_giaphong.setText(String.valueOf(new BigDecimal(gia)));
+										txt_conlai.setText(String
+												.valueOf(new BigDecimal(gia + Double.parseDouble(txt_phutroi.getText())
+														- Double.parseDouble(txt_thanhtoan.getText()))));
 									}
 								}
 							});
@@ -1935,20 +2019,42 @@ public class Booking extends JPanel {
 	}
 
 	void tinhtien() {
-		gia=0;phutroi=0;phutroi2=0;
+		gia = 0;
+		phutroi = 0;
+		phutroi2 = 0;
 		for (int i = 0; i < list_lp.size(); i++) {
 			for (ModelPhong ph : list_lp.get(i).getDSPhong()) {
 				for (ModelPhong p : list_p_chon) {
 					if (ph.getMaPhong() == p.getMaPhong()) {
+						gia = 0;
+						phutroi = 0;
+						phutroi2 = 0;
 						gia += gia(list_lp.get(i))[0];
-						phutroi+=gia(list_lp.get(i))[1];
-						phutroi2+=gia(list_lp.get(i))[2];
-						txt_phutroi.setText(
-								String.valueOf(new BigDecimal((phutroi+phutroi2))));
-						txt_giaphong.setText(
-								String.valueOf(new BigDecimal(gia)));
+						phutroi += gia(list_lp.get(i))[1];
+						phutroi2 += gia(list_lp.get(i))[2];
+						list_gia.add(Float.parseFloat(gia + ""));
+						list_pt.add(Float.parseFloat(phutroi + ""));
+						list_pt2.add(Float.parseFloat(phutroi2 + ""));
+						gia = 0;
+						phutroi = 0;
+						phutroi2 = 0;
+						for (Float G : list_gia) {
+							gia += G;
+							System.out.println("GIA LA LA LA " + gia);
+						}
+						for (Float G : list_pt) {
+							phutroi += G;
+						}
+						for (Float G : list_pt2) {
+							phutroi2 += G;
+						}
+						txt_phutroi.setText(String.valueOf(new BigDecimal((phutroi + phutroi2))));
+						txt_giaphong.setText(String.valueOf(new BigDecimal(gia)));
 						txt_conlai.setText(String.valueOf(new BigDecimal(gia + Double.parseDouble(txt_phutroi.getText())
 								- Double.parseDouble(txt_thanhtoan.getText()))));
+						gia = 0;
+						phutroi = 0;
+						phutroi2 = 0;
 					}
 				}
 			}
@@ -1973,12 +2079,12 @@ public class Booking extends JPanel {
 			gin = (int) ks.getGioCheckIn() / 100;
 		else
 			gin = (int) ks.getGioCheckInDem() / 100;
-		double gia = 0, CIS = 0,COM=0;
-		if(chb_gio.isSelected()) {
-			gia+=p.getGiaTheoGio()*(cbx_gioOut.getSelectedIndex()+1);
-			return new Double[] {gia,CIS,COM};
+		double gia = 0, CIS = 0, COM = 0;
+		if (chb_gio.isSelected()) {
+			gia += p.getGiaTheoGio() * (cbx_gioOut.getSelectedIndex() + 1);
+			return new Double[] { gia, CIS, COM };
 		}
-		boolean checkInSom = true,dugio=true;
+		boolean checkInSom = true, dugio = true;
 		int gio = gioIn;
 		List<PhuTroi> dspt = p.getDsphutroi();
 		if (dspt == null)
@@ -1994,8 +2100,7 @@ public class Booking extends JPanel {
 				dsdem.add(x);
 			else if (x.getLoai().equals("checkout")) {
 				dsngayout.add(x);
-			}
-			else
+			} else
 				dsdemout.add(x);
 		}
 		int x = 0;
@@ -2004,26 +2109,26 @@ public class Booking extends JPanel {
 			if (gio == gin && checkInSom) {
 				checkInSom = false;
 				int cis = 0;
-				System.out.println("checkin som +"+i);
+				System.out.println("checkin som +" + i);
 				if (loai.equals("ngay")) {
 					cis = dsngay.size();
 					try {
-						CIS=CIS+ dsngay.get(i - 1).getPhuTroi();
-						System.out.println("cis "+CIS);
+						CIS = CIS + dsngay.get(i - 1).getPhuTroi();
+						System.out.println("cis " + CIS);
 					} catch (Exception e) {
 						if (i != 0) {
 							gia += p.getGiaPhong();
 							System.out.println("cong");
 						}
-						
+
 					}
-				}
-				else if (loai.equals("dem")) {
+				} else if (loai.equals("dem")) {
 					cis = dsdem.size();
 					try {
 						CIS += dsdem.get(i - 1).getPhuTroi();
 					} catch (Exception e) {
-						if(i!=0)gia += p.getGiaQuaDem();
+						if (i != 0)
+							gia += p.getGiaQuaDem();
 					}
 				}
 			}
@@ -2033,35 +2138,35 @@ public class Booking extends JPanel {
 			if (!checkInSom) {
 				x++;
 				if (gio == (int) (ks.getGioCheckout() / 100) && loai.equals("ngay")) {
-					dugio=!dugio;
+					dugio = !dugio;
 					gia += p.getGiaPhong();
-					System.out.println("cong gia "+p.getGiaPhong());
+					System.out.println("cong gia " + p.getGiaPhong());
 					x = 0;
 				}
 				if (gio == (int) (ks.getGioCheckOutDem() / 100) && loai.equals("dem")) {
-					dugio=!dugio;
+					dugio = !dugio;
 					gia += p.getGiaQuaDem();
 					x = 0;
 				}
 			}
-			System.out.println("Gia mid"+gia);
+			System.out.println("Gia mid" + gia);
 			if (i == hours - 1) {
-				if(dugio) {
-					if(loai.equals("dem"))gia+=p.getGiaQuaDem();
-					else if(loai.equals("ngay"))gia+=p.getGiaPhong();
-				}
-				else if (loai.equals("dem")) {
+				if (dugio) {
+					if (loai.equals("dem"))
+						gia += p.getGiaQuaDem();
+					else if (loai.equals("ngay"))
+						gia += p.getGiaPhong();
+				} else if (loai.equals("dem")) {
 					try {
-						COM=COM+dsdemout.get(x - 1).getPhuTroi();
+						COM = COM + dsdemout.get(x - 1).getPhuTroi();
 					} catch (Exception e) {
 						if (x != 0)
 							gia += p.getGiaQuaDem();
 					}
-				}
-				else if (loai.equals("ngay")) {
+				} else if (loai.equals("ngay")) {
 					try {
-						System.out.println("tinh gia"+CIS);
-						COM=COM+dsngayout.get(x - 1).getPhuTroi();
+						System.out.println("tinh gia" + CIS);
+						COM = COM + dsngayout.get(x - 1).getPhuTroi();
 					} catch (Exception e) {
 						if (x != 0)
 							gia += p.getGiaPhong();
@@ -2069,8 +2174,8 @@ public class Booking extends JPanel {
 				}
 			}
 		}
-		Double[]a=new Double[] {gia,CIS,COM};
-		System.out.println("Gia "+gia);
+		Double[] a = new Double[] { gia, CIS, COM };
+		System.out.println("Gia " + gia);
 		return a;
 	}
 }

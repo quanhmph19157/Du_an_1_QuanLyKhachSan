@@ -21,6 +21,7 @@ public class PhieuNhapKhoChiTiet implements Serializable{
 	private int soLuong;
 	private double giaNhap;
 	private String ghiChu;
+	
 	public PhieuNhapKhoChiTiet(PhieuNhapKho phieuNhapKho, DonViChiTiet donViChiTiet, int soLuong, double giaNhap,
 			String ghiChu) {
 		this.phieuNhapKho = phieuNhapKho;

@@ -8,41 +8,49 @@ import javax.persistence.OneToMany;
 import Entities.Tang;
 
 public class KhachSanModel {
-	private int maKhachSan;
-	private String tenKhachSan;
-	private String email;
+	private int maKS;
+	private String TenKhachSan;
+	private String Email;
 	private String sdt;
-	private String diaChi;
-	private List<TangModel> listTangModel;
+	private String DiaChi;
+	private int gioCheckIn;
+	private int gioCheckout;
+	private int gioCheckInDem;
+	private int gioCheckOutDem;
+	private int gio;
 	
-	public KhachSanModel(int maKhachSan, String tenKhachSan, String email, String sdt, String diaChi,
-			List<TangModel> listTangModel) {
-		this.maKhachSan = maKhachSan;
-		this.tenKhachSan = tenKhachSan;
-		this.email = email;
+	public KhachSanModel(int maKS, String tenKhachSan, String email, String sdt, String diaChi, int gioCheckIn,
+			int gioCheckout, int gioCheckInDem, int gioCheckOutDem, int gio) {
+		this.maKS = maKS;
+		TenKhachSan = tenKhachSan;
+		Email = email;
 		this.sdt = sdt;
-		this.diaChi = diaChi;
-		this.listTangModel = listTangModel;
+		DiaChi = diaChi;
+		this.gioCheckIn = gioCheckIn;
+		this.gioCheckout = gioCheckout;
+		this.gioCheckInDem = gioCheckInDem;
+		this.gioCheckOutDem = gioCheckOutDem;
+		this.gio = gio;
 	}
 	public KhachSanModel() {
 	}
-	public int getMaKhachSan() {
-		return maKhachSan;
+	public int getMaKS() {
+		return maKS;
 	}
-	public void setMaKhachSan(int maKhachSan) {
-		this.maKhachSan = maKhachSan;
+	public void setMaKS(int maKS) {
+		this.maKS = maKS;
 	}
 	public String getTenKhachSan() {
-		return tenKhachSan;
+		return TenKhachSan;
 	}
 	public void setTenKhachSan(String tenKhachSan) {
-		this.tenKhachSan = tenKhachSan;
+		TenKhachSan = tenKhachSan;
 	}
 	public String getEmail() {
-		return email;
+		return Email;
 	}
 	public void setEmail(String email) {
-		this.email = email;
+		Email = email;
 	}
 	public String getSdt() {
 		return sdt;
@@ -51,22 +59,42 @@ public class KhachSanModel {
 		this.sdt = sdt;
 	}
 	public String getDiaChi() {
-		return diaChi;
+		return DiaChi;
 	}
 	public void setDiaChi(String diaChi) {
-		this.diaChi = diaChi;
+		DiaChi = diaChi;
 	}
-	public List<TangModel> getListTangModel() {
-		return listTangModel;
+	public int getGioCheckIn() {
+		return gioCheckIn;
 	}
-	public void setListTangModel(List<TangModel> listTangModel) {
-		this.listTangModel = listTangModel;
+	public void setGioCheckIn(int gioCheckIn) {
+		this.gioCheckIn = gioCheckIn;
 	}
-	@Override
-	public String toString() {
-		return "KhachSanModel [maKhachSan=" + maKhachSan + ", tenKhachSan=" + tenKhachSan + ", email=" + email
-				+ ", sdt=" + sdt + ", diaChi=" + diaChi + "]";
+	public int getGioCheckout() {
+		return gioCheckout;
+	}
+	public void setGioCheckout(int gioCheckout) {
+		this.gioCheckout = gioCheckout;
+	}
+	public int getGioCheckInDem() {
+		return gioCheckInDem;
+	}
+	public void setGioCheckInDem(int gioCheckInDem) {
+		this.gioCheckInDem = gioCheckInDem;
+	}
+	public int getGioCheckOutDem() {
+		return gioCheckOutDem;
+	}
+	public void setGioCheckOutDem(int gioCheckOutDem) {
+		this.gioCheckOutDem = gioCheckOutDem;
+	}
+	public int getGio() {
+		return gio;
+	}
+	public void setGio(int gio) {
+		this.gio = gio;
 	}
 	
+		
 	
 }

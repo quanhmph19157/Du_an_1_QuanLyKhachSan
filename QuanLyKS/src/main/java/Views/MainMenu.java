@@ -101,6 +101,7 @@ public class MainMenu extends JFrame {
 		_userAreUsing = nhanVienModel;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1366, 834);
+		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -109,7 +110,7 @@ public class MainMenu extends JFrame {
 		panel_tong = new JPanel();
 		panel_tong.setBounds(33, 46, 1280, 750);
 		contentPane.add(panel_tong);
-		panel_tong.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		panel_tong.setLayout(null);
 		
 		
 		JMenuBar menuBar = new JMenuBar();
@@ -268,7 +269,7 @@ public class MainMenu extends JFrame {
 		JMenuItem mntmNewMenuItem_4 = new JMenuItem("Thêm phiếu nhập hàng");
 		mntmNewMenuItem_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Nhap_view nv = new Nhap_view(_userAreUsing);
+				PhieuNhapKho_view nv = new PhieuNhapKho_view(_userAreUsing);
 				nv.setVisible(true);
 			}
 		});
@@ -290,11 +291,10 @@ public class MainMenu extends JFrame {
 		menu.setBounds(172, 11, 115, 26);
 		contentPane.add(menu);
 
-		
 	}
 	
 	public void quanLyTaiKhoan(NhanVienModel nhanVienModel) {
-		panel_tong.removeAll();
+
 		JPanel contentPane_1 = new JPanel();
 		contentPane_1.setLayout(null);
 		contentPane_1.setBorder(new EmptyBorder(5, 5, 5, 5));

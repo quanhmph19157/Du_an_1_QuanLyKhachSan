@@ -1,7 +1,7 @@
 package models;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -22,6 +22,7 @@ import Entities.PhieuKiemKho;
 import Entities.PhieuNhapKho;
 
 public class NhanVienModel implements Serializable{
+	private static final long serialVersionUID = 737570641788684682L;
 	private String maNV;
 	private String tenNV;
 	private String sdt;
@@ -49,6 +50,7 @@ public class NhanVienModel implements Serializable{
 		this.password = password;
 		this.ngaySinh = ngaySinh;
 	}
+	
 	public NhanVienModel() {
 	
 	}

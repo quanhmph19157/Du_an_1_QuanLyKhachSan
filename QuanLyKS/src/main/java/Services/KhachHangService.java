@@ -15,7 +15,7 @@ public class KhachHangService{
 	private KhachHang _KhachHang;
 	private int _maxID;
 
-	public static KhachHang updateDataKhachHangDependOnKhachHangModel(KhachHangModel KhachHangModel) {
+	public static KhachHang modelToEntity(KhachHangModel KhachHangModel) {
 		KhachHang KhachHang = new KhachHang();
 		KhachHang.setMaKhachHang(KhachHangModel.getMaKhachHang());
 		KhachHang.setTenKhachHang(KhachHangModel.getTenKhachHang());
@@ -28,7 +28,7 @@ public class KhachHangService{
 		return KhachHang;
 	}
 	
-	public static KhachHangModel updateDataKhachHangModelDependOnKhachHang(KhachHang KhachHang) {
+	public static KhachHangModel entityToModel(KhachHang KhachHang) {
 		KhachHangModel KhachHangModel = new KhachHangModel();
 		KhachHangModel.setMaKhachHang(KhachHang.getMaKhachHang());
 		KhachHangModel.setTenKhachHang(KhachHang.getTenKhachHang());
@@ -41,26 +41,26 @@ public class KhachHangService{
 		return KhachHangModel;
 	}
 	
-	public static List<KhachHang> updateListKhachHangDependOnListKhachHangModel(List<KhachHangModel> listKhachHangModel) {
+	public static List<KhachHang> listModelToListEntities(List<KhachHangModel> listKhachHangModel) {
 		List<KhachHang> listKhachHang = new ArrayList<KhachHang>();
 		for (KhachHangModel KhachHangModel2 : listKhachHangModel) {
-			KhachHang KhachHang = updateDataKhachHangDependOnKhachHangModel(KhachHangModel2);
+			KhachHang KhachHang = modelToEntity(KhachHangModel2);
 			listKhachHang.add(KhachHang);
 		}
 		return listKhachHang;
 	}
 	
-	public static List<KhachHangModel> updateListKhachHangModelDependOnListKhachHang(List<KhachHang> listKhachHang) {
+	public static List<KhachHangModel> listEntitiesToListModel(List<KhachHang> listKhachHang) {
 		List<KhachHangModel> listKhachHangModel = new ArrayList<KhachHangModel>();
 		for (KhachHang KhachHang : listKhachHang) {
-			KhachHangModel KhachHangModel = updateDataKhachHangModelDependOnKhachHang(KhachHang);
+			KhachHangModel KhachHangModel = entityToModel(KhachHang);
 			listKhachHangModel.add(KhachHangModel);
 		}
 		return listKhachHangModel;
 	}
 
 	public void them_sua(KhachHangModel KhachHangModel) {
-		_KhachHang = updateDataKhachHangDependOnKhachHangModel(KhachHangModel);
+		_KhachHang = modelToEntity(KhachHangModel);
 		_KhachHangDao.them_sua(_KhachHang);
 		updateListKhachHangModel();
 	}
@@ -68,7 +68,7 @@ public class KhachHangService{
 	public void updateListKhachHangModel() {
 		_KhachHangDao.updateListKhachHang();
 		List<KhachHang> listKhachHang = _KhachHangDao.getListKhachHang();
-		_listKhachHangModels = updateListKhachHangModelDependOnListKhachHang(listKhachHang);
+		_listKhachHangModels = listEntitiesToListModel(listKhachHang);
 		//_maxID = _KhachHangDao.getMaxID();
 	}
 

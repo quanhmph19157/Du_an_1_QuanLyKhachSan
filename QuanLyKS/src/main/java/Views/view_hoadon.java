@@ -7,7 +7,11 @@ import javax.swing.border.TitledBorder;
 import javax.swing.border.EtchedBorder;
 import java.awt.Color;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -17,6 +21,7 @@ import javax.swing.table.DefaultTableModel;
 
 import Entities.PhuTroi;
 import Services.DichVuPhongService;
+import Services.HoaDon_services;
 import Services.KhachTrongPhong_services;
 import Services.PhuPhiService;
 import Services.ThanhToan_services;
@@ -30,7 +35,7 @@ import models.PhuPhiModel;
 import javax.swing.JCheckBox;
 import javax.swing.JButton;
 
-public class view_hoadon extends JFrame {
+public class view_hoadon extends JPanel {
 	private JTable tbl_phong;
 	private JTable tbl_dichvu;
 	private JTable tbl_phutroi;
@@ -64,12 +69,11 @@ public class view_hoadon extends JFrame {
 	ModelHoaDon hd;
 
 	public view_hoadon(ModelHoaDon hd) {
-		getContentPane().setBackground(Color.WHITE);
+		setBackground(Color.WHITE);
 		this.hd = hd;
 		list_tt = ser_tt.getList(hd.getMaHoaDon());
-		setDefaultCloseOperation(2);
 		setSize(1280, 720);
-		getContentPane().setLayout(null);
+		setLayout(null);
 
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.WHITE);
@@ -77,7 +81,7 @@ public class view_hoadon extends JFrame {
 				new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)),
 				"H\u00F3a \u0111\u01A1n", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		panel.setBounds(10, 10, 810, 663);
-		getContentPane().add(panel);
+		add(panel);
 		panel.setLayout(null);
 
 		JLabel lblNewLabel = new JLabel("Phòng");
@@ -95,7 +99,7 @@ public class view_hoadon extends JFrame {
 		lblPhTri.setBounds(10, 332, 194, 19);
 		panel.add(lblPhTri);
 
-		JLabel lblPhPh = new JLabel("Phụ phí");
+		final JLabel lblPhPh = new JLabel("Phụ phí");
 		lblPhPh.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblPhPh.setBounds(427, 332, 194, 19);
 		panel.add(lblPhPh);
@@ -137,7 +141,7 @@ public class view_hoadon extends JFrame {
 		panel_1.setBorder(
 				new TitledBorder(null, "Thanh to\u00E1n", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel_1.setBounds(830, 10, 426, 317);
-		getContentPane().add(panel_1);
+		add(panel_1);
 		panel_1.setLayout(null);
 
 		JScrollPane scrollPane_1_1 = new JScrollPane();
@@ -151,86 +155,100 @@ public class view_hoadon extends JFrame {
 		JLabel lblNewLabel_1 = new JLabel("Dịch vụ");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 24));
 		lblNewLabel_1.setBounds(830, 438, 195, 29);
-		getContentPane().add(lblNewLabel_1);
+		add(lblNewLabel_1);
 		
 		JLabel lblNewLabel_1_1 = new JLabel("Còn lại:");
 		lblNewLabel_1_1.setFont(new Font("Tahoma", Font.PLAIN, 24));
 		lblNewLabel_1_1.setBounds(830, 594, 195, 29);
-		getContentPane().add(lblNewLabel_1_1);
+		add(lblNewLabel_1_1);
 		
 		JLabel lblNewLabel_1_2 = new JLabel("Thanh Toán: ");
 		lblNewLabel_1_2.setFont(new Font("Tahoma", Font.PLAIN, 24));
 		lblNewLabel_1_2.setBounds(830, 555, 195, 29);
-		getContentPane().add(lblNewLabel_1_2);
+		add(lblNewLabel_1_2);
 		
 		JLabel lblNewLabel_1_3 = new JLabel("Tổng cộng");
 		lblNewLabel_1_3.setFont(new Font("Tahoma", Font.PLAIN, 24));
 		lblNewLabel_1_3.setBounds(830, 516, 195, 29);
-		getContentPane().add(lblNewLabel_1_3);
+		add(lblNewLabel_1_3);
 		
 		JLabel lblNewLabel_1_4 = new JLabel("Phụ phí");
 		lblNewLabel_1_4.setFont(new Font("Tahoma", Font.PLAIN, 24));
 		lblNewLabel_1_4.setBounds(830, 477, 195, 29);
-		getContentPane().add(lblNewLabel_1_4);
+		add(lblNewLabel_1_4);
 		
 		JLabel lblNewLabel_1_5 = new JLabel("Tiền phòng");
 		lblNewLabel_1_5.setFont(new Font("Tahoma", Font.PLAIN, 24));
 		lblNewLabel_1_5.setBounds(830, 337, 195, 29);
-		getContentPane().add(lblNewLabel_1_5);
+		add(lblNewLabel_1_5);
 		
 		JCheckBox chckbxNewCheckBox = new JCheckBox("Check out muộn");
 		chckbxNewCheckBox.setFont(new Font("Tahoma", Font.PLAIN, 24));
 		chckbxNewCheckBox.setBounds(826, 403, 199, 29);
-		getContentPane().add(chckbxNewCheckBox);
+		add(chckbxNewCheckBox);
 		
 		JCheckBox chckbxNewCheckBox_1 = new JCheckBox("Check in sớm");
 		chckbxNewCheckBox_1.setFont(new Font("Tahoma", Font.PLAIN, 24));
 		chckbxNewCheckBox_1.setBounds(826, 372, 199, 29);
-		getContentPane().add(chckbxNewCheckBox_1);
+		add(chckbxNewCheckBox_1);
 		
 		
 		tienphong.setFont(new Font("Tahoma", Font.PLAIN, 24));
 		tienphong.setBounds(1047, 337, 195, 29);
-		getContentPane().add(tienphong);
+		add(tienphong);
 		
 		
 		checkinsom.setFont(new Font("Tahoma", Font.PLAIN, 24));
 		checkinsom.setBounds(1047, 372, 195, 29);
-		getContentPane().add(checkinsom);
+		add(checkinsom);
 		
 		
 		checkoutmuon.setFont(new Font("Tahoma", Font.PLAIN, 24));
 		checkoutmuon.setBounds(1047, 403, 195, 29);
-		getContentPane().add(checkoutmuon);
+		add(checkoutmuon);
 		
 		
 		dichvu.setFont(new Font("Tahoma", Font.PLAIN, 24));
 		dichvu.setBounds(1047, 438, 195, 29);
-		getContentPane().add(dichvu);
+		add(dichvu);
 		
 		
 		phuphi.setFont(new Font("Tahoma", Font.PLAIN, 24));
 		phuphi.setBounds(1047, 477, 195, 29);
-		getContentPane().add(phuphi);
+		add(phuphi);
 		
 		
 		tongcong.setFont(new Font("Tahoma", Font.PLAIN, 24));
 		tongcong.setBounds(1047, 516, 195, 29);
-		getContentPane().add(tongcong);
+		add(tongcong);
 		
 		
 		thanhtoan.setFont(new Font("Tahoma", Font.PLAIN, 24));
 		thanhtoan.setBounds(1047, 555, 195, 29);
-		getContentPane().add(thanhtoan);
+		add(thanhtoan);
 		
 		conlai.setFont(new Font("Tahoma", Font.PLAIN, 24));
 		conlai.setBounds(1047, 594, 195, 29);
-		getContentPane().add(conlai);
+		add(conlai);
 		
-		JButton btn_checkout = new JButton("Trả phòng");
+		final JButton btn_checkout = new JButton("Trả phòng");
+		final ModelHoaDon hoadon=hd;
+		btn_checkout.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				HoaDon_services ser=new HoaDon_services();
+				int a=JOptionPane.showConfirmDialog(lblPhPh, "Bạn có muốn check out ?");
+				if(a!=0)return;
+				hoadon.setTrangThai("checkout");
+				ser.save(hoadon, false);
+				JOptionPane.showMessageDialog(lblPhPh, "checkout thành công");
+			}
+		});
 		btn_checkout.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btn_checkout.setBounds(971, 633, 142, 29);
-		getContentPane().add(btn_checkout);
+		add(btn_checkout);
 		
 		adddata();
 	}
@@ -247,7 +265,7 @@ public class view_hoadon extends JFrame {
 		for (ModelKhachTrongPhong x : list_ktp) {
 			if (x.getHoadon().getMaHoaDon() == hd.getMaHoaDon()) {
 				stt++;
-				model_p.addRow(new Object[] { stt, x.getPhong().getMaPhong(),x.getPhong().getLoaiphong(), x.getGiaPhong() });
+				model_p.addRow(new Object[] { stt, x.getPhong().getMaPhong(),x.getPhong().getLoaiphong().getTenLoai(), x.getGiaPhong() });
 				tien+=x.getGiaPhong();
 			}
 		}

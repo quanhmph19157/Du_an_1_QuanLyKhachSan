@@ -25,7 +25,6 @@ public class KhachTrongPhong implements Serializable{
 	private List<DichVuPhong> dsdichvu;
 	private float GiaPhong;
 	private float PhuTroi;
-	private float PhuTroi2;
 	@OneToMany (mappedBy = "khachTrongPhong")
 	private List<PhuPhi> dsPhuPhi;
 	private float PhuPhi;
@@ -56,21 +55,6 @@ public class KhachTrongPhong implements Serializable{
 		this.PhuTroi=PhuTroi;
 	}
 	
-	public KhachTrongPhong(int id, HoaDon hoadon, Phong phong, float giaPhong,float PhuTroi,float phutroi2, float phuPhi,
-			String ghiChu) {
-		super();
-		this.id = id;
-		this.hoadon = hoadon;
-		this.phong = phong;
-		GiaPhong = giaPhong;
-		PhuPhi = phuPhi;
-		GhiChu = ghiChu;
-		this.PhuTroi=PhuTroi;
-		this.PhuTroi2=phutroi2;
-	}
-	
-	
-	
 	public KhachTrongPhong(int id, HoaDon hoadon, Phong phong) {
 		super();
 		this.id = id;
@@ -88,17 +72,6 @@ public class KhachTrongPhong implements Serializable{
 		PhuPhi = phuPhi;
 		GhiChu = ghiChu;
 		this.PhuTroi=PhuTroi;
-	}
-	
-	public KhachTrongPhong(HoaDon hoadon, Phong phong, float giaPhong,float PhuTroi,float phutroi2, float phuPhi, String ghiChu) {
-		super();
-		this.hoadon = hoadon;
-		this.phong = phong;
-		GiaPhong = giaPhong;
-		PhuPhi = phuPhi;
-		GhiChu = ghiChu;
-		this.PhuTroi=PhuTroi;
-		this.PhuTroi2=phutroi2;
 	}
 
 
@@ -188,5 +161,27 @@ public class KhachTrongPhong implements Serializable{
 		PhuTroi2 = phuTroi2;
 	}
 	
-	
+	private float PhuTroi2;
+	public KhachTrongPhong(int id, HoaDon hoadon, Phong phong, float giaPhong,float PhuTroi,float phutroi2, float phuPhi,
+			String ghiChu) {
+		super();
+		this.id = id;
+		this.hoadon = hoadon;
+		this.phong = phong;
+		GiaPhong = giaPhong;
+		PhuPhi = phuPhi;
+		GhiChu = ghiChu;
+		this.PhuTroi=PhuTroi;
+		this.PhuTroi2=phutroi2;
+	}
+	public KhachTrongPhong(HoaDon hoadon, Phong phong, float giaPhong,float PhuTroi,float phutroi2, float phuPhi, String ghiChu) {
+		super();
+		this.hoadon = hoadon;
+		this.phong = phong;
+		GiaPhong = giaPhong;
+		PhuPhi = phuPhi;
+		GhiChu = ghiChu;
+		this.PhuTroi=PhuTroi;
+		this.PhuTroi2=phutroi2;
+	}
 }

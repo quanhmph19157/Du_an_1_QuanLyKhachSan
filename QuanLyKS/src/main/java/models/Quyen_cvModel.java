@@ -8,6 +8,7 @@ import Entities.Quyen;
 public class Quyen_cvModel {
 	private QuyenModel quyenModel;
 	private ChucVuModel chucVuModel;
+	
 	public Quyen_cvModel(QuyenModel quyenModel, ChucVuModel chucVuModel) {
 		this.quyenModel = quyenModel;
 		this.chucVuModel = chucVuModel;
