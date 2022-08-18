@@ -80,6 +80,7 @@ import Repositories.dao_khachTrongPhong;
 
 public class QuanLyThuePhong extends JFrame {
 	JFrame framepp;
+	JFrame framethd;
 	JPanel pnl_main = new JPanel();
 	JPanel pnl_chinh = new JPanel();
 	JPanel pnl_aside = new JPanel();
@@ -302,7 +303,7 @@ public class QuanLyThuePhong extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				date = LocalDate.now();
-				model.setDate(date.getYear(), date.getMonthValue(), date.getDayOfMonth());
+				model.setDate(date.getYear(), date.getMonthValue()-1, date.getDayOfMonth());
 				model.setSelected(true);
 			}
 		});
@@ -860,11 +861,33 @@ public class QuanLyThuePhong extends JFrame {
 										JMenuItem menu_2 = new JMenuItem("chuyển phòng");
 										JMenuItem menu_3 = new JMenuItem("đặt dịch vụ");
 										JMenuItem menu_4 = new JMenuItem("thêm phụ phí");
+										JMenuItem menu_5 = new JMenuItem("tách hóa đơn");
+										menu_5.addActionListener(new ActionListener() {
+											
+											@Override
+											public void actionPerformed(ActionEvent e) {
+												// TODO Auto-generated method stub
+												for (ModelHoaDon mhd : list_hd) {
+													if (k.getHoadon().getMaHoaDon() == mhd.getMaHoaDon()) {
+														hd = mhd;
+														break;
+													}
+												}
+												if(framethd==null)framethd=new View_tachHd(hd);
+												framethd.setVisible(true);
+											}
+										});
 										menu_4.addActionListener(new ActionListener() {
 											
 											@Override
 											public void actionPerformed(ActionEvent e) {
 												// TODO Auto-generated method stub
+												for (ModelHoaDon mhd : list_hd) {
+													if (k.getHoadon().getMaHoaDon() == mhd.getMaHoaDon()) {
+														hd = mhd;
+														break;
+													}
+												}
 												HoaDonModel hdmd=new HoaDonModel();
 												hdmd.setMaHoaDon(k.getHoadon().getMaHoaDon());
 												PhongModel pm=new PhongModel();
@@ -927,6 +950,15 @@ public class QuanLyThuePhong extends JFrame {
 										menuCI.add(menu_2);
 										menuCI.add(menu_3);
 										menuCI.add(menu_4);
+										for (ModelHoaDon mhd : list_hd) {
+											if (k.getHoadon().getMaHoaDon() == mhd.getMaHoaDon()) {
+												hd = mhd;
+												break;
+											}
+										}
+										if(hd.getDskhachhang().size()>1&&hd.getDskhactrongphong().size()>1) {
+											menuCI.add(menu_5);
+										}
 									}
 									JMenuItem itemRahan = new JMenuItem("Gia hạn");
 									itemRahan.addActionListener(new ActionListener() {

@@ -1561,6 +1561,7 @@ public class Booking extends JPanel {
 					tien = JOptionPane.showInputDialog("nhập số tiền!");
 					if (Integer.parseInt(tien) <= 0) {
 						JOptionPane.showMessageDialog(pnl_Phong, "số tiền nhập không hợp lệ");
+						return;
 					}
 				} catch (Exception ex) {
 					JOptionPane.showMessageDialog(pnl_Phong, "số tiền nhập không hợp lệ");
