@@ -92,9 +92,7 @@ public class SanPhamVaDichVuModel {
 	}
 	@Override
 	public String toString() {
-		return "SanPhamVaDichVuModel [maDichVu=" + maDichVu + ", tenHangHoa=" + tenHangHoa + ", nhomSPVaDichVuModel="
-				+ nhomSPVaDichVuModel + ", soLuongTon=" + soLuongTon + ", giaVon=" + giaVon + ", khoModel=" + khoModel
-				+ ", moTa=" + moTa + ", trangThai=" + trangThai + "]";
+		return 	maDichVu + "/" + tenHangHoa +"/"+ nhomSPVaDichVuModel + "/" + soLuongTon + "/" + giaVon + "/" + khoModel+ "/" + moTa + "/" + trangThai;
 	}
 
 	
