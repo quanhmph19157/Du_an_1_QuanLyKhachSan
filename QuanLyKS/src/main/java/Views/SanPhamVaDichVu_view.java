@@ -973,7 +973,7 @@ public class SanPhamVaDichVu_view extends JFrame {
 			for (SanPhamVaDichVuModel spvdvm : listSPVDVM) {
 				String sapXep = cbx_sapXep.getSelectedItem().toString();
 				model.addRow(new Object[] {stt, spvdvm.getMaDichVu(), spvdvm.getTenHangHoa() , spvdvm.getNhomSPVaDichVuModel().getTenNhomSP(), spvdvm.getSoLuongTon(), spvdvm.getGiaVon(), spvdvm.getKhoModel().getTenKho() , spvdvm.getTrangThai()});
-			
+				stt++;
 			}
 			
 		table_danhSachSanPhamVaDichVu.setModel(model);
