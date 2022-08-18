@@ -51,8 +51,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
-import javax.swing.event.CaretListener;
-import javax.swing.event.CaretEvent;
 
 public class NhanVien_view extends JFrame {
 //	private IoCContainer _ioCContainer  = new IoCContainer();
@@ -67,7 +65,7 @@ public class NhanVien_view extends JFrame {
 	private boolean _thaoTac = true;
 	
 	private JPanel contentPane;
-	private JTextField txt_timKiem;
+	private JTextField textField;
 	private JTable table;
 	private JTextField txt_maNhanVien;
 	private JTextField txt_tenNhanVien;
@@ -303,26 +301,10 @@ public class NhanVien_view extends JFrame {
 		tabbedPane.addTab("Danh sách", null, panel_1, null);
 		panel_1.setLayout(null);
 		
-		txt_timKiem = new JTextField();
-		txt_timKiem.addFocusListener(new FocusAdapter() {
-			@Override
-			public void focusGained(FocusEvent e) {
-				Utilities.setTextFocusGained(txt_timKiem, "Nhập thông tin bạn muốn tìm");
-			}
-			@Override
-			public void focusLost(FocusEvent e) {
-				Utilities.setTextFocusLost(txt_timKiem, "Nhập thông tin bạn muốn tìm");
-			}
-		});
-		txt_timKiem.setText("Nhập thông tin bạn muốn tìm");
-		txt_timKiem.addCaretListener(new CaretListener() {
-			public void caretUpdate(CaretEvent e) {
-				updateTable();
-			}
-		});
-		txt_timKiem.setBounds(51, 22, 1044, 36);
-		panel_1.add(txt_timKiem);
-		txt_timKiem.setColumns(10);
+		textField = new JTextField();
+		textField.setBounds(51, 22, 1044, 36);
+		panel_1.add(textField);
+		textField.setColumns(10);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 69, 1239, 493);
@@ -402,6 +384,7 @@ public class NhanVien_view extends JFrame {
 			return;
 		}
 		String maNhanVien = Utilities.getIdByNameAndID(_maxID, tenNhanVien);
+//		txt_maNhanVien.setText(maNhanVien);
 		txt_taiKhoan.setText(maNhanVien);
 	}
 	
@@ -412,6 +395,7 @@ public class NhanVien_view extends JFrame {
 		buttonGroup.clearSelection();
 		txt_email.setText("");
 		cbx_chucVu.setSelectedIndex(0);
+//		txt_diaChi.setText("");
 		dateChooser_ngaySinh.setDate(null);
 		txt_cmnd.setText("");
 		txt_matKhau.setText("");
@@ -434,10 +418,10 @@ public class NhanVien_view extends JFrame {
 		txt_email.setText(_listNhanVienModels.get(_sttNhanVienEditing).getEmail());
 		String chucVu = _listNhanVienModels.get(_sttNhanVienEditing).getChucVuModel().getTenChucVu();
 		cbx_chucVu.setSelectedItem(chucVu);
+//		txt_diaChi.setText(_listNhanVienModels.get(_sttNhanVienEditing).getDiaChi());
 		Date date = new Date(Utilities.splitYear(_listNhanVienModels.get(_sttNhanVienEditing).getNgaySinh()+"")-1900, Utilities.splitMonth(_listNhanVienModels.get(_sttNhanVienEditing).getNgaySinh()+"")-1, Utilities.splitDate(_listNhanVienModels.get(_sttNhanVienEditing).getNgaySinh()+""));
 		dateChooser_ngaySinh.setDate(date);
 		txt_cmnd.setText(_listNhanVienModels.get(_sttNhanVienEditing).getCmnd());
-		txt_taiKhoan.setText(_listNhanVienModels.get(_sttNhanVienEditing).getUserName());
 		txt_matKhau.setText(_listNhanVienModels.get(_sttNhanVienEditing).getPassword());
 		txt_matKhau.setEditable(false);
 		btn_them.setEnabled(false);
@@ -457,42 +441,31 @@ public class NhanVien_view extends JFrame {
 		model.addColumn("Cmnd");
 		model.addColumn("Mật khẩu");
 		model.addColumn("Trạng thái");
-		List<NhanVienModel> listNVM = _nhanVienService.getListNhanVienModel();
-		_listNhanVienModels = new ArrayList<NhanVienModel>();
+		_listNhanVienModels = _nhanVienService.getListNhanVienModel();
 		int stt= 1;
 		
 		String trangThai = cbx_trangThai_danhSach.getSelectedItem().toString();
-
 		if(trangThai.equals("Tất cả")) {
-			for (NhanVienModel nhanVienModel : listNVM) {
-				_listNhanVienModels.add(nhanVienModel);
+			for (NhanVienModel nhanVienModel : _listNhanVienModels) {
+				model.addRow(new Object[] {stt,nhanVienModel.getTenNV(),nhanVienModel.getSdt(),nhanVienModel.getGioiTinh(),nhanVienModel.getEmail(),nhanVienModel.getChucVuModel().getTenChucVu(),nhanVienModel.getNgaySinh(),nhanVienModel.getCmnd(),nhanVienModel.getPassword(),nhanVienModel.getTrangThai()});
+				stt++;
 			}
 		}
 		if(trangThai.equals("Hoat Dong")) {
-			for (NhanVienModel nhanVienModel : listNVM) {
+			for (NhanVienModel nhanVienModel : _listNhanVienModels) {
 				if(nhanVienModel.getTrangThai().equals("Hoat Dong")) {
-					_listNhanVienModels.add(nhanVienModel);
+					model.addRow(new Object[] {stt,nhanVienModel.getTenNV(),nhanVienModel.getSdt(),nhanVienModel.getGioiTinh(),nhanVienModel.getEmail(),nhanVienModel.getChucVuModel().getTenChucVu(),nhanVienModel.getNgaySinh(),nhanVienModel.getCmnd(),nhanVienModel.getPassword(),nhanVienModel.getTrangThai()});
+					stt++;
 				}
 			}
 		}
 		if(trangThai.equals("Khong Hoat Dong")) {
-			for (NhanVienModel nhanVienModel : listNVM) {
+			for (NhanVienModel nhanVienModel : _listNhanVienModels) {
 				if(nhanVienModel.getTrangThai().equals("Khong Hoat Dong")) {
-					_listNhanVienModels.add(nhanVienModel);
-				}
-			}
-		}
-		
-		String keySearch = txt_timKiem.getText().trim();
-		for (NhanVienModel nhanVienModel : _listNhanVienModels) {
-			if(keySearch.equals("") || keySearch.equals("Nhập thông tin bạn muốn tìm")) {
-				model.addRow(new Object[] {stt,nhanVienModel.getTenNV(),nhanVienModel.getSdt(),nhanVienModel.getGioiTinh(),nhanVienModel.getEmail(),nhanVienModel.getChucVuModel().getTenChucVu(),nhanVienModel.getNgaySinh(),nhanVienModel.getCmnd(),nhanVienModel.getPassword(),nhanVienModel.getTrangThai()});
-			}else {
-				if(nhanVienModel.toString().toLowerCase().indexOf(keySearch.toLowerCase())>=0) {
 					model.addRow(new Object[] {stt,nhanVienModel.getTenNV(),nhanVienModel.getSdt(),nhanVienModel.getGioiTinh(),nhanVienModel.getEmail(),nhanVienModel.getChucVuModel().getTenChucVu(),nhanVienModel.getNgaySinh(),nhanVienModel.getCmnd(),nhanVienModel.getPassword(),nhanVienModel.getTrangThai()});
+					stt++;
 				}
 			}
-			stt++;
 		}
 		table.setModel(model);
 	}
@@ -562,6 +535,7 @@ public class NhanVien_view extends JFrame {
 		ChucVuModel chucVuModel = _listChucVuModels.get(chucVu_form-1);
 		int maChucVu = Integer.parseInt(chucVuModel.getMaChucVu());
 		
+//		String diaChi = txt_diaChi.getText().trim();
 		String ngaySinh ="";
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		try {

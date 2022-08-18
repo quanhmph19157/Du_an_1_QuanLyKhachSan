@@ -3,14 +3,13 @@ package models;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.swing.JPanel;
-
 
 
 public class ChucVuModel implements Serializable{
 	private String maChucVu;
 	private String tenChucVu;
 	private String trangThai;
+	
 	
 	
 	public ChucVuModel(String maChucVu2, String tenChucVu, String trangThai) {

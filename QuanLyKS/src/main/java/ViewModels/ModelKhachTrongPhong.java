@@ -17,16 +17,18 @@ public class ModelKhachTrongPhong {
 	private float GiaPhong;
 	private float PhuPhi;
 	private float PhuTroi;
+	private float phutroi2;
 	private String GhiChu;
 	
-	public ModelKhachTrongPhong( float giaPhong, float phuPhi,float PhuTroi, String ghiChu) {
+	public ModelKhachTrongPhong( float giaPhong, float phuPhi,float PhuTroi,float phutroi2, String ghiChu) {
 		GiaPhong = giaPhong;
 		PhuPhi = phuPhi;
 		GhiChu = ghiChu;
 		this.PhuTroi=PhuTroi;
+		this.phutroi2=phutroi2;
 	}
 	
-	public ModelKhachTrongPhong(int id, ModelHoaDon hoadon, ModelPhong phong, float giaPhong,float PhuTroi, float phuPhi,
+	public ModelKhachTrongPhong(int id, ModelHoaDon hoadon, ModelPhong phong, float giaPhong,float PhuTroi,float phutroi2, float phuPhi,
 			String ghiChu) {
 		super();
 		this.id = id;
@@ -36,6 +38,7 @@ public class ModelKhachTrongPhong {
 		PhuPhi = phuPhi;
 		GhiChu = ghiChu;
 		this.PhuTroi=PhuTroi;
+		this.phutroi2=phutroi2;
 	}
 	
 	
@@ -61,6 +64,14 @@ public class ModelKhachTrongPhong {
 
 	public ModelHoaDon getHoadon() {
 		return hoadon;
+	}
+
+	public float getPhutroi2() {
+		return phutroi2;
+	}
+
+	public void setPhutroi2(float phutroi2) {
+		this.phutroi2 = phutroi2;
 	}
 
 	public void setHoadon(ModelHoaDon hoadon) {
