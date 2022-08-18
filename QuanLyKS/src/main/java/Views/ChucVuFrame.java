@@ -1,4 +1,4 @@
-package Views;
+package view;
 
 import java.awt.EventQueue;
 
@@ -14,15 +14,15 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
 
-import dao.ChucVuDao;
-import Entities.ChucVu;
+import Dao.ChucVuDao;
+import entities.ChucVu;
 
 import javax.swing.JTable;
 import javax.swing.JButton;
 import java.util.ArrayList;
 import java.util.List;
 import models.ChucVuModel;
-import Services.ChucVuService;
+import services.ChucVuService;
 import utils.IoCContainer;
 
 import javax.swing.JScrollPane;
