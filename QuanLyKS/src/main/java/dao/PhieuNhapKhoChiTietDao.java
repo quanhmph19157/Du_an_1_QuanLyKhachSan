@@ -13,7 +13,7 @@ public class PhieuNhapKhoChiTietDao{
 	public void them_sua(PhieuNhapKhoChiTiet phieuNhapKhoChiTiet) {
 		Session session = new DB_Connection().getSession();
 		session.beginTransaction();
-		session.save(phieuNhapKhoChiTiet);
+		session.saveOrUpdate(phieuNhapKhoChiTiet);
 		session.getTransaction().commit();
 		session.close();
 	}

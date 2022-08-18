@@ -6,14 +6,21 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import utils.Utilities;
+
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import java.awt.Color;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class DoiMatKhau_view extends JFrame {
 
@@ -67,7 +74,7 @@ public class DoiMatKhau_view extends JFrame {
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
 		panel_1.add(lblNewLabel);
 		
-		JLabel lblNewLabel_1 = new JLabel("T\u00CAN NH\u00C2N VI\u00CAN");
+		JLabel lblNewLabel_1 = new JLabel("TÀI KHOẢN");
 		lblNewLabel_1.setBounds(10, 89, 164, 38);
 		panel.add(lblNewLabel_1);
 		
@@ -104,6 +111,11 @@ public class DoiMatKhau_view extends JFrame {
 		panel.add(lblNewLabel_1_3);
 		
 		JButton btnNewButton = new JButton("L\u01AFU");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			
+			}
+		});
 		btnNewButton.setBackground(Color.WHITE);
 		btnNewButton.setBounds(283, 353, 133, 30);
 		panel.add(btnNewButton);

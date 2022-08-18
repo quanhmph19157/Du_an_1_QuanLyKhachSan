@@ -63,8 +63,8 @@ public class view_hoadon extends JPanel {
 
 	List<ModelKhachTrongPhong> list_ktp = ser_ktp.getList();
 	List<ModelThanhToan> list_tt;
-	List<PhuPhiModel> list_pp;
-	List<DichVuPhongModel> list_dv;
+	List<PhuPhiModel> list_pp=ser_phu.getListPhuPhiModel();
+	List<DichVuPhongModel> list_dv=ser_dvp.getListDichVuPhongModel();
 
 	ModelHoaDon hd;
 
@@ -72,10 +72,6 @@ public class view_hoadon extends JPanel {
 		setBackground(Color.WHITE);
 		this.hd = hd;
 		list_tt = ser_tt.getList(hd.getMaHoaDon());
-		ser_phu.updateListPhuPhiModel();
-		ser_dvp.updateListDichVuPhongModel();
-		list_pp=ser_phu.getListPhuPhiModel();
-		list_dv=ser_dvp.getListDichVuPhongModel();
 		setSize(1280, 720);
 		setLayout(null);
 
@@ -306,7 +302,6 @@ public class view_hoadon extends JPanel {
 		
 		stt=0;
 		for(PhuPhiModel x:list_pp) {
-			System.out.println("ma hoa don"+x.getKhachTrongPhongModel().getHoaDonModel().getMaHoaDon());
 			if(x.getKhachTrongPhongModel().getHoaDonModel().getMaHoaDon()==hd.getMaHoaDon()) {
 				model_pht.addRow(new Object[] { stt, x.getSoTien(),x.getGhiChu()});
 				stt++;
