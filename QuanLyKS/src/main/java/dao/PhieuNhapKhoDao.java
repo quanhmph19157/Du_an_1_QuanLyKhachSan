@@ -17,7 +17,7 @@ private static ArrayList<PhieuNhapKho> _listPhieuNhapKhos = new ArrayList<PhieuN
 	public void them_sua(PhieuNhapKho phieuNhapKho) {
 		Session session = new DB_Connection().getSession();
 		session.beginTransaction();
-		session.save(phieuNhapKho);
+		session.saveOrUpdate(phieuNhapKho);
 		session.getTransaction().commit();
 		session.close();
 	}
