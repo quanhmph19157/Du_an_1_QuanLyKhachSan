@@ -47,6 +47,7 @@ public class DangNhap extends JFrame {
 	private NhanVienModel _userAreUsing;
 	private static String _passwordStatus = "hide";
 	private static ArrayList<NhanVienModel> _listAccount;
+	
 	private JPanel contentPane;
 	private JPasswordField txt_matKhau;
 	private static DangNhap frame;

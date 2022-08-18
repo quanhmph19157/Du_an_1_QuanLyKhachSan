@@ -1,8 +1,7 @@
 /META-INF/
 /Views/
-<<<<<<< Updated upstream
-=======
 /models/
 /dao/
 /Utinities/
->>>>>>> Stashed changes
+/Services/
+/utils/

@@ -121,9 +121,7 @@ public class NhanVienModel implements Serializable{
 	}
 	@Override
 	public String toString() {
-		return "NhanVienModel [maNV=" + maNV + ", tenNV=" + tenNV + ", sdt=" + sdt + ", gioiTinh=" + gioiTinh
-				+ ", email=" + email + ", chucVuModel=" + chucVuModel + ", trangThai=" + trangThai + ", cmnd=" + cmnd
-				+ ", userName=" + userName + ", password=" + password + ", ngaySinh=" + ngaySinh + "]";
+		return maNV + "/" + tenNV + "/" + sdt + "/" + gioiTinh+ "/" + email + "/" + chucVuModel + "/" + trangThai + "/"  + cmnd	+ "/" + userName + "/" + password + "/" + ngaySinh ;
 	}
 	
 	
