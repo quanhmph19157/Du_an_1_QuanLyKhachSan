@@ -5,13 +5,52 @@ import java.util.List;
 
 import dao.ChucVuDao;
 import Entities.ChucVu;
+import Repositories.IRepository;
+import Repositories.dao_ChucVu;
+import ViewModels.ModelChucVu;
 import models.ChucVuModel;
+
 public class ChucVuService {
-	private List<ChucVuModel> _listChucVuModels = new ArrayList<ChucVuModel>();
-	private ChucVuDao _chucVuDao = new ChucVuDao();
-	private ChucVu _chucVu;
-	private ChucVuModel _chucModel;
-	
+	List<ChucVuModel> _listChucVuModels = new ArrayList<ChucVuModel>();
+	ChucVuDao _chucVuDao = new ChucVuDao();
+	ChucVu _chucVu;
+	ChucVuModel _chucModel;
+
+	// TIENTVPH18954
+	IRepository _chuIRepository;
+	List<ChucVuModel> listChucVus;
+
+	public ChucVuService() {
+		_chuIRepository = new dao_ChucVu();
+		listChucVus = new ArrayList<>();
+	}
+
+	public List<ModelChucVu> SelectAll() {
+		List<ModelChucVu> listChucVus = new ArrayList<>();
+		List<ChucVu> lst = _chuIRepository.SelectAll();
+		System.out.println(lst.size());
+		for (ChucVu x : lst) {
+			listChucVus.add(new ModelChucVu(x.getMaChucVu(), x.getTenChucVu()));
+		}
+		return listChucVus;
+	}
+
+	public ModelChucVu save(ModelChucVu chucVu) {
+		ChucVu cv = (ChucVu) _chuIRepository.save(new ChucVu(chucVu.getMaChucVu(), chucVu.getTenChucVu()));
+		return chucVu;
+	}
+
+	public ModelChucVu findById(String ma) {
+		ChucVu x = (ChucVu) _chuIRepository.findById(ma);
+		return new ModelChucVu(x.getMaChucVu(), x.getTenChucVu());
+	}
+
+	public List<ChucVuModel> findList(String ma) {
+		return listChucVus;
+	}
+
+	// end TIENTVPH18954.
+
 	public static ChucVu modelToEntity(ChucVuModel chucVuModel) {
 		ChucVu chucVu = new ChucVu();
 		chucVu.setMaChucVu(chucVuModel.getMaChucVu());
@@ -27,10 +66,8 @@ public class ChucVuService {
 		chucVuModel.setTrangThai(chucVu.getTrangThai());
 		return chucVuModel;
 	}
-	
-	
-	
-	public static List<ChucVuModel> listEntitiesToListModel (List<ChucVu> listChucVu){
+
+	public static List<ChucVuModel> listEntitiesToListModel(List<ChucVu> listChucVu) {
 		List<ChucVuModel> listChucVuModel = new ArrayList<ChucVuModel>();
 		for (ChucVu chucVu : listChucVu) {
 			ChucVuModel chucVuModel = entityToModel(chucVu);
@@ -38,8 +75,8 @@ public class ChucVuService {
 		}
 		return listChucVuModel;
 	}
-	
-	public static List<ChucVu> listModelToListEntities (List<ChucVuModel> listChucVuModel){
+
+	public static List<ChucVu> listModelToListEntities(List<ChucVuModel> listChucVuModel) {
 		List<ChucVu> listChucVu = new ArrayList<ChucVu>();
 		for (ChucVuModel chucVuModel : listChucVuModel) {
 			ChucVu chucVu = modelToEntity(chucVuModel);
@@ -47,7 +84,7 @@ public class ChucVuService {
 		}
 		return listChucVu;
 	}
-	
+
 	public void them_sua(ChucVuModel chucVuModel) {
 		_chucVu = modelToEntity(chucVuModel);
 		_chucVuDao.them_sua(_chucVu);
