@@ -117,6 +117,12 @@ public class ModelKhachTrongPhong {
 	public void setPhuTroi(float phuTroi) {
 		PhuTroi = phuTroi;
 	}
+
+	public ModelKhachTrongPhong() {
+		
+	}
+	
+	
 	
 	
 }

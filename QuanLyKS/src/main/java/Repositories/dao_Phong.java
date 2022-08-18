@@ -56,4 +56,11 @@ public class dao_Phong {
 		}
 		return p;
 	}
+
+	public List<Phong> selectAll() {
+		List<Phong> list = new ArrayList<>();
+		Query query = ss.createQuery("FROM Phong");
+		return query.list();
+
+	}
 }
