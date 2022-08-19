@@ -212,7 +212,7 @@ public class DangNhap extends JFrame {
 		btn_login.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				NhanVienService nvs = new NhanVienService();
-				nvs.updateListNhanVienModel_active("Hoat Dong");
+				nvs.updateListNhanVienModel_active_dangNhap("Hoat Dong");
 				List<NhanVienModel> list = new ArrayList<NhanVienModel>();
 					list = nvs.getListNhanVienModel();
 

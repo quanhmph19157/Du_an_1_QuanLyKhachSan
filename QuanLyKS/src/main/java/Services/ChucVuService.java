@@ -15,7 +15,11 @@ public class ChucVuService {
 	ChucVuDao _chucVuDao = new ChucVuDao();
 	ChucVu _chucVu;
 	ChucVuModel _chucModel;
+<<<<<<< Updated upstream
 
+=======
+	int _maxID;
+>>>>>>> Stashed changes
 	// TIENTVPH18954
 	IRepository _chuIRepository;
 	List<ChucVuModel> listChucVus;
@@ -88,14 +92,18 @@ public class ChucVuService {
 	public void them_sua(ChucVuModel chucVuModel) {
 		_chucVu = modelToEntity(chucVuModel);
 		_chucVuDao.them_sua(_chucVu);
-		_listChucVuModels.add(chucVuModel);
+		updateListChucVuModel();
 	}
 
 	public void updateListChucVuModel() {
 		_chucVuDao.updateListChucVu();
 		ArrayList<ChucVu> listChucVu = _chucVuDao.getListChucVu();
 		_listChucVuModels = listEntitiesToListModel(listChucVu);
-
+		_maxID = _chucVuDao.getMaxID();
+	}
+	
+	public int getMaxID() {
+		return _maxID;
 	}
 
 	public List<ChucVuModel> getListChucVuModel() {

@@ -63,11 +63,25 @@ public class NhanVienService {
 	public static List<NhanVienModel> listEntitiesToListModel(List<NhanVien> listNhanVien) {
 		List<NhanVienModel> listNhanVienModel = new ArrayList<NhanVienModel>();
 		for (NhanVien nhanVien : listNhanVien) {
+			if(nhanVien.getTenNV().toLowerCase().equals("admin")) {
+				continue;
+			}
 			NhanVienModel nhanVienModel = entityToModel(nhanVien);
 			listNhanVienModel.add(nhanVienModel);
 		}
 		return listNhanVienModel;
 	}
+<<<<<<< Updated upstream
+=======
+	public static List<NhanVienModel> listEntitiesToListModel_DangNhap(List<NhanVien> listNhanVien) {
+		List<NhanVienModel> listNhanVienModel = new ArrayList<NhanVienModel>();
+		for (NhanVien nhanVien : listNhanVien) {
+			NhanVienModel nhanVienModel = entityToModel(nhanVien);
+			listNhanVienModel.add(nhanVienModel);
+		}
+		return listNhanVienModel;
+	}
+>>>>>>> Stashed changes
 
 	public static List<NhanVien> listModelToListEntities(List<NhanVienModel> listNhanVienModel) {
 		List<NhanVien> listNhanVien = new ArrayList<NhanVien>();
@@ -102,6 +116,16 @@ public class NhanVienService {
 		_listNhanVienModels = listEntitiesToListModel(listNhanVien);
 		_maxID = _nhanVienDao.getMaxID();
 	}
+<<<<<<< Updated upstream
+=======
+	
+	public void updateListNhanVienModel_active_dangNhap(String trangThai) {
+		_nhanVienDao.updateListNhanVien_active();
+		List<NhanVien> listNhanVien = _nhanVienDao.getListNhanVien();
+		_listNhanVienModels = listEntitiesToListModel_DangNhap(listNhanVien);
+		_maxID = _nhanVienDao.getMaxID();
+	}
+>>>>>>> Stashed changes
 
 	public int getMaxID() {
 		return _maxID;

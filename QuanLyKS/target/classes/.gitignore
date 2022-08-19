@@ -1,4 +1,14 @@
+<<<<<<< Updated upstream
 /Services/
 /Views/
 /Repositories/
 /ViewModels/
+=======
+/META-INF/
+/Views/
+/models/
+/Entities/
+/Services/
+/dao/
+/utils/
+>>>>>>> Stashed changes

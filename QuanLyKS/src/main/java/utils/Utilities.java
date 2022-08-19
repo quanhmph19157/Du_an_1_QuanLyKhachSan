@@ -44,7 +44,7 @@ public class Utilities {
 	
 	
 	public static String regexCheckFullName(String fullName) {
-		Pattern pattern = Pattern.compile("[A-Z][a-z]{1,4}+ [A-Z][a-z]{1,4}+ [A-Z][a-z]{1,4}");
+		Pattern pattern = Pattern.compile("[A-Z][a-z]{1,6}+ [A-Z][a-z]{1,6}+");
 		if(pattern.matcher(fullName).find()) {
 			return "true";
 		}

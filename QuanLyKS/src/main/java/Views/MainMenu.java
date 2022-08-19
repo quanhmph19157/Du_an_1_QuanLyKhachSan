@@ -313,6 +313,17 @@ public class MainMenu extends JFrame {
 		menu_chucVu = new JMenu("Chức vụ");
 		menuBar.add(menu_chucVu);
 		
+		JMenuItem mntmNewMenuItem_7 = new JMenuItem("Quản lý chức vụ");
+		mntmNewMenuItem_7.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				panel_tong.removeAll();
+				panel_tong.add(new ChucVu_view());
+				revalidate();
+				repaint();
+			}
+		});
+		menu_chucVu.add(mntmNewMenuItem_7);
+		
 		
 		checkQuyen();
 	}
